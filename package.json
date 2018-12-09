@@ -1,0 +1,14 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "repository": "https://github.com/Damo-web/docs.git",
+  "author": "snowball <snowballer0705@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "dependencies": {
+    "vuepress": "^1.0.0-alpha.27"
+  }
+}
