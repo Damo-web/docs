@@ -7,7 +7,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'deploy'
+git commit -m $1
 git push -f https://github.com/Damo-web/docs.git master:gh-pages
 
 cd ../

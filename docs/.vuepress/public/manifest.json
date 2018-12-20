@@ -1,0 +1,15 @@
+{
+  "name": "Damo",
+  "short_name": "Damo",
+  "icons": [
+    {
+      "src": "/docs/icons/snowball.png",
+      "sizes": "441x441",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/docs/index.html",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#3eaf7c"
+}
