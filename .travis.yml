@@ -37,5 +37,5 @@ env:
  global:
    - USERNAME: snowball1990
    - EMAIL: snowballer0705@gmail.com
-   - GH_REF: https://github.com/Damo-web/docs.git
+   - GH_REF: github.com/Damo-web/docs.git
    - BRANCHNAME: gh-pages
