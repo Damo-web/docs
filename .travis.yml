@@ -1,0 +1,40 @@
+language: node_js
+# nodejs版本
+node_js: 
+    - '8.9.0'
+
+# Travis-CI Caching
+cache:
+  directories:
+    - node_modules
+
+
+# S: Build Lifecycle
+install:
+  - yarn install
+
+before_script:
+
+# 无其他依赖项所以执行npm run build 构建就行了
+script:
+  - yarn build
+
+after_script:
+  - cd ./dist
+  - git init
+  - git config user.name "${USERNAME}"
+  - git config user.email "${EMAIL}"
+  - git add .
+  - git commit -m "Update docs"
+  - git push --force --quiet "https://github.com/Damo-web/docs.git" master:${BRANCHNAME}
+# E: Build LifeCycle
+
+#指定分支，只有指定的分支提交时才会运行脚本
+branches:
+  only:
+    - master
+env:
+ global:
+   - USERNAME: 李荣
+   - EMAIL: lirong@peilian.com
+   - BRANCHNAME: gh-pages
