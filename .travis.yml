@@ -25,7 +25,7 @@ after_script:
   - git config user.email "${EMAIL}"
   - git add -A
   - git commit -m "deploy"
-  - git push -f https://github.com/Damo-web/docs.git master:gh-pages
+  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 # E: Build LifeCycle
 
 #指定分支，只有指定的分支提交时才会运行脚本
@@ -37,4 +37,5 @@ env:
  global:
    - USERNAME: snowball1990
    - EMAIL: snowballer0705@gmail.com
+   - GH_REF: https://github.com/Damo-web/docs.git
    - BRANCHNAME: gh-pages
