@@ -26,7 +26,7 @@ after_script:
   # - git config user.email "${EMAIL}"
   - git add -A
   - git commit -m "deploy"
-  - git push -f https://github.com/Damo-web/docs.git master:gh-pages
+  - git push -f --quiet https://github.com/Damo-web/docs.git master:gh-pages
 # E: Build LifeCycle
 
 #指定分支，只有指定的分支提交时才会运行脚本
