@@ -1,12 +1,10 @@
 language: node_js
-# nodejs版本
-node_js: 
-    - '10.14.2'
+node_js: stable
 
 # Travis-CI Caching
-# cache:
-#   directories:
-#     - node_modules
+cache:
+  directories:
+    - node_modules
 
 
 # S: Build Lifecycle
@@ -20,22 +18,23 @@ script:
   - yarn build
 
 after_script:
-  - cd dist
+  - cd ./dist
   - ls
   - git init
-  # - git config user.name "${USERNAME}"
-  # - git config user.email "${EMAIL}"
+  - git config user.name "${USERNAME}"
+  - git config user.email "${EMAIL}"
   - git add -A
   - git commit -m "deploy"
-  - git push -f --quiet https://github.com/Damo-web/docs.git master:gh-pages
+  - git push -f https://github.com/Damo-web/docs.git master:gh-pages
 # E: Build LifeCycle
 
 #指定分支，只有指定的分支提交时才会运行脚本
 branches:
   only:
     - master
-# env:
-#  global:
-#    - USERNAME: 李荣
-#    - EMAIL: lirong@peilian.com
-#    - BRANCHNAME: gh-pages
+
+env:
+ global:
+   - USERNAME: snowball1990
+   - EMAIL: snowballer0705@gmail.com
+   - BRANCHNAME: gh-pages
