@@ -19,7 +19,7 @@ module.exports = {
     ['@vuepress/last-updated',{
       transformer: (timestamp) => {
         const moment = require('moment');
-        return moment(timestamp).format('YYYY-MM-DD h:mm:ss');
+        return moment(timestamp).format('YYYY-MM-DD hh:mm:ss');
       }
     }],
     ['@vuepress/back-to-top', true]
