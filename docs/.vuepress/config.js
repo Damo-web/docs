@@ -23,7 +23,10 @@ module.exports = {
       }
     }],
     ['@vuepress/back-to-top', true],
-    ['@vuepress/medium-zoom',true]
+    //修改默认图片selector
+    ['@vuepress/medium-zoom',{
+        selector: '.zoomable'
+    }]
   ],
   themeConfig: {
     //上次更新插槽
