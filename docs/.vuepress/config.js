@@ -22,7 +22,8 @@ module.exports = {
         return moment(timestamp).format('YYYY-MM-DD hh:mm:ss A');
       }
     }],
-    ['@vuepress/back-to-top', true]
+    ['@vuepress/back-to-top', true],
+    ['@vuepress/medium-zoom',true]
   ],
   themeConfig: {
     //上次更新插槽
