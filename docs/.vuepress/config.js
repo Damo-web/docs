@@ -6,8 +6,7 @@ module.exports = {
   port: 8888,
   head: [
     ['link', { rel: 'shortcut icon', type: "image/x-icon", href: "/favicon.ico" }],
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
-    ['script', { src: 'https://cdn1.lncld.net/static/js/3.0.4/av-min.js' }]
+    ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
   plugins: [
     ['@vuepress/pwa',{
