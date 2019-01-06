@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import AV from "leancloud-storage";
+window.AV = require("leancloud-storage");
 import Valine from "valine";
-window.AV = AV;
+
 export default {
   mounted() {
     new Valine({
