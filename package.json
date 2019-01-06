@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@vuepress/plugin-medium-zoom": "^1.0.0-alpha.30",
+    "leancloud-storage": "^3.11.1",
+    "valine": "^1.3.4",
     "vuepress": "^1.0.0-alpha.27"
   },
   "devDependencies": {
