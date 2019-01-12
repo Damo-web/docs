@@ -4,7 +4,7 @@
 
 ## Webpack
 
-众所周知，现代前端工程化离不开webpack，从本质上来说，webpack 是一个现代 JavaScript 应用程序的静态模块打包器。
+众所周知，现代前端工程化离不开webpack，从本质上来说，**webpack 是一个现代 JavaScript 应用程序的静态模块打包器**。
 
 ![](./img/vloader_1.png)
 
@@ -14,3 +14,64 @@
 需要值得注意的是，**本文档基于webpack4.0+版本来解读vue-loader**。webpack4.0+版本基于原有版本进行大幅度升级，原有webpack拆分为webpack、webpack-dev-server、webpack-cli三个npm包，配置层面也更加倾向于零配置，当然loader与plugin的api层面也发现些许变化
 :::
 
+## Loader
+
+首先，webpack的loader到底是什么？**loader 其实只是导出javascript模块的函数**。
+
+下面我们来看一下最简单的loader实现：
+
+1. 配置package.json
+```json
+  "scripts": {
+    "serve": "webpack-dev-server --config example/webpack.config.js --inline --hot"
+  }
+```
+
+
+2. 配置webpack.config.js
+
+```javascript
+const path = require('path')
+
+module.exports = {
+  mode: 'development',
+  entry: path.resolve(__dirname, './main.damo'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  devServer: {
+    contentBase: __dirname
+  },
+  module: {
+    rules:[
+      {
+        test: /\.damo$/,
+        loader: 'test-loader'
+      }
+    ]
+  },
+  resolveLoader: {
+    alias: {
+      'test-loader': require.resolve('../lib')
+    }
+  }
+}
+
+```
+
+3. 配置loader
+
+```javascript
+
+module.exports = function (source) {
+  let code = `
+    let style = document.createElement("style");
+    style.innerText = ${JSON.stringify(source)};
+    document.head.appendChild(style);
+  `
+  return code;
+}
+
+```
