@@ -75,3 +75,7 @@ module.exports = function (source) {
 }
 
 ```
+
+从上述案例可以看出，loader 接受 source 并返回 code 。而source 便是 .damo 文件中字符串化的代码，code 是对 source 加工处理后的字符串。为此，大致上可以认为，loader 接受 String 并返回 String。
+
+vue-loader 其实也是同样的机制，相对于简单的loader，它实现了解析 .vue 文件中的template 、style 三个模块。
