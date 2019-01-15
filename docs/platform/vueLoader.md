@@ -171,6 +171,9 @@ module.exports = TestLoaderPlugin
 
 ```
 
-3. Flow
+通常来说，plugin 是 webpack 的核心功能，用于解决 loader 无法实现的事。
+
+## Flow
+
 
 
