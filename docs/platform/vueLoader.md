@@ -173,7 +173,91 @@ module.exports = TestLoaderPlugin
 
 通常来说，plugin 是 webpack 的核心功能，用于解决 loader 无法实现的事。
 
+vue-loader 的 VueLoaderPlugin 通过 pitch 函数拦截所有 .vue 的 template、script、style 及 custom 模块并将其转换成相应的请求。
+
+```javascript
+//@vue/component-compiler-utils  
+//compileTemplate
+const templateLoaderPath = require.resolve('./templateLoader')
+//compileStyle
+const stylePostLoaderPath = require.resolve('./stylePostLoader')
+const isCSSLoader = l => /(\/|\\|@)css-loader/.test(l.path)
+
+
+module.exports.pitch = function (remainingRequest) {
+  const options = loaderUtils.getOptions(this)
+  const query = qs.parse(this.resourceQuery.slice(1))
+
+  let loaders = this.loaders
+
+  const genRequest = loaders => {
+
+    const seen = new Map()
+    const loaderStrings = []
+
+    loaders.forEach(loader => {
+      const identifier = typeof loader === 'string'
+        ? loader
+        : (loader.path + loader.query)
+      const request = typeof loader === 'string' 
+        ? loader 
+        : loader.request
+      if (!seen.has(identifier)) {
+        seen.set(identifier, true)
+        loaderStrings.push(request)
+      }
+    })
+
+    return loaderUtils.stringifyRequest(this, '-!' + [
+      ...loaderStrings,
+      this.resourcePath + this.resourceQuery
+    ].join('!'))
+  }
+
+  if (query.type === `style`) {
+    const cssLoaderIndex = loaders.findIndex(isCSSLoader)
+    if (cssLoaderIndex > -1) {
+      const afterLoaders = loaders.slice(0, cssLoaderIndex + 1)
+      const beforeLoaders = loaders.slice(cssLoaderIndex + 1)
+      const request = genRequest([
+        ...afterLoaders,
+        stylePostLoaderPath,
+        ...beforeLoaders
+      ])
+
+      return `
+        import mod from ${request}; 
+        export default mod; 
+        export * from ${request}`
+    }
+  }
+
+  if (query.type === `template`) {
+    const path = require('path')
+    const request = genRequest([
+      templateLoaderPath + `??vue-loader-options`,
+      ...loaders
+    ])
+    return `export * from ${request}`
+  }
+
+  if (query.type === `custom` &&
+      loaders.length === 1 &&
+      loaders[0].path === selfPath) {
+    return ``
+  }
+
+  const request = genRequest(loaders)
+  return `
+    import mod from ${request}; 
+    export default mod; 
+    export * from ${request}`
+}
+
+```
+
 ## Flow
+
 
 
 
