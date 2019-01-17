@@ -171,11 +171,11 @@ module.exports = TestLoaderPlugin
 
 ```
 
-通常来说，plugin 是 webpack 的核心功能，用于解决 loader 无法实现的事，包括但不限于 改写 loader 解析的 rule 、触发 compiler 编译器相关的 hook 、 触发compilation 编译过程中的 hook。
+通常来说，plugin 是 webpack 的核心功能，用于解决 loader 无法实现的事，包括但不限于 改写 loader 解析的 rule 、触发 compiler 编译器相关的 hook 、 触发compilation 编译过程中的 hook等。
 
-在vue-loader上， VueLoaderPlugin 就改写了 rule 并通过 pitch 函数拦截所有 .vue 的 template、script、style 及 custom 模块并将其转换成相应的请求。代码如下：
+vue-loader中， VueLoaderPlugin 插件改写了 webpack rule 并通过 pitch 函数拦截 .vue 文件的 template、script、style 及 custom 所有模块的请求并将其转换成相应的请求，而相应的请求会调用相应的编译器进行编译，从而实现了 loader 中各模块索引的代码能被浏览器所解析。代码如下：
 
-```javascript
+```javascript code-contain
 //@vue/component-compiler-utils  
 //compileTemplate
 const templateLoaderPath = require.resolve('./templateLoader')
@@ -183,7 +183,7 @@ const templateLoaderPath = require.resolve('./templateLoader')
 const stylePostLoaderPath = require.resolve('./stylePostLoader')
 const isCSSLoader = l => /(\/|\\|@)css-loader/.test(l.path)
 
-
+//pitch loader
 module.exports.pitch = function (remainingRequest) {
   const options = loaderUtils.getOptions(this)
   const query = qs.parse(this.resourceQuery.slice(1))
@@ -254,10 +254,43 @@ module.exports.pitch = function (remainingRequest) {
     export * from ${request}`
 }
 
+
+//stylePostLoader
+const qs = require('querystring')
+const { compileStyle } = require('@vue/component-compiler-utils')
+
+module.exports = function (source, inMap) {
+  const query = qs.parse(this.resourceQuery.slice(1))
+  const { code, map, errors } = compileStyle({
+    source,
+    filename: this.resourcePath,
+    id: `data-v-${query.id}`,
+    map: inMap,
+    scoped: !!query.scoped,
+    trim: true
+  })
+
+  if (errors.length) {
+    this.callback(errors[0])
+  } else {
+    this.callback(null, code, map)
+  }
+}
+
+//templateLoader类似，详情可查阅下方源码解析
+
 ```
+
+
 
 ## Flow
 
 
 
 
+<style>
+  .code-contain {
+    max-height: 700px;
+    overflow: auto;
+  }
+</style>
