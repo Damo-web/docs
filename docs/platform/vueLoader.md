@@ -290,6 +290,11 @@ vue-loader的流程图大体如下：
 <img class="zoomable" src="./img/vloader_flow.svg" width="100%" />
 
 
+## 附录
+
+个人源码分析版本地址：
+[damo-loader](https://github.com/Damo-web/damo-loader)
+
 <style>
   .code-contain {
     max-height: 700px;
