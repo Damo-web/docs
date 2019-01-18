@@ -285,7 +285,9 @@ module.exports = function (source, inMap) {
 
 ## Flow
 
+vue-loader的流程图大体如下：
 
+<img class="zoomable" src="./img/vloader_flow.svg" width="100%" />
 
 
 <style>
