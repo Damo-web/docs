@@ -52,7 +52,8 @@ module.exports = {
         collapsable: false,
         children:[
           '',
-          'vueLoader'
+          'vueLoader',
+          'component'
         ]
       }],
       '/server/':[{
