@@ -78,12 +78,12 @@ module.exports = function (source) {
 
 ```
 
-从上述案例可以看出，loader 接受 source 并返回 code 。而source 便是 .damo 文件中字符串化的代码，code 是对 source 加工处理后的字符串。为此，大致上可以认为，loader 接受 String 并返回 String。
+从上述案例中可以看出，loader 接受 source 并返回 code 。而source 便是 .damo 文件中字符串化的代码，code 是对 source 加工处理后的字符串。为此，大致上可以认为，loader 接受 String 并返回 String。
 
-vue-loader 也是类似的机制，相对于简单的loader，它利用插件解析了 .vue 文件中的template 、style 、script 三个模块，并把解析后的文件利用 vue 组件生成函数构建为组件导出，从来实现了在浏览器端运行。代码如下：
+vue-loader 也是类似的机制，不同于简单的loader，它利用 VueLoaderPlugin 插件解析了 .vue 文件中的template 、style 、script 三个模块，并把各模块解析后的代码利用 vue 组件生成函数构建为组件导出，从来实现了在浏览器端运行 .vue 文件的功能。代码如下：
 
 ```javascript
-  //templateImport、scriptImport、stylesCode分别为 .vue 文件中各模块导出的js模块
+  //templateImport、scriptImport、stylesCode分别为 .vue 文件中各模块导出的js代码
 
     let code = `
   ${templateImport}
@@ -104,24 +104,17 @@ vue-loader 也是类似的机制，相对于简单的loader，它利用插件解
   )
     `.trim() + `\n`
 
-  // Expose filename. This is used by the devtools and Vue runtime warnings.
-  code += `\ncomponent.options.__file = ${
-    JSON.stringify(filename)
-  }`
-
   code += `\nexport default component.exports`
 
 ```
 
 ::: tip 
-vue-loader 的loader模块并没有实现解析 .vue 文件中的template 、style 、script 三个模块功能，解析过程是通过 plugin 来实现的
+vue-loader 的 loader 模块并没有实现解析 .vue 文件中的template 、style 、script 三个模块的功能，解析过程是通过其 plugin模块 来实现的
 :::
 
 ## Plugin
 
 [官方文档](https://webpack.docschina.org/api/plugins/)中这么进行解读的：**插件是 webpack 生态系统的重要组成部分，为社区用户提供了一种强大方式来直接触及 webpack 的编译过程。插件能够钩入到在每个编译中触发的所有关键事件。**
-
-倘若开发一个简单loader，并不需要引入 plugin。但当需要解析特定结构下的单文件时，因loader 不具备控制 webpack 的编译过程，plugin 将不可或缺。
 
 下面演示了一个简单 plugin 引入的大致过程：
 
@@ -171,9 +164,19 @@ module.exports = TestLoaderPlugin
 
 ```
 
+倘若开发一个简单loader，并不需要引入 plugin。当需要解析特定结构下的单文件时，因 loader 不能触及 webpack 编译过程的特性，plugin 将不可或缺。
+
 通常来说，plugin 是 webpack 的核心功能，用于解决 loader 无法实现的事，包括但不限于 改写 loader 解析的 rule 、触发 compiler 编译器相关的 hook 、 触发compilation 编译过程中的 hook等。
 
-vue-loader中， VueLoaderPlugin 插件改写了 webpack rule 并通过 pitch 函数拦截 .vue 文件的 template、script、style 及 custom 所有模块的请求并将其转换成相应的请求，而相应的请求会调用相应的编译器进行编译，从而实现了 loader 中各模块索引的代码能被浏览器所解析。代码如下：
+在 vue-loader 中， VueLoaderPlugin 插件承担了三项职责：
+
+1. 改写了 webpack 中的 module.rule 
+
+2. 通过 pitch 函数拦截并转换 .vue 文件的 template、script、style 及 custom 模块的请求
+
+3. 调用相应的模块编译器对各模块的请求进行编译
+
+代码如下：
 
 ```javascript code-contain
 //@vue/component-compiler-utils  
