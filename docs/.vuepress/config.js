@@ -53,7 +53,7 @@ module.exports = {
         children:[
           '',
           'vueLoader',
-          'component'
+          'mpLoader'
         ]
       }],
       '/server/':[{
