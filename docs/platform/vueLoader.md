@@ -170,7 +170,7 @@ module.exports = TestLoaderPlugin
 
 在 vue-loader 中， VueLoaderPlugin 插件主要承担了三项职责：
 
-**1. 改写 webpack 中的 module.rule **
+**1. 改写 webpack 中的 module.rule**
 
 **2. 通过 pitch 函数拦截并转换 .vue 文件的 template、script、style 及 custom 模块的请求**
 
