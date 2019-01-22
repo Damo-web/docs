@@ -168,13 +168,13 @@ module.exports = TestLoaderPlugin
 
 通常来说，plugin 是 webpack 的核心功能，用于解决 loader 无法实现的事，包括但不限于 改写 loader 解析的 rule 、触发 compiler 编译器相关的 hook 、 触发compilation 编译过程中的 hook等。
 
-在 vue-loader 中， VueLoaderPlugin 插件承担了三项职责：
+在 vue-loader 中， VueLoaderPlugin 插件主要承担了三项职责：
 
-1. 改写 webpack 中的 module.rule 
+**1. 改写 webpack 中的 module.rule **
 
-2. 通过 pitch 函数拦截并转换 .vue 文件的 template、script、style 及 custom 模块的请求
+**2. 通过 pitch 函数拦截并转换 .vue 文件的 template、script、style 及 custom 模块的请求**
 
-3. 调用相应的模块编译器对各模块的请求进行编译
+**3. 调用相应的模块编译器对各模块的请求进行编译**
 
 代码如下：
 
