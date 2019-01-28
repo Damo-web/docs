@@ -6,7 +6,7 @@
 
 Vue 的 template 模板，浏览器并不能识别，而模板编译器就是解决这一问题而生。
 
-Vue 的 [vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler) 位于其 packages 文件夹下，本文源码就源于此。
+Vue 的 [vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler) 位于其 packages 文件夹下，本文代码即来源于此目录。
 
 
 
