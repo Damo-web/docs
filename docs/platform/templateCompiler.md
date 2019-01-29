@@ -8,5 +8,11 @@ Vue 的 template 模板，浏览器并不能识别，而模板编译器就是解
 
 Vue 的 [vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler) 位于其 packages 文件夹下，本文代码即来源于此目录。
 
+Vue 的模板编译主要分为三步骤：
 
+**1. parseComponent（解析组件）**
+
+**2. compile（编译至抽象语法树）**
+
+**3. compileToFunctions（转译为渲染函数）**
 
