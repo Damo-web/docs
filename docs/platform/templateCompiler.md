@@ -22,4 +22,8 @@ Vue 的模板编译过程主要分为三个步骤：
 
 - compile
 
+  该函数用以生成抽象语法树。
+
 - compileToFunctions
+
+  该函数用以生成渲染函数。
