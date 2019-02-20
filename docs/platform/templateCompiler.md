@@ -30,4 +30,4 @@ Vue 的模板编译过程主要分为三个步骤：
 
 ## Template Compiler
 
-模板编译
+HTML模板编译在模板引擎中极为常见
