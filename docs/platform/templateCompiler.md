@@ -7,11 +7,7 @@
 
 在我们深入模板编译前，先简单回溯下模板引擎的演变历史。
 
-传统的模板引擎一般基于String，辅以定界符（{{、<?等），输出字符串。
-
-Web模板引擎一般基于DOM，辅以定界符（{{、<%、缩进、<等），只输出HTML/XML。
-
-可见，Web模板引擎与传统模板引擎的不同之处，只是输出结果。
+传统的模板引擎一般基于String，辅以定界符（{{、<?等），输出字符串。Web模板引擎一般基于DOM，辅以定界符（{{、<%、缩进、<等），只输出HTML/XML。可见，Web模板引擎与传统模板引擎的不同之处，只是输出结果。
 
 Web模板引擎众多，[ejs](https://github.com/tj/ejs)、[pug](https://pugjs.org/api/getting-started.html)及[handlebars](http://handlebarsjs.com/)是其中杰出的代表，示例代码如下：
 
@@ -58,6 +54,24 @@ Web模板引擎众多，[ejs](https://github.com/tj/ejs)、[pug](https://pugjs.o
   </span>
 </div>
 ```
+
+## Template Compiler
+
+Web模板引擎的实质：输入数据，通过模板字符串，输出HTML/XML。模块编译即指输入数据后生成的模板字符串 parse 和 compile 这一过程。
+
+模板编译的实现通常有下列方法： 
+
+1. template 解析为 AST（Abstract Syntax Tree），再编译至DSL（Domain Specific Language）
+
+2. template 通过正则函数进行匹配替换生成 DSL
+
+3. template 通过格式化的HTML函数进行字符串拼接生成 DSL
+
+第二种方案会出现很多边缘情况，处理起来容易遗漏；第三种方案，格式化的HTML函数拼接的过程极为繁琐，并且扩展性不强。而第一种方案，
+
+
+
+
 
 ## Vue Template Compiler
 
