@@ -44,7 +44,7 @@ Web模板引擎众多，[ejs](https://github.com/tj/ejs)、[pug](https://pugjs.o
 
 - 得益于指令系统的引入，避免了HTML标签与模板表达式的混入与嵌套
 
-而这两点，使得Vue的模板和原生HTML的书写体验几乎一致。
+而这两点改进使得Vue的模板和原生HTML的书写体验几乎一致。
 
 ```html
 <!-- vue -->
