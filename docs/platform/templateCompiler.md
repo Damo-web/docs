@@ -67,9 +67,21 @@ Web模板引擎的实质：输入数据，通过模板字符串，输出HTML/XML
 
 3. template 通过格式化的HTML函数进行字符串拼接生成 DSL
 
-第二种方案会出现很多边缘情况，处理起来容易遗漏，健壮性不强；第三种方案，格式化的HTML函数拼接的过程极为繁琐，并且扩展性不强。而第一种方案，解析及编译的过程虽然繁琐，但AST抽象度较高，扩展性强，跨平台可行度高。
+第二种方案会出现很多边缘情况，处理起来容易遗漏，程序健壮性不强；第三种方案，格式化的HTML函数拼接的过程极为繁琐，并且扩展性不强。而第一种方案，解析及编译的过程虽然繁琐，但AST抽象度较高，扩展性强，跨平台可行度高，下述文档皆以此种方案为准。
 
 ## Template Parse
+
+Web模板解析的本质：类HTML的Tree结构解析至AST的过程
+
+不同的Web模板引擎具有不同的模板解析器，但成熟的模板引擎通常具备：
+
+- expression(表达式)
+
+- loop(循环)
+
+- condition（判断）
+
+关于Web模板引擎的解析过程，可以参阅：[htmlparser2](https://github.com/fb55/htmlparser2)、[Pure-JavaScript-HTML5-Parser](https://github.com/blowsie/Pure-JavaScript-HTML5-Parser)及[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#readme)这三个库。
 
 
 
