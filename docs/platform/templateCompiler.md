@@ -116,7 +116,7 @@ export default {
 </style>
 ```
 
-Vue Template 通常会内置表达式及指令，在浏览器并不能直接运行，而模板编译器就是解决这一问题而生。本文相关代码来源于 Vue 的 packages 文件夹下[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler)。
+Vue Template 通常会内置表达式及指令，在浏览器并不能直接运行，而模板编译器就是解决这一问题而生。
 
 Vue 的模板编译过程主要分为三个步骤：
 
