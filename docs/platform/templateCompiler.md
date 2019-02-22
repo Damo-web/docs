@@ -40,7 +40,7 @@ Web模板引擎众多，[ejs](https://github.com/tj/ejs)、[pug](https://pugjs.o
 
 - 得益于指令系统的引入，避免了HTML标签与模板表达式的混入与嵌套
 
-而这两点改进使得Vue的模板和原生HTML的书写体验几乎一致。
+而这两点改进使得Vue的模板非常接近原生HTML，书写体验几乎一致。
 
 ```html
 <!-- vue -->
@@ -55,7 +55,7 @@ Web模板引擎众多，[ejs](https://github.com/tj/ejs)、[pug](https://pugjs.o
 </div>
 ```
 
-## Template Compiler
+## Web Template
 
 Web模板引擎的实质：输入数据，通过模板字符串，输出HTML/XML。模块编译即指输入数据后生成的模板字符串 parse 和 compile 这一过程。
 
@@ -67,9 +67,11 @@ Web模板引擎的实质：输入数据，通过模板字符串，输出HTML/XML
 
 3. template 通过格式化的HTML函数进行字符串拼接生成 DSL
 
-第二种方案会出现很多边缘情况，处理起来容易遗漏；第三种方案，格式化的HTML函数拼接的过程极为繁琐，并且扩展性不强。而第一种方案，解析及编译的过程虽然繁琐，但AST抽象度较高，扩展性强，跨平台可行度高。
+第二种方案会出现很多边缘情况，处理起来容易遗漏，健壮性不强；第三种方案，格式化的HTML函数拼接的过程极为繁琐，并且扩展性不强。而第一种方案，解析及编译的过程虽然繁琐，但AST抽象度较高，扩展性强，跨平台可行度高。
 
 ## Template Parse
+
+
 
 
 ## Template Compile
