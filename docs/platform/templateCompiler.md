@@ -91,26 +91,21 @@ Web模板编译的本质：解析后的AST编译至XML/HTML的过程。
 
 ## Vue Template Compiler
 
-Vue 的 template 模板，浏览器并不能识别，而模板编译器就是解决这一问题而生。本文代码来源于 Vue 的 packages 文件夹下[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler)部分。
+上面陈述了Web模板编译的大致流程，现以Vue Template为案例做详细说明。
+
+Vue Template通常会内置表达式及指令，在浏览器并不能直接运行，而模板编译器就是解决这一问题而生。本文相关代码来源于 Vue 的 packages 文件夹下[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler)。
 
 Vue 的模板编译过程主要分为三个步骤：
 
 **1. parseComponent（解析组件）**
 
+该函数用以解析 .vue 文件的模板代码。
+
 **2. compile（编译至抽象语法树）**
+
+该函数用以生成抽象语法树。
 
 **3. compileToFunctions（转译为渲染函数）**
 
-模板编译中的详情如下：
+该函数用以生成渲染函数。
 
-- parseComponent
-
-  该函数用以解析 .vue 文件的模板代码。
-
-- compile
-
-  该函数用以生成抽象语法树。
-
-- compileToFunctions
-
-  该函数用以生成渲染函数。
