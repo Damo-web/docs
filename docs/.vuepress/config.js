@@ -5,18 +5,25 @@ module.exports = {
   base: '/docs/',
   port: 8888,
   head: [
-    ['link', { rel: 'shortcut icon', type: "image/x-icon", href: "/favicon.ico" }],
-    ['link', { rel: 'manifest', href: '/manifest.json' }]
+    ['link', {
+      rel: 'shortcut icon',
+      type: "image/x-icon",
+      href: "/favicon.ico"
+    }],
+    ['link', {
+      rel: 'manifest',
+      href: '/manifest.json'
+    }]
   ],
   plugins: [
-    ['@vuepress/pwa',{
+    ['@vuepress/pwa', {
       serviceWorker: true,
-      updatePopup:{
+      updatePopup: {
         message: '发现新内容可用',
         buttonText: '刷新'
       }
     }],
-    ['@vuepress/last-updated',{
+    ['@vuepress/last-updated', {
       transformer: (timestamp) => {
         const moment = require('moment');
         return moment(timestamp).format('YYYY-MM-DD hh:mm:ss A');
@@ -24,8 +31,8 @@ module.exports = {
     }],
     ['@vuepress/back-to-top', true],
     //修改默认图片selector
-    ['@vuepress/medium-zoom',{
-        selector: '.zoomable'
+    ['@vuepress/medium-zoom', {
+      selector: '.zoomable'
     }]
   ],
   themeConfig: {
@@ -39,51 +46,65 @@ module.exports = {
     editLinks: true,
     // 默认为 "Edit this page"
     editLinkText: '在 GitHub 上编辑此页！',
-    nav:[
-      {text: '跨端',link: '/platform/'},
-      {text: '服务端',link: '/server/'},
-      {text: '框架',link: '/framework/'},
-      {text: '渲染',link: '/render/'},
-      {text: '交互',link: '/ux/'}
+    nav: [{
+        text: '跨端',
+        link: '/platform/'
+      },
+      {
+        text: '服务端',
+        link: '/server/'
+      },
+      {
+        text: '框架',
+        link: '/framework/'
+      },
+      {
+        text: '渲染',
+        link: '/render/'
+      },
+      {
+        text: '交互',
+        link: '/ux/'
+      }
     ],
-    sidebar:{
-      '/platform/':[{
+    sidebar: {
+      '/platform/': [{
         title: '文章列表',
         collapsable: false,
-        children:[
+        children: [
           '',
           'vueLoader',
           'templateCompiler'
         ]
       }],
-      '/server/':[{
+      '/server/': [{
         title: '文章列表',
         collapsable: false,
-        children:[
+        children: [
           ''
         ]
       }],
-      '/framework/':[{
+      '/framework/': [{
         title: '文章列表',
         collapsable: false,
-        children:[
+        children: [
           '',
           'redux',
           'mvvm',
           'vuex'
         ]
       }],
-      '/render/':[{
+      '/render/': [{
         title: '文章列表',
         collapsable: false,
-        children:[
+        children: [
           ''
         ]
       }],
-      '/ux/':[{
+      '/ux/': [{
         title: '文章列表',
         collapsable: false,
-        children:[
+        children: [
           ''
         ]
       }]
