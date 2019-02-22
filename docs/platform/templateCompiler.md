@@ -87,6 +87,8 @@ Web模板解析的本质：类HTML的Tree结构解析至AST的过程。
 
 Web模板编译的本质：解析后的AST编译至XML/HTML的过程。
 
+Web模板编译时，需要对生成的AST对象进行递归处理，倘若解析前的模板不包含expression、loop及condition等选项，可以不做额外处理，直接返回当前模板即可；倘若解析前的模板包含expression、loop及condition等选项，需要对包含特定选项的类HTML元素进行额外处理，生成对应的DSL。
+
 ## Vue Template Compiler
 
 Vue 的 template 模板，浏览器并不能识别，而模板编译器就是解决这一问题而生。本文代码来源于 Vue 的 packages 文件夹下[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler)部分。
