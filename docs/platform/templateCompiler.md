@@ -71,7 +71,7 @@ Web模板引擎的实质：输入数据，通过模板字符串，输出HTML/XML
 
 ## Template Parse
 
-Web模板解析的本质：类HTML的Tree结构解析至AST的过程
+Web模板解析的本质：类HTML的Tree结构解析至AST的过程。
 
 不同的Web模板引擎具有不同的模板解析器，但成熟的模板引擎通常具备：
 
@@ -83,11 +83,9 @@ Web模板解析的本质：类HTML的Tree结构解析至AST的过程
 
 关于Web模板引擎的解析过程，可以参阅：[htmlparser2](https://github.com/fb55/htmlparser2)、[Pure-JavaScript-HTML5-Parser](https://github.com/blowsie/Pure-JavaScript-HTML5-Parser)及[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#readme)这三个库。
 
-
-
-
 ## Template Compile
 
+Web模板编译的本质：解析后的AST编译至XML/HTML的过程。
 
 ## Vue Template Compiler
 
