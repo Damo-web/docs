@@ -74,7 +74,8 @@ module.exports = {
         children: [
           '',
           'vueLoader',
-          'templateCompiler'
+          'templateCompiler',
+          'htmlParser'
         ]
       }],
       '/server/': [{
