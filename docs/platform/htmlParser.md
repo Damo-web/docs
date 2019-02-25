@@ -6,3 +6,6 @@
 
 JQuery的作者 John Resig 曾经在2008年写过 [htmlparser](https://johnresig.com/files/htmlparser.js)，社区中很多HTML Parser库都借鉴了其的思想，并在其基础上进行了改进。下面，我们将以此为基础，发散出去，了解其背后代码层的实现。
 
+## Source Code
+
+首先，我们回顾下最经典的 htmlparser 源码。
