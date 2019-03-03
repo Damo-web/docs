@@ -4,4 +4,11 @@
 
 ## JS可视化库
 
-现阶段存在诸多可视化 JavaScript 库，较为流行的如： D3、echarts、antv。
+现阶段存在诸多可视化 JavaScript 库，较为流行的如： D3、ECharts、Antv等。下面文章将以这三个库来做简单介绍。
+
+这三个库有共同的特点：数据驱动视图。不同于流行的 MVVM 前端框架，可视化库通常使用SVG 、Canvas 来绘制 2D 视图，使用 WebGL 来绘制 3D 视图。
+
+## 图表入门
+
+
+
