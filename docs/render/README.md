@@ -26,4 +26,5 @@
 
 ## 渲染引擎
 
-2D 的图表通常采用 SVG 或 Canvas 作为渲染引擎。
+2D 的图表库通常采用 SVG 或 Canvas 作为渲染引擎。ECharts 及 Antv 主要采用 Canvas 来进行图形渲染，D3 主要采用 SVG 来进行图形渲染。
+
