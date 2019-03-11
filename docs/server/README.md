@@ -8,14 +8,27 @@
 
 云服务，通常指云计算服务，是一种基于互联网的计算方式，通过这种方式，共享的软硬件资源和信息可以按需求提供给计算机各种终端和其他设备，使用户能够方便、有效地共享和利用开放网络上的资源。
 
-按服务模式可划分为三大类：
+按服务模式，云服务主要分为三种：
 
-1. 基础设施即服务（IaaS）：消费者使用“基础计算资源”，如处理能力、存储空间、网络组件或中间件。消费者能掌控操作系统、存储空间、已部署的应用程序及网络组件（如防火墙、负载平衡器等），但并不掌控云基础架构。例如：Amazon EC2（ Elastic Cloud ）、Amazon S3（ Simple Storage Service ）、Aliyun ECS（ Elastic Cloud Service ）、Aliyun OSS（ Object Storage Service）
+1. 基础设施即服务（IaaS:Infrastructure-as-a-Service）：消费者使用“基础计算资源”，如处理能力、存储空间、网络组件或中间件。**消费者能掌控操作系统、存储空间、已部署的应用程序及网络组件**（如防火墙、负载平衡器等），但并不掌控云基础架构。例如：Amazon EC2（ Elastic Cloud ）、Amazon S3（ Simple Storage Service ）、Aliyun ECS（ Elastic Cloud Service ）、Aliyun OSS（ Object Storage Service）
 
-2. 平台即服务（PaaS）：消费者使用主机操作应用程序。消费者掌控运作应用程序的环境（也拥有主机部分掌控权），但并不掌控操作系统、硬件或运作的网络基础架构。平台通常是应用程序基础架构。例如：Google App Engine。
+![](./img/cloud-computing-models_iaas.png)
 
-3. 软件即服务（SaaS）：消费者使用应用程序，但并不掌控操作系统、硬件或运作的网络基础架构。是一种服务观念的基础，软件服务供应商，以租赁的概念提供客户服务，而非购买，比较常见的模式是提供一组账号密码。例如：Microsoft CRM。
+2. 平台即服务（PaaS:Platform-as-a-Service）：消费者使用主机操作应用程序。**消费者掌控运作应用程序的环境（也拥有主机部分掌控权），但并不掌控操作系统、硬件或运作的网络基础架构**。平台通常是应用程序基础架构。例如：Google App Engine。
 
+![](./img/cloud-computing-models_paas.png)
+
+3. 软件即服务（SaaS:Software-as-a-Service）：**消费者使用应用程序，但并不掌控操作系统、硬件或运作的网络基础架构**。是一种服务观念的基础，软件服务供应商，以租赁的概念提供客户服务，而非购买，比较常见的模式是提供一组账号密码。例如：Google Gmail 、Google+ App 、Microsoft CRM。
+
+![](./img/cloud-computing-models_saas.png)
+
+以微信小程序开发为例，可做如下类比：
+
+1. IaaS 服务于软件架构者，类似**微信服务器、开发者服务器等基础计算资源**
+
+2. PaaS 服务于软件开发者，类似**微信公众平台、微信开发者工具等开发工具**
+
+3. SaaS 服务于软件消费者，类似**腾讯视频、美团外卖等小程序**
 
 
 
