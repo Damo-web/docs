@@ -10,11 +10,11 @@
 
 按服务模式，云服务主要分为三种：
 
-1. 基础设施即服务（IaaS:Infrastructure-as-a-Service）：消费者使用“基础计算资源”，如处理能力、存储空间、网络组件或中间件。**消费者能掌控操作系统、存储空间、已部署的应用程序及网络组件**（如防火墙、负载平衡器等），但并不掌控云基础架构。例如：Amazon EC2（ Elastic Cloud ）、Amazon S3（ Simple Storage Service ）、Aliyun ECS（ Elastic Cloud Service ）、Aliyun OSS（ Object Storage Service）
+1. 基础设施即服务（IaaS:Infrastructure-as-a-Service）：消费者使用“基础计算资源”，如处理能力、存储空间、网络组件或中间件。**消费者能掌控操作系统、存储空间、已部署的应用程序及网络组件（如防火墙、负载平衡器等），但并不掌控云基础架构**。例如：Amazon EC2（ Elastic Cloud ）、Amazon S3（ Simple Storage Service ）、Aliyun ECS（ Elastic Cloud Service ）、Aliyun OSS（ Object Storage Service）
 
 ![](./img/cloud-computing-models_iaas.png)
 
-2. 平台即服务（PaaS:Platform-as-a-Service）：消费者使用主机操作应用程序。**消费者掌控运作应用程序的环境（也拥有主机部分掌控权），但并不掌控操作系统、硬件或运作的网络基础架构**。平台通常是应用程序基础架构。例如：Google App Engine。
+2. 平台即服务（PaaS:Platform-as-a-Service）：消费者使用主机操作应用程序。**消费者掌控运作应用程序的环境（也拥有主机部分掌控权），但并不掌控操作系统、硬件或运作的网络基础架构**。平台通常是应用程序基础架构。例如：AWS Elastic Beanstalk 、Google App Engine。
 
 ![](./img/cloud-computing-models_paas.png)
 
@@ -29,6 +29,39 @@
 2. PaaS 服务于软件开发者，类似**微信公众平台、微信开发者工具等开发工具**
 
 3. SaaS 服务于软件消费者，类似**腾讯视频、美团外卖等小程序**
+
+## 阿里ECS
+
+注册阿里云账号，购买ECS实例后，可点击**云服务器 ECS**进入到管理页面。
+
+![](./img/cloud-1.png)
+
+点击**我的资源**下的云服务器，可进入到**实例列表**页面，控制及配置相应的ECS实例
+
+![](./img/cloud-2.png)
+
+启动ECS服务器之后，可通过命令行来连接阿里云服务器：
+
+```shell
+Last login: Fri Mar  8 14:52:01 on ttys008
+
+# 连接ECS服务器公网IP地址（下方仅为示例IP）
+
+bash-3.2# ssh 42.106.124.156
+
+# 输入设置的ECS服务器密码（忘记密码可通过重置密码并重启实例来生效）
+
+root@42.106.124.156's password: 
+
+# 下方为阿里云服务器登录成功反馈
+
+Last login: Sat Nov 10 15:10:20 2018 from 121.253.121.32
+
+Welcome to Alibaba Cloud Elastic Compute Service !
+
+```
+
+## Node 环境配置
 
 
 
