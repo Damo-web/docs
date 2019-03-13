@@ -42,11 +42,11 @@
 
 1. 注册阿里云账号，购买ECS实例后，可点击**云服务器 ECS**进入到管理页面。
 
-![](./img/cloud-1.png)
+![](./img/cloud_1.png)
 
 2. 点击**我的资源**下的云服务器，可进入到**实例列表**页面，控制及配置相应的ECS实例
 
-![](./img/cloud-2.png)
+![](./img/cloud_2.png)
 
 3. 启动ECS服务器之后，可通过命令行来连接阿里云服务器（以 Mac 为例）：
 
@@ -82,7 +82,7 @@ Node 的环境配置方式有如下两种：
 
 - 通过[ Node官网 ](https://nodejs.org/en/)安装 
 
-![](./img/cloud-3.png) 
+![](./img/cloud_3.png) 
 
 ::: tip  提示
 从图中可看出，Node分为 LTS 和 Current 两个版本：LTS是 Long-Term-Support -Support 的简写，此版本会得到官方团队的长期维护；Current 是当前最新的版本，可体验Node的新特性。
