@@ -4,7 +4,7 @@
 
 ## 日志
 
-- console
+- **Console**
 
 console 在开发 Web 应用时，是经常会运用到的打印日志函数，通用方法在此不再复述。
 
@@ -84,11 +84,15 @@ console.dir(OBJECT_EXAMPLE, { depth: null })
 ```
 
 
-- winston
+- **Node.js 日志库**
 
 console 只适用于开发调试，并不适用生产环境。Node 生产环境下不但需要记录程序运行日志，还需要将重要日志记录到文件中，甚至写入至数据库中。随着 Node 运行日志的需求，衍生出专业的 npm 库，如： [winston](https://github.com/winstonjs/winston)、[log4js-node](https://github.com/log4js-node/log4js-node)、[bunyan](https://github.com/trentm/node-bunyan)等。
 
 上述三个 log 库的性能对比及选择，可参阅：[a-benchmark-of-five-node-js-logging-libraries](https://www.loggly.com/blog/a-benchmark-of-five-node-js-logging-libraries/)
+
+Node.js 日志库大致流程如下：
+
+![](./img/debug_2.jpg)
 
 下面以 winston 为例，浅谈下日志记录过程：
 
@@ -97,36 +101,105 @@ console 只适用于开发调试，并不适用生产环境。Node 生产环境�
 npm install winston
 yarn add winston 
 
+const { createLogger, format, transports } = require('winston')
+
 // 日志分级（ Level ）
+// error, warn, info, verbose, debug, silly 
 const logger = new winston.Logger({
   level: 'info',//分级配置
 })
 
 logger.log('info','hello level')
 
-// 输出口（ Transport ）
+// 日志输出（ Transport ）
 // 可通过 winston-mail 、 winston-mongodb等 npm 库来扩展输出口
-
 const logger = new winston.Logger({
   level: 'info',//分级配置
   transports: [
+     // 记录至命令行
      new winston.transports.Console(),
+     // 记录至文件 combined.log
      new winston.transports.File({ filename: 'combined.log' })
    ]
 })
 
 logger.log('error','error transport')
 
-// 格式化（ Format ）
+// 日志格式化（ Format ）
+const logger = createLogger({
+  level: 'info',
+  // format
+  format: format.combine(
+    format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    format.json()
+  ),
+  // defaultMeta
+  defaultMeta: { service: 'Demo-Service' },
+  transports: [
+    new winston.transports.Console(),
+    new transports.File({ filename: 'error.log', level: 'error' }),
+    new transports.File({ filename: 'combined.log' })
+  ]
+});
 
-
+logger.log('warn','warn format','')
 
 ```
 
 ## 断点
 
-- Chrome篇
+- **Chrome篇**
 
+2016年，Node 决定将 Chrome 浏览器的开发者工具作为官方的调试工具。使用 Chrome DevTools 调试 Node 程序要遵循下述步骤：
+
+1. 确保 Node.js 版本在v6.3.0+
+
+2. 在 package.json 中进行如下配置：
+
+```javascript
+
+"scripts": {
+   // --inspect 标记
+   // 简单使用
+   "debug": "node --inspect-brk main.js"
+   // --inspect-brk 标记
+   // 推荐使用
+   // 此标记将在脚本的第一条语句处断开，以便你可以在源代码中设置断点，并根据需要启动/停止构建
+   "debug": "node --inspect-brk main.js"
+   // 因 Webpack 、Mocha等库具有自身的 CLI
+   // 需要调用node_modules下对应库的 CLI 来进行调试
+   "debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js --config build/webpack.config.js"
+}
+
+```
+
+3. 启动系统命令行，执行如下操作
+
+```bash
+# 执行代码
+yarn debug
+
+# 执行结果
+yarn run v1.10.1
+$ node --inspect-brk ./node_modules/webpack/bin/webpack.js --config build/webpack.config.js
+Debugger listening on ws://127.0.0.1:9229/00e0137c-b4f9-4d73-ac9f-f9831f09d81b
+For help, see: https://nodejs.org/en/docs/inspector
+
+```
+
+4. 在浏览器中访问 chrome://inspect
+
+![](./img/debug_3.png)
+
+5. 单击 Device 标题下的 "Open dedicated DevTools for Node" 链接，打开一个专门 debugger 窗口，切换至 Connect 选项，并设置步骤三命令行结果中的端口（默认为9229），设置完成后关闭窗口
+
+![](./img/debug_4.png)
+
+6. 重新执行步骤三的命令，你会看到在 Remote Target 标题下可以进行 inspect(审查) 的活动脚本。单击 Remote Target 标题下的 "inspect" 链接，打开一个专门 debugger 窗口。
+
+![](./img/debug_5.png)
 
 - VsCode篇
 
