@@ -86,6 +86,42 @@ console.dir(OBJECT_EXAMPLE, { depth: null })
 
 - winston
 
+console 只适用于开发调试，并不适用生产环境。Node 生产环境下不但需要记录程序运行日志，还需要将重要日志记录到文件中，甚至写入至数据库中。随着 Node 运行日志的需求，衍生出专业的 npm 库，如： [winston](https://github.com/winstonjs/winston)、[log4js-node](https://github.com/log4js-node/log4js-node)、[bunyan](https://github.com/trentm/node-bunyan)等。
+
+上述三个 log 库的性能对比及选择，可参阅：[a-benchmark-of-five-node-js-logging-libraries](https://www.loggly.com/blog/a-benchmark-of-five-node-js-logging-libraries/)
+
+下面以 winston 为例，浅谈下日志记录过程：
+
+```javascript
+// 安装 winston
+npm install winston
+yarn add winston 
+
+// 日志分级（ Level ）
+const logger = new winston.Logger({
+  level: 'info',//分级配置
+})
+
+logger.log('info','hello level')
+
+// 输出口（ Transport ）
+// 可通过 winston-mail 、 winston-mongodb等 npm 库来扩展输出口
+
+const logger = new winston.Logger({
+  level: 'info',//分级配置
+  transports: [
+     new winston.transports.Console(),
+     new winston.transports.File({ filename: 'combined.log' })
+   ]
+})
+
+logger.log('error','error transport')
+
+// 格式化（ Format ）
+
+
+
+```
 
 ## 断点
 
