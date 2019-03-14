@@ -50,7 +50,7 @@
 
 3. 启动ECS服务器之后，可通过命令行来连接阿里云服务器（以 Mac 为例）：
 
-```shell
+```bash
 Last login: Fri Mar  8 14:52:01 on ttys008
 
 # 连接ECS服务器公网IP地址（下方仅为示例IP）
@@ -96,7 +96,7 @@ Node 的环境配置方式有如下两种：
 
 1. 安装并更新 nvm
 
-```shell
+```bash
 
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
@@ -104,7 +104,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | b
 
 2. 加入 nvm 至环境变量
 
-```shell
+```bash
 # nvm安装后，截取如下信息，重开命令行执行
 
 # Close and reopen your terminal to start using nvm or run the following to use it now:
@@ -122,7 +122,7 @@ export NVM_DIR="$HOME/.nvm"
 
 3. 安装并默认 node 版本
 
-```shell
+```bash
 
 #查看远端 node 列表并安装
 
@@ -146,7 +146,7 @@ nvm current
 4. 切换 node 版本
 
 
-```shell
+```bash
 
 # 查看 nvm 的 node 列表
 
@@ -167,7 +167,7 @@ Now using node v10.13.0
 
 5. 卸载 nvm
 
-```shell
+```bash
 
 # 卸载nvm
 # $NVM_DIR 通常为 ~/.nvm
