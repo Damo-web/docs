@@ -302,4 +302,29 @@ VSCode 除了上述基础调试功能，自1.22+ 版本已内置 Logpoints 功�
 相比 supervisor ，nodemon 更轻量级，内存占用更小，使用更加方便，更容易进行扩展，推荐使用。
 :::
 
+## 参考链接
+
+- [Printing colorful text in terminal when run node js script](https://coderwall.com/p/yphywg/printing-colorful-text-in-terminal-when-run-node-js-script)
+
+- [Node.js 之 log4js 完全讲解](https://zhuanlan.zhihu.com/p/22110802)
+
+- [使用Winston记录Node.js应用程序](https://zhuanlan.zhihu.com/p/40530852)
+
+- [Nodejs的运行日志怎么做？](https://www.zhihu.com/question/27607741)
+
+- [Debugging Node.js with Chrome DevTools](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27)
+
+- [webpack bits: Learn and Debug webpack with Chrome Dev Tools!](https://medium.com/webpack/webpack-bits-learn-and-debug-webpack-with-chrome-dev-tools-da1c5b19554)
+
+- [debugging](https://code.visualstudio.com/docs/editor/debugging)
+
+- [Node.js debugging in VS Code](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
+
+- [VSCode 调试 Egg 完美版 - 进化史](https://github.com/atian25/blog/issues/25)
+
+- [Don’t use nodemon, there are better ways!](https://codeburst.io/dont-use-nodemon-there-are-better-ways-fc016b50b45e)
+
+
+
+
 
