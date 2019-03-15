@@ -278,6 +278,10 @@ function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue) {
 
 ```
 
+:::tip
+简单来说，新旧节点每次都会进行首首、尾尾、首尾节点的对比，若都不存在，会到旧节点中去匹配是否存在，若不存在，则为新节点；若存在，则打上循环至此跳过的标识，继续进行匹配。
+:::
+
 ## Diff逻辑图
 
 <img class="zoomable" src="./img/vdom_4.png" width="100%" />
