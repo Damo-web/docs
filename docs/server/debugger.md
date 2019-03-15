@@ -322,7 +322,7 @@ VSCode 除了上述基础调试功能，自1.22+ 版本已内置 Logpoints 功�
 
 - [VSCode 调试 Egg 完美版 - 进化史](https://github.com/atian25/blog/issues/25)
 
-- [Don’t use nodemon, there are better ways!](https://codeburst.io/dont-use-nodemon-there-are-better-ways-fc016b50b45e)
+- [Setup Nodemon to auto restart Nodejs application server](https://hackernoon.com/setup-nodemon-to-auto-restart-nodejs-application-server-8d8993b7dfd9)
 
 
 
