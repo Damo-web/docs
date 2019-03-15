@@ -201,16 +201,105 @@ For help, see: https://nodejs.org/en/docs/inspector
 
 ![](./img/debug_5.png)
 
-- VsCode篇
+- **VSCode篇**
 
+作为一款流行实用的编辑器，VSCode 提供了内置的调试工具，可以便捷地对代码进行调试。使用 VSCode 调试 Node 程序的细节可参考： 
 
-- CommandLine篇
+- [debugging](https://code.visualstudio.com/docs/editor/debugging)
 
+- [Node.js debugging in VS Code
+](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
 
-## 热更新
+在 launch.json 文件中添加配置时需要注意区分断点调试端及其启动方式：
 
-- nodemon
+![](./img/debug_6.png)
 
-- supvisor
+VSCode 按调试端可分为 Chrome 和 Node 两端：Chrome 会调用 Chrome Devtools 来进行调试；Node 会调用 CLI 来进行调试。
+
+按启动方式可分为 Launch 和 Attach 两种模式： Launch 模式下，**VSCode 负责debug 整个生命周期**，包括启动、停止及调试；Attach模式下，**VSCode 只负责调试阶段**，用户必须自行启动及停止 debug。
+
+:::tip 提示
+**VSCode 1.22+ 版本已支持自动 Attach 相应 Node 调试端口，无需配置 launch.json 文件**
+:::
+
+Launch 模式下 Node 端调试的**示例文件配置**如下：
+
+```javascript
+
+// .vscode/launch.json
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // 调试名称
+      "name": "Launch via Yarn",
+      "type": "node",
+      // 启动方式
+      "request": "launch",
+      // 启动当前文件下的程序
+      "cwd": "${workspaceRoot}",
+      // 运行时启动命令，默认为 node
+      "runtimeExecutable": "yarn",
+      "windows": { "runtimeExecutable": "yarn.cmd" },
+      // runtime 时传入参数，需与 package.json 中命令对应
+      "runtimeArgs": ["run","debug"],
+      // 日志输出到 Terminal，否则启动期的日志看不到
+      "console": "integratedTerminal",
+      // 调试协议
+      "protocol": "auto",
+      // 当源码更改时自动重启 debug
+      "restart": true,
+      // 默认为 9229 端口
+      "port": 9229,
+      // 自动 attach 至 Node 子进程 
+      "autoAttachChildProcesses": true
+    }
+  ]
+}
+
+// package.json
+
+"scripts": {
+   "debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js --config build/webpack.config.js"
+}
+
+```
+运行结果如下： 
+
+![](./img/debug_7.png)
+
+VSCode 除了上述基础调试功能，自1.22+ 版本已内置 Logpoints 功能，添加方式如下：
+
+![](./img/debug_8.png)
+
+如上图所示，菱形红点为 Logpoints，圆形红点为 Breakpoints，有关 Logpoints具体使用示例，可参阅：
+[introducing-logpoints-and-auto-attach](https://code.visualstudio.com/blogs/2018/07/12/introducing-logpoints-and-auto-attach)
+
+![](./img/debug_9.png)
+
+按上图添加后，执行结果如下：
+
+![](./img/debug_10.png)
+
+:::tip 提示
+**Chrome 73+ 版本已支持 Logpoints，可查阅：[What's New In DevTools (Chrome 73)](https://developers.google.com/web/updates/2019/01/devtools)**
+:::
+
+## 热重启
+
+在日常的 Node 开发过程中，需要频繁修改应用程序，每次更改后，必须手动重启 Node 应用程序。
+
+因这一场景，实现 Node 应用程序的热重启迫在眉睫，基于此，社区开发出实现 Node 热重启的 npm 库。常用的热重启库如下：
+
+- [nodemon](https://nodemon.io/)
+
+- [supervisor](https://github.com/petruisfan/node-supervisor/)
+
+通过 Yarn 或 NPM 安装完成后，只需在运行应用时将命令行上的 node 替换成 nodemon 或 supervisor 即可。
+
+:::tip 提示
+相比 supervisor ，nodemon 更轻量级，内存占用更小，使用更加方便，更容易进行扩展，推荐使用。
+:::
 
 
