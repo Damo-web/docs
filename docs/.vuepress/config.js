@@ -63,8 +63,8 @@ module.exports = {
         link: '/render/'
       },
       {
-        text: '交互',
-        link: '/ux/'
+        text: '富媒体',
+        link: '/richMedia/'
       }
     ],
     sidebar: {
@@ -103,7 +103,7 @@ module.exports = {
           ''
         ]
       }],
-      '/ux/': [{
+      '/richMedia/': [{
         title: '文章列表',
         collapsable: false,
         children: [
