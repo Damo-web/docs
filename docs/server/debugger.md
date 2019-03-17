@@ -86,7 +86,7 @@ console.dir(OBJECT_EXAMPLE, { depth: null })
 
 - **Node.js 日志库**
 
-console 只适用于开发调试，并不适用生产环境。Node 生产环境下不但需要记录程序运行日志，还需要将重要日志记录到文件中，甚至写入至数据库中。随着 Node 运行日志的需求，衍生出专业的 npm 库，如： [winston](https://github.com/winstonjs/winston)、[log4js-node](https://github.com/log4js-node/log4js-node)、[bunyan](https://github.com/trentm/node-bunyan)等。
+console 只适用于开发调试，并不适用于生产环境。Node 生产环境下不但需要记录程序运行日志，还需要将重要日志记录到文件中，甚至写入至数据库中。随着 Node 运行日志的需求，衍生出专业的 npm 库，如： [winston](https://github.com/winstonjs/winston)、[log4js-node](https://github.com/log4js-node/log4js-node)、[bunyan](https://github.com/trentm/node-bunyan)等。
 
 上述三个 log 库的性能对比及选择，可参阅：[a-benchmark-of-five-node-js-logging-libraries](https://www.loggly.com/blog/a-benchmark-of-five-node-js-logging-libraries/)
 
@@ -189,7 +189,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 
 ```
 
-4. 在浏览器中访问 chrome://inspect
+4. 在浏览器地址栏中访问 chrome://inspect
 
 ![](./img/debug_3.png)
 
