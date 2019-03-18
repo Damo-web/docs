@@ -75,7 +75,8 @@ module.exports = {
           '',
           'vueLoader',
           'templateCompiler',
-          'htmlParser'
+          'htmlParser',
+          'postcss'
         ]
       }],
       '/server/': [{
