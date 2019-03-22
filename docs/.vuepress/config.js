@@ -78,7 +78,8 @@ module.exports = {
           'htmlParser',
           'postcss',
           'babel',
-          'mpcli'
+          'mpcli',
+          'jsonParser'
         ]
       }],
       '/server/': [{
