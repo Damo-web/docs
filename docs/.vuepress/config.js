@@ -77,7 +77,8 @@ module.exports = {
           'templateCompiler',
           'htmlParser',
           'postcss',
-          'babel'
+          'babel',
+          'mpcli'
         ]
       }],
       '/server/': [{
