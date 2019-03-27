@@ -164,14 +164,24 @@ Babel 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段�
 
   关于上面的配置，需要注意：
 
-  1. stage-x 和 es2015（ES6）、es2016（ES7）等插件的功能类似，用于转换 TC39提案阶段的 JavaScript 代码至 ES5。事实上，stage-x 正是按照 JavaScript 的提案阶段来进行区分，其包含 0、1、2、3、4 五个阶段，并且 x 数字越小，阶段越靠后。需要注意，stage-x 之间存在依赖关系，stage-0 包含 stage-1，stage-1 包含 stage-2，以此类推。
+  1. stage-x 和 es2015（ES6）、es2016（ES7）等插件的功能类似，用于转换 TC39提案阶段的 JavaScript 代码至 ES5。事实上，stage-x 正是按照 JavaScript 的提案阶段来进行区分，其包含 0、1、2、3、4 五个阶段，并且 x 数字越大，阶段越靠后。需要注意，stage-x 之间存在依赖关系，stage-0 包含 stage-1，stage-1 包含 stage-2，以此类推。
 
-  2. plugins 与 presets 同时存在时，遵循下述执行顺序。
+  ::: tip 提示
+  注意 stage-4 预设是不存在的，因为它已被标准正式采纳。在 Babel7 版本，stage-x 已被废弃并移除。
+  :::
 
-      - plugins 优先于 presets 进行编译
+  2. plugins 与 presets 同时存在时，遵循下述执行顺序：
 
-      - presets 按照其数组倒序执行编译
+     - plugins 优先于 presets 进行编译
+
+     - presets 按照其数组倒序执行编译
 
      - plugins 按照其数组正序执行编译
 
 ## Plugins
+
+
+
+## 参考链接
+
+- [babeljs presets](https://babeljs.io/docs/en/presets)
