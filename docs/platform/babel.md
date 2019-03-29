@@ -291,7 +291,6 @@ Babel 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段�
 
 - Paths
 
-
 ## Reference
 
 - [babeljs.io](https://babeljs.io/docs/en)
