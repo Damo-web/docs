@@ -4,6 +4,8 @@
 
 ## Workflow
 
+PostCSS 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段，其流程如下图所示：
+
 
 
 ## Autoprefixer
