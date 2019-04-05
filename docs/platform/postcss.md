@@ -10,7 +10,37 @@ PostCSS 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段
 
 - **解析**
 
-  **PostCSS 接受源码并输出 AST**。
+  **PostCSS 接受源码并输出 AST**。这一阶段分为两个步骤： [词法解析（Lexical analysis）](https://en.wikipedia.org/wiki/Lexical_analysis)与[语法解析（Syntactic Analysis）](https://en.wikipedia.org/wiki/Parsing)。
+
+  示例源码如下：
+
+  ```css
+  .className { 
+    color: #FFF;
+  }
+  ```
+
+  - **词法分析**
+
+  词法分析把字符串形式的代码转换为 令牌（tokens） 流。
+
+  ```javascript
+  tokens:[
+    ["word", ".className", 1, 1, 1, 10]
+    ["space", " "]
+    ["{", "{", 1, 12]
+    ["space", " "]
+    ["word", "color", 1, 14, 1, 18]
+    [":", ":", 1, 19]
+    ["space", " "]
+    ["word", "#FFF" , 1, 21, 1, 23]
+    [";", ";", 1, 24]
+    ["space", " "]
+    ["}", "}", 1, 26]
+  ]
+  ```
+
+
 
 - **转换**
 
