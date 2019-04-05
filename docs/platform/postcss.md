@@ -25,6 +25,7 @@ PostCSS 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段
   词法分析把字符串形式的代码转换为 令牌（tokens） 流。
 
   ```javascript
+  
   tokens:[
     ["word", ".className", 1, 1, 1, 10]
     ["space", " "]
