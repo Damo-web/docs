@@ -55,7 +55,7 @@ PostCSS 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段
     },
     source: {
       input:{
-        css: ".home {↵  display: flex;↵}↵",
+        css: ".home {\n  display: flex;\n}\n",
         file: "path/to/demo.css",
         hasBOM: false
       },
