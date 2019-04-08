@@ -287,9 +287,14 @@ Babel 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段�
 
 ## Plugins
 
-- Visitors
+  在开发 Babel Plugins 需要了解下前置知识：
 
-- Paths
+  1. [AST Node Types](https://github.com/babel/babel/blob/master/packages/babel-parser/ast/spec.md#node-objects)
+  
+  2. Visitors
+
+  3. Paths
+
 
 ## Reference
 
