@@ -113,6 +113,7 @@ PostCSS 的工作步骤分为**解析**、**转换** 及 **生成** 三个阶段
 
 ## Autoprefixer
 
+Autoprefixer 插件是最常用的 PostCSS 插件，主要用于 CSS 的 profill。
 
 ## Plugin
 
