@@ -1,6 +1,6 @@
 # Webpack优化
 
-> 本篇目着重于 Webpack 速度及性能优化，共分为两大部分。前一部分着重于 webpack V2版本相关性能及构建用时优化，后一部分着重于 webpack V4版本相关性能及构建用时优化。
+> 本篇目着重于 Webpack 速度及性能优化。暂时记录下 webpack V2版本相关的性能及构建用时优化，webpack V4版本相关优化后续补充。
 
 ## 起因
 
@@ -8,7 +8,7 @@
 
   - 热更新速度缓慢，长达10s左右
 
-  - 构建用时过长，长达180s左右
+  - 构建用时过长，长达200s左右
 
 ## 热更新
 
@@ -83,8 +83,82 @@
 
 ## 构建时
 
+  在 Webpack v2版本中，关于构建时长的分析主要通过 [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 及 [speed-measure-webpack-plugin](https://github.com/stephencookdev/speed-measure-webpack-plugin#readme) 两个插件来进行，前者主要用于分析打包后各模块的体积和模块间的依赖关系，后者主要用于分析相关 plugin 及 loader 的运行时长。
 
+  **优化前打包结果如下：**
 
+  ![](./img/webpack_optimization_1.png)
+  
+  通过上述两个插件分析，针对项目进行了如下优化：
 
+  - 包体积
+
+  1. 首先需要做得，即不常用的第三方库采用 CDN 来进行引入。
+  
+  2. 其次，针对于已引入并在项目中大量使用的库，为了避免代码变动导致的影响，采用 DllPlugin 来进行预打包，而为了区分开发与生产环境的差异性，引入了 [autodll-webpack-plugin](https://github.com/asfktz/autodll-webpack-plugin#readme)。
+
+  - 缓存
+
+  1. loader 缓存，主要是开启 babel-loader 的 cache模式
+
+  ```javascript
+  {
+    test: /\.js$/,
+    loader: 'babel-loader?cacheDirectory=true',
+    include: [resolve('src')],
+    exclude: /node_modules/
+  }
+  ```
+  2. uglify 缓存，主要是开启 UglifyJSPlugin 的 cache模式
+
+  3. docker（ Jenkins ）中 node_modules 缓存
+
+  - 多线程
+  
+  1. happyPack：用于多线程加速 loader 解析
+
+  2. webpack-parallel-uglify-plugin：用于多线程加速 uglify 过程
+
+  **优化后打包结果如下：**
+
+  ![](./img/webpack_optimization_2.png)
+
+## 构建后
+
+  优化结束后，构建完出现下述错误：
+
+  ```javascript
+
+  ERROR in static/js/22.32e9e1b9c0f91bace1a9.js from UglifyJs
+  Unexpected token: name (hiddenTextarea) [static/js/22.32e9e1b9c0f91bace1a9.js:43,4]
+  
+  ```
+  参阅 [SyntaxError: Unexpected token: name (xxxxxx) from Uglify plugin](https://github.com/webpack/webpack/issues/2972)，得知 Uglify 并不能解析 ES6，因此抛出错误语法。
+
+  为解决此类问题，引入 [babili-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#readme) 或 [webpack-parallel-uglify-plugin](https://github.com/gdborton/webpack-parallel-uglify-plugin#readme) 替换 Webpack 内置 UglifyJsPlugin 便可。
+
+  ```javascript
+  // 如下插件择一即可
+  const UglifyJSPlugin = require('webpack-parallel-uglify-plugin')
+  const BabiliPlugin = require("babili-webpack-plugin");
+
+  plugins:[
+    ...
+    new BabiliPlugin(),
+    new UglifyJSPlugin({
+      uglifyES: {}
+    })
+    ...
+  ]
+  
+  ```
+
+## 参考链接
+
+- [Slow webpack build time (advanced module optimization)](https://stackoverflow.com/questions/43341878/slow-webpack-build-time-advanced-module-optimization)
+
+- [RemoveParentModulesPlugin takes a long time with hundreds of chunks](https://github.com/webpack/webpack/issues/6248)
+
+- [SyntaxError: Unexpected token: name (xxxxxx) from Uglify plugin](https://github.com/webpack/webpack/issues/2972)
 
 
