@@ -59,6 +59,10 @@ module.exports = {
         link: '/framework/'
       },
       {
+        text: '工程化',
+        link: '/engineering/'
+      },
+      {
         text: '渲染',
         link: '/render/'
       },
@@ -98,6 +102,13 @@ module.exports = {
           'redux',
           'mvvm',
           'vuex'
+        ]
+      }],
+      '/engineering/': [{
+        title: '文章列表',
+        collapsable: false,
+        children: [
+          ''
         ]
       }],
       '/render/': [{
