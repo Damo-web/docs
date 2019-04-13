@@ -116,28 +116,117 @@ rules:[
 
 1. 规则禁用
 
-
+```javascript
+// .eslintrc.js
+// "off" or 0   - 关闭规则
+// "warn" or 1  - 提醒规则，不退出代码
+// "error" or 2 - 错误规则，退出代码
+rules: {
+  ...
+  // https://eslint.org/docs/rules/object-shorthand
+  "object-shorthand": 0,  
+  // https://vuejs.github.io/eslint-plugin-vue/rules/require-v-for-key.html
+  "vue/require-v-for-key": "off",
+  ...
+}
+```
 
 2. 内联忽略
 
+   - *.js  文件
+
+   详情参阅：[Disabling Rules with Inline Comments](https://eslint.org/docs/user-guide/configuring#disabling-rules-with-inline-comments)
+
+   ```javascript
+   // 顶部注释规则，全部忽略
+   /* eslint-disable */
+   ...
+   // 行内注释规则，指定规则
+   /* eslint-disable no-new */
+   new Vue({
+     el: '#app',
+     template: '<App/>',
+     components: { App }
+   })
+   ```
+
+   - *.vue 文件
+
+   详情参阅：[vue/comment-directive](https://eslint.vuejs.org/rules/comment-directive.html)
+
+   ```vue
+    <template>
+      <!-- eslint-disable -->
+      <div id="app"></div>
+    </template>
+    
+    <script>
+      /* eslint-disable */
+      export default {
+        name: 'app'
+      }
+    </script>
+   ```
+
 3. 文件忽略
+
+  .eslintrc.js 同级目录下新建 .eslintignore文件，配置如下：
+  ```json
+  node_modules
+  build/*.js
+  config/*.js
+  src/assets/**
+  static
+  ```
 
 4. 完全禁用
 
-## ES Module
+   下述三种方法择其一即可：
 
+   - 清空 .eslintrc.js 所有规则
 
+   - 追加 .eslintignore 所有文件 ** 配置
 
-## Vue SFC
+   - 移除 webpack 中的 eslint-loader
 
-## Prettier
+## Git Hooks
 
-## VSCode
+1. npm script
 
-## Snippet
+2. husky
 
-## Husky
+3. lint-staged
+
+## 风格指南
+
+- ES Module
+
+- Vue SFC
+
+## 代码格式化
+
+- Prettier
+
+## VSCode支持
+
+- ESLint 插件
+
+- Prettier 插件
 
 ## 参考链接
 
+- [ESLint Rules](https://eslint.org/docs/rules/)
+
+- [Vue Style Guide](https://cn.vuejs.org/v2/style-guide/)
+
+- [eslint-plugin-vue](https://eslint.vuejs.org/rules/)
+
 - [ESLint 配置](https://www.jianshu.com/p/bf0ffe8e615a)
+
+- [ESLint 工作原理探讨](https://zhuanlan.zhihu.com/p/53680918)
+
+- [Prettier](https://prettier.io/)
+
+- [Husky](https://github.com/typicode/husky)
+
+- [Lint-staged](https://github.com/okonet/lint-staged)
