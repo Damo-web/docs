@@ -36,10 +36,10 @@ ESLint 常规安装流程如下：
 
 ``` bash
 # npm install
-npm install -g eslint
+npm install eslint -D
 
 # init eslint
-eslint --init 
+./node_modules/eslint/bin/eslint.js --init 
 
 # choose eslint feture
 ? How would you like to use ESLint? To check syntax and find problems
@@ -191,11 +191,13 @@ rules: {
 
 ## Git Hooks
 
-1. npm script
+  按上述步骤操作即可完成 ESLint 配置，接下来通过 npm scripts 和 git hooks 来进一步优化 ESLint 的工作流： 
 
-2. husky
+  1. npm script
 
-3. lint-staged
+  2. husky
+
+  3. lint-staged
 
 ## 风格指南
 
