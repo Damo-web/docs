@@ -303,8 +303,8 @@ rules: {
   // package.json
   "lint-staged": {
     "src/**/*.{js,vue}": [
-      "eslint --fix",
   +   "prettier --write",
+      "eslint --fix",
       "git add"
     ]
   }
