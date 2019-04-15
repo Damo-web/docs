@@ -109,7 +109,8 @@ module.exports = {
         collapsable: false,
         children: [
           '',
-          'eslint'
+          'eslint',
+          'stylelint'
         ]
       }],
       '/render/': [{
