@@ -153,6 +153,60 @@
   
   ```
 
+## 上线后
+  
+  优化项部署到生产环境后，中后台控制台出现以下错误：
+
+  ![](./img/webpack_optimization_3.png)
+
+  参阅以下文章：
+
+  - [[Vue warn]: $attrs is readonly,$listeners is readonly](https://github.com/vuejs/vue/issues/6698)
+
+  - [[Vue warn]: $attrs is readonly](https://forum.vuejs.org/t/vue-warn-attrs-is-readonly/18053/7)
+
+  - [[Bug Report] $listeners is readonly](https://github.com/ElemeFE/element/issues/9104)
+
+  - [iview Date-picker 点击报“$attrs is readonly”错误](https://segmentfault.com/q/1010000010759119)
+
+  最初做了 element-ui 依赖 Vue 版本和项目中现有 Vue 版本统一尝试，发现并没有解决问题。
+
+  之后，考虑到可能是 Webpack 打包时索引 Vue 的问题，改变了索引项，如下：
+
+  ```javascript
+  import Vue from 'vue/dist/vue.esm.js'
+  ```
+  发现依旧没有解决，两次尝试后，基本可以把问题聚焦于预打包后的 vendor 中 Vue 的问题。
+  
+  当 Vue 全局化后，node_modules 下其他包有依赖其他版本的 Vue 时，打包后就会出现类似的问题，可以通过如下命令来查看依赖 Vue 的相关包。
+
+  ```javascript
+  npm ls vue
+  ```
+
+  解决办法即是使用 AutoDllPlugin 预打包时不打包 Vue :
+  
+  ```diff
+  new AutoDllPlugin({
+    inject: true,
+    filename: '[name].js',
+    context: path.join(__dirname, '..'),
+    entry: {
+      vendor: [
+  -     'vue/dist/vue.esm.js',
+        'vuex', 
+        'vue-router', 
+        'axios', 
+        'element-ui',
+        'moment'
+      ]
+    },
+    plugins:[
+      new webpack.optimize.UglifyJsPlugin()
+    ]
+  })
+  ```
+
 ## 参考链接
 
 - [Slow webpack build time (advanced module optimization)](https://stackoverflow.com/questions/43341878/slow-webpack-build-time-advanced-module-optimization)
@@ -160,5 +214,7 @@
 - [RemoveParentModulesPlugin takes a long time with hundreds of chunks](https://github.com/webpack/webpack/issues/6248)
 
 - [SyntaxError: Unexpected token: name (xxxxxx) from Uglify plugin](https://github.com/webpack/webpack/issues/2972)
+
+- [[Vue warn]: $attrs is readonly,$listeners is readonly](https://github.com/vuejs/vue/issues/6698)
 
 
