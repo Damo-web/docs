@@ -91,7 +91,8 @@ module.exports = {
         collapsable: false,
         children: [
           '',
-          'debugger'
+          'debugger',
+          'docker'
         ]
       }],
       '/framework/': [{
@@ -110,7 +111,8 @@ module.exports = {
         children: [
           '',
           'eslint',
-          'stylelint'
+          'stylelint',
+          'easymock'
         ]
       }],
       '/render/': [{
