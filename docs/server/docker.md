@@ -1,6 +1,6 @@
 # Docker
 
-> Docker 是一个开源的 Linux 应用容器引擎，提供简单易用的接口来操作应用容器。应用容器采用沙箱机制，运行在同一个 Linux 内核上，实现了应用之间的资源隔离与权限控制，可以部署到任何流行的 Linux 机器上。
+> Docker 是一个开源的 Linux 应用容器引擎，提供简单易用的接口来操作应用容器。应用容器采用沙箱机制，运行在同一个 Linux 内核上，实现了应用之间的资源隔离与权限控制，可以快速地部署到任何流行的 Linux 机器上。
 
 ## 安装
 
@@ -28,7 +28,7 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
   ```
 
-  - 使用 <code>Homebrew</code> 
+  - 使用 <code>Homebrew</code>
 
   ```bash
   # install pkg
@@ -42,7 +42,7 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   :::tip 提示
 
   使用 brew 更新及安装包时，推荐使用国内镜像源，以防下载过慢。
-  
+
   :::
 
 - **安装 Docker**
@@ -74,9 +74,76 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   $ docker-machine -v
   docker-machine version 0.16.1, build cce350d7
   ```
-  
 
+## 常用命令
 
+下面列举了一些常用的命令：
 
+- docker
 
+  - 下载镜像
 
+  ```bash
+  # download docker image
+  # Reference : https://hub.docker.com/
+  $ docker pull node
+  ```
+
+  - 获取镜像列表
+
+  ```bash
+  # list images
+  $ docker image ls
+  # image list
+  REPOSITORY        TAG               IMAGE ID            CREATED             SIZE
+  mongo             3.4               ad62612cfc71        3 weeks ago         425MB
+  redis             4.0.6             1e70071f4af4        16 months ago       107MB
+  ```
+
+  - 获取容器列表
+
+  ```bash
+  # list containers
+  $ docker ps
+  # container list
+  CONTAINER ID        IMAGE               COMMAND                CREATED              STATUS              PORTS               NAMES
+  6d665a34f4f5        ubuntu:12.04        bash                   17 seconds ago       Up 16 seconds       3300-3310/tcp       webapp
+  4d86fe3c8c50        redis:latest        /redis-server --dir    33 minutes ago       Up 33 minutes       6379/tcp            redis
+  ```
+
+  - 获取数据卷列表
+
+  ```bash
+  # list volumes
+  $ docker volume list
+  # volume list
+  DRIVER          VOLUME NAME
+  local           0d89bd5676305cff08f964a28d499f6d3ff13f7e4c3264022c646c61d1a01bf3
+  local           0d854f16c00ff828ace09c21554ce3fba4ad74a32be2236be1dcc208b9e7929d
+  local           0dca2c640b4ab7611bbdfa3a9513bd0e20ae1472e440ea83a96a4501a5052220
+  ```
+
+  - 运行容器
+
+  ```bash
+  # run container
+  $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+  # example
+  # stop in Longhand
+  $ docker run 6d665a34f4f5 
+  # stop in Shorthand
+  $ docker run 6d6
+  ```
+
+  - 停止容器
+
+  ```bash
+  # run container
+  $ docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+  # example
+  # run in Longhand
+  $ docker stop 6d665a34f4f5 
+  # run in Shorthand
+  $ docker stop 6d6
+  ```
