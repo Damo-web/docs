@@ -77,9 +77,9 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
 
 ## 常用命令
 
-下面列举了一些常用的命令：
-
 - docker
+
+  更多命令可参阅：[Docker CLI (docker)](https://docs.docker.com/engine/reference/run/)
 
   - 下载镜像
 
@@ -129,21 +129,45 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   # run container
   $ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
   # example
-  # stop in Longhand
+
+  # run in container id
+  # Longhand
   $ docker run 6d665a34f4f5 
-  # stop in Shorthand
+  # Shorthand
   $ docker run 6d6
+
+  # run in container name
+  $ docker run webapp
   ```
 
   - 停止容器
 
   ```bash
-  # run container
+  # stop container
   $ docker stop [OPTIONS] CONTAINER [CONTAINER...]
 
   # example
-  # run in Longhand
   $ docker stop 6d665a34f4f5 
-  # run in Shorthand
-  $ docker stop 6d6
+  ```
+
+  - 删除容器
+
+  ```bash
+  # delete container
+  # stop container，then delete container
+  $ docker rm [OPTIONS] CONTAINER [CONTAINER...]
+
+  # example
+  $ docker rm 6d665a34f4f5 
+  ```
+
+  - 进入容器执行命令
+
+  ```bash
+  # enter container
+  $ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+  # example
+  $ docker exec -it docker_mongodb_1 bash
+  $ root@6d665a34f4f5:/
   ```
