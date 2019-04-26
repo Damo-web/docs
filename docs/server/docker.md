@@ -168,6 +168,6 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   $ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
 
   # example
-  $ docker exec -it docker_mongodb_1 bash
+  $ docker exec -it webapp bash
   $ root@6d665a34f4f5:/
   ```
