@@ -103,7 +103,7 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   - 获取容器列表
 
   ```bash
-  # list containers
+  # list containers in running
   $ docker ps
   # container list
   CONTAINER ID        IMAGE               COMMAND                CREATED              STATUS              PORTS               NAMES
@@ -115,7 +115,7 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
 
   ```bash
   # list volumes
-  $ docker volume list
+  $ docker volume ls
   # volume list
   DRIVER          VOLUME NAME
   local           0d89bd5676305cff08f964a28d499f6d3ff13f7e4c3264022c646c61d1a01bf3
@@ -150,6 +150,17 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   $ docker stop 6d665a34f4f5 
   ```
 
+  - 进入容器执行命令
+
+  ```bash
+  # enter container
+  $ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+  # example
+  $ docker exec -it webapp bash
+  $ root@6d665a34f4f5:/
+  ```
+
   - 删除容器
 
   ```bash
@@ -161,13 +172,62 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   $ docker rm 6d665a34f4f5 
   ```
 
-  - 进入容器执行命令
+  - 删除所有容器及数据卷
 
   ```bash
-  # enter container
-  $ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+  # example
+  # -v: Remove all associated volumes
+  # -f: Forces the removal
+  # -a: for all containers, even not running(or images)
+  # -q: to remove all the details other than the ID of containers (or images)
+  $ docker rm -vf $(docker ps -a -q)
+  ```
+
+  - 删除所有镜像
+
+  ```bash
+  # example
+  # -v: Remove all associated volumes
+  # -f: Forces the removal
+  # -a: for all containers, even not running(or images)
+  # -q: to remove all the details other than the ID of containers (or images)
+  $ docker rmi -f $(docker images -a -q)
+  ```
+
+- docker-compose
+
+  更多命令可参阅：[Compose (docker-compose) CLI](https://docs.docker.com/compose/reference/overview/)
+
+  - 启动 docker-compose.yml 所有服务
+
+  ```bash
+  # run service in docker-compose.yml
+  $ docker-compose up [options] [--scale SERVICE=NUM...] [SERVICE...]
 
   # example
-  $ docker exec -it webapp bash
-  $ root@6d665a34f4f5:/
+  # only print container name
+  $ docker-compose up -d
+  $ Creating network "web-service" with the default driver
+  $ Creating webapp  ... done
+  $ Creating redis   ... done
+  # show detail
+  $ docker-compose up
+  $ Creating network "web-service" with the default driver
+  $ Creating webapp  ... done
+  $ Creating redis   ... done
+  $ ...
+  ```
+
+  - 停止并移除 docker-compose.yml 所有服务
+
+  ```bash
+  # stop and remove service in docker-compose.yml
+  $ docker-compose down [options]
+  # example
+  $ docker-compose down
+  $ Stopping webapp  ... done
+  $ Stopping redis   ... done
+  $ Removing webapp  ... done
+  $ Removing redis   ... done
+  $ Removing network web-service
   ```
