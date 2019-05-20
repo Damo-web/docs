@@ -112,7 +112,8 @@ module.exports = {
           '',
           'eslint',
           'stylelint',
-          'easymock'
+          'easymock',
+          'staticPage'
         ]
       }],
       '/render/': [{
