@@ -33,6 +33,9 @@ branches:
   only:
     - master
 
+notifications:
+  slack: "${SLACK_TOKEN}"
+
 env:
  global:
    - USERNAME: snowball1990
