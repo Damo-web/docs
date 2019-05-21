@@ -34,9 +34,7 @@ branches:
     - master
 
 notifications:
-  slack:
-    rooms:
-	    - totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB#web-notification
+  slack: totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB
     on_success: always
     on_failure: always
     template:
