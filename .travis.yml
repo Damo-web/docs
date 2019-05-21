@@ -23,7 +23,7 @@ branches:
 notifications:
   slack:
     rooms:
-      secure: 0A+NkWbRacIAs4GoKwkO9SO0wz27nfwqi7h9ODNMBpzJ8BNXvDsFfdcAG1opcYkTAlM+Gt3ZwE8tws2cbmS0BFtjiZc25fuClRsMIgoF2zADy5yQEQ1MGn6OqBmp5JbHRXoMx/RSJGDhP6ZRXuLYlEmvBfRjML6CfdeKYvwActN8bJen6yoOgPgtEYtmdJ4gIMb4R5CYGmumliO2AhXSTuwgPb/2IXQ7i69Eqk1AbOOLh8ogTMNJMWEc5R/kUvchgVV3HzW68FDAeI6SIEwIkmYWjPvDBLO0rv064wybKh1fW0VyDN5TArbd0/IPGKA1iPwgzl/q/BcsNv2lAMJBdHiWIpHa37sVZo9J9lDe60PumrBJ889rVOfTHaR91R9JywkVqqW7AXEQou+ACT1OQTXGzu8EQtZIP9yOtvEBejRvtnxOBbwO93qgP4GEpz9ZPDQfJAwVQjEGdiKqF9q40+pMlb9ZMrtOx56LCHZNyxjpX1S3W2lm7owTlAyrH3doOfCWl9NSGSjqBso08kdAIULoNh+ea+sqZPb65xNwh6YfMiwFJEERdeJ7FUIzE06IoDcTrNPECi7RTIFYrgsEyGgGttAjSoVtVpQ38IxvstlpexbwVxbgyRza3udRGy6QVfw+kss0z35yIR5Vkz0Z7CI5yCjxzmEwtd1/O49s5w8=
+      - totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB#web-notification
     on_success: always
     on_failure: always
     template:
