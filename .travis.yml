@@ -34,7 +34,9 @@ branches:
     - master
 
 notifications:
-  slack: '${SLACK_ACCOUNT}:${SLACK_TOKEN}'
+  slack: 
+    rooms:
+      - '${SLACK_ACCOUNT}:${SLACK_TOKEN}#web-notification'
 
 env:
  global:
