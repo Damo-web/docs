@@ -23,7 +23,7 @@ branches:
 notifications:
   slack:
     rooms:
-      - "${SLACK_TOKEN}"
+      - totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB#web-notification
     on_success: always
     on_failure: always
     template:
