@@ -36,12 +36,6 @@ branches:
 notifications:
   slack: totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB
     on_success: always
-    on_failure: always
-    template:
-    - Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>)
-      for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`.
-    - 'Execution time: *%{duration}*'
-    - 'Message: %{message} '
 
 env:
  global:
