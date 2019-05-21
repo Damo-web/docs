@@ -1,47 +1,31 @@
 language: node_js
 node_js: stable
-
-# Travis-CI Caching
 cache:
   directories:
-    - node_modules
-
-
-# S: Build Lifecycle
+  - node_modules
 install:
-  - yarn install
-
-before_script:
-
-# 无其他依赖项所以执行npm run build 构建就行了
+- yarn install
+before_script: 
 script:
-  - yarn build
-
+- yarn build
 after_script:
-  - cd ./dist
-  - ls
-  - git init
-  - git config user.name "${USERNAME}"
-  - git config user.email "${EMAIL}"
-  - git add -A
-  - git commit -m "deploy"
-  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
-# E: Build LifeCycle
-
-#指定分支，只有指定的分支提交时才会运行脚本
+- cd ./dist
+- ls
+- git init
+- git config user.name "${USERNAME}"
+- git config user.email "${EMAIL}"
+- git add -A
+- git commit -m "deploy"
+- git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 branches:
   only:
-    - master
-
+  - master
 notifications:
   slack:
-    rooms:
-      - secure: QA7uNc1cZXBnY0AjbWXsnaJvFICMuQ0rOyHtizjwX8TgPfu0FIrnwKwSOl5uKOSZPstu3wGR9TddigKxwrPLsc21EJKTqxgCw5W2QTtp2zbAZT92369ppBH16OzftXgTrcNnpCFQQtiXVKXGkD7i7Cfn8TwuCx8IjsZGWSClt3Z0JcoPxCbNGZEAEGsAs+RFhdiMkJ34vbXSDRgc2ukwbJz/Yh8dnJouCIf3Lpchcq/PO3RSCRCwill7fdbEvapZMX2GgIGyfXlk49gcKwm3DubS/3c4uwdbpC0IHsFfT1taKIM8TLcX5AQ7KgAoyhsY0yUHV7410NUAnbqXBfk465AwME7W1tyMooMELzjSwkMLbFBcL7oCEdvA6/hZhRVxg0Ci4t5wzq3M3bKUWelEL9RuFZQ2d+J4XpYc79Q6Wa2W+YsIF0YNYnIvC528I+QbfPpIjkQBORTw79TB4xhB2PWXW/lz3d3Qx9gpPsKajvmhc2KmKBZFTTxdy6/j+qvOIbjDcMAK1oD/vHGPr+UGZCxQn5Vkwz+3noB2XfakKt1ru/X0yuh7SC5oY5f4W24gWtbKSg/UeC8Wf3dPTo0/FJgOqOcOcrELlUolPohOKf2Dv4L1K84eFDCZpCqMGMO97JgFY/ONajMxX/9DmTCOsMXK7T9Ihj3C1g2pK+h6d1g=
-    on_success: always
-
+    secure: 4wfgYuOLuvuraPQwh3N5yZdaGxcIF99qXp5WrRmFs/yAZgMBIj/h+yXfFruD0GkWkGnuoppnWMWpPSNAqP3Ncr1/uswolCBilgr2afX/gYjqOsT8WNkBqL1Z/ltMqaQ6v90XXnUXYesqcK0RYL4Vm4s2lvMONVW/TmpOscZzZC8OKIcnAKFK3NhqlaybUV3XGzekHT74zztEMjRjqQHyd0F7JASlzma4LjSYHXSTEg1TOpVLMmvsRsI8nsgN9itOQefL8ovx0hVqbnEMnrsHOrFlS8F6tUwHer8/bvBSBS5A+UGYovg5GeQ1Me1h2ghZumOnSiE8yUt2tysJpqXoihbi5wykLXbDZyz3T5vqg4bDl4Ip6n2AWonIRjHtYEfyYJ8WYhZgngZ+EIyLhh21xhd+IzktLGtmszNBS6TbrI17FKwOBkctBoYIX5zyJ1PfTDdqo6sDAab5V+wpPdPm7F4yFbIADCP/hwFx+a5x9s3nobJRgPNCk+n/MND3cVKeNx/RxnQNu/GaUObp0wiapCPgbpH1pGO4ZHI8/9OpwAxH84qk7uyuBDzvDviw8Yf7NI7dAIKbwJyS6X0jfJApacomupKtnlORJJV/6kL7yzespP35rln1ktZ+sUL6lersw04gvw6QfHDpOBUuEBiApVs71XFmfKlR6R+/7hxsBoA=
 env:
- global:
-   - USERNAME: snowball1990
-   - EMAIL: snowballer0705@gmail.com
-   - GH_REF: github.com/Damo-web/docs.git
-   - BRANCHNAME: gh-pages
+  global:
+  - USERNAME: snowball1990
+  - EMAIL: snowballer0705@gmail.com
+  - GH_REF: github.com/Damo-web/docs.git
+  - BRANCHNAME: gh-pages
