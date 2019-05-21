@@ -23,7 +23,7 @@ branches:
 notifications:
   slack:
     rooms:
-      secure: m802A8cPSIbteH0MxkPj4ogB8DukKBCrfFgljIqcFgzl7BTrxXeCkZDr4EBWue0JXejz2mtfjEmkk29xpjJdJXzb4gCvFvSeFIeKAZm3gYG3nMHOgK9Vqp4LHssKaJxwYEUne5IJq6tNWPf5ITFIIipN7O5eXsajHMmEWSiAjZ34GCQ03WZFG/jo53hOMSRvpteVQGNZMEw3TK8ELBc9vPrFEqXCXcWCXBfJ45RzGcfw32jxrsUXpNGEXr3nJgUrOOo9FwaomVcHSmD60kvhEQ1Neu1dJXvGwusGNpKlM5pdQ+vt8ep1nPe/XGgLGfQCxLIi8pcYGsEW8ejGANI9ORaykyTQXrsOazzxVta9Tex2+JcreDtTp5yvjR3aMzA0NEBFaSeFKqRmUicLqKiGMbuzArCQy0AvNahiONNkptZjhin0/YzzjHEceuCKOk+NByTZouFbHfzNx+eSrP2WoKcJFZlDR1cGNfq/goKbvRphelKcDc1u/kre88ksBbz8X4fuCmJsKPgJaDvB9p5Cpz3yuJ+0a9CzAYKtMzB/Az9WA+cgYR1+5s3A6hjSlsBnqyLCfVyo5j3F5h15jCRDVST3QIvBeeX7blWLhzWR0slHAn819cgTKXeELn6uT2YBmDdGCo8OKgCAce6MyQLLlYcvkgMRJdwvkJEPPEFV5RU=
+      - "${SLACK_TOKEN}"
     on_success: always
     on_failure: always
     template:
