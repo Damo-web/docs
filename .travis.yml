@@ -35,7 +35,6 @@ branches:
 
 notifications:
   slack: totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB
-    on_success: always
 
 env:
  global:
