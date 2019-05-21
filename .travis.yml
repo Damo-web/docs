@@ -34,7 +34,7 @@ branches:
     - master
 
 notifications:
-  slack: '<SLACK_ACCOUNT>:<SLACK_TOKEN>'
+  slack: '${SLACK_ACCOUNT}:${SLACK_TOKEN}'
 
 env:
  global:
