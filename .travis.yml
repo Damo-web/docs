@@ -34,9 +34,8 @@ branches:
     - master
 
 notifications:
-  slack: 
-    rooms:
-      - '${SLACK_ACCOUNT}:${SLACK_TOKEN}#web-notification'
+  slack:
+    secure: QA7uNc1cZXBnY0AjbWXsnaJvFICMuQ0rOyHtizjwX8TgPfu0FIrnwKwSOl5uKOSZPstu3wGR9TddigKxwrPLsc21EJKTqxgCw5W2QTtp2zbAZT92369ppBH16OzftXgTrcNnpCFQQtiXVKXGkD7i7Cfn8TwuCx8IjsZGWSClt3Z0JcoPxCbNGZEAEGsAs+RFhdiMkJ34vbXSDRgc2ukwbJz/Yh8dnJouCIf3Lpchcq/PO3RSCRCwill7fdbEvapZMX2GgIGyfXlk49gcKwm3DubS/3c4uwdbpC0IHsFfT1taKIM8TLcX5AQ7KgAoyhsY0yUHV7410NUAnbqXBfk465AwME7W1tyMooMELzjSwkMLbFBcL7oCEdvA6/hZhRVxg0Ci4t5wzq3M3bKUWelEL9RuFZQ2d+J4XpYc79Q6Wa2W+YsIF0YNYnIvC528I+QbfPpIjkQBORTw79TB4xhB2PWXW/lz3d3Qx9gpPsKajvmhc2KmKBZFTTxdy6/j+qvOIbjDcMAK1oD/vHGPr+UGZCxQn5Vkwz+3noB2XfakKt1ru/X0yuh7SC5oY5f4W24gWtbKSg/UeC8Wf3dPTo0/FJgOqOcOcrELlUolPohOKf2Dv4L1K84eFDCZpCqMGMO97JgFY/ONajMxX/9DmTCOsMXK7T9Ihj3C1g2pK+h6d1g=
 
 env:
  global:
