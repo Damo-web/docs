@@ -1,44 +1,31 @@
 language: node_js
 node_js: stable
-
-# Travis-CI Caching
 cache:
   directories:
-    - node_modules
-
-
-# S: Build Lifecycle
+  - node_modules
 install:
-  - yarn install
-
-before_script:
-
-# 无其他依赖项所以执行npm run build 构建就行了
+- yarn install
+before_script: 
 script:
-  - yarn build
-
+- yarn build
 after_script:
-  - cd ./dist
-  - ls
-  - git init
-  - git config user.name "${USERNAME}"
-  - git config user.email "${EMAIL}"
-  - git add -A
-  - git commit -m "deploy"
-  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
-# E: Build LifeCycle
-
-#指定分支，只有指定的分支提交时才会运行脚本
+- cd ./dist
+- ls
+- git init
+- git config user.name "${USERNAME}"
+- git config user.email "${EMAIL}"
+- git add -A
+- git commit -m "deploy"
+- git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 branches:
   only:
-    - master
-
+  - master
 notifications:
-  slack: totorocorp:k4RhBu6TpTLBdQ1hPTKMSglB
-
+  slack:
+    secure: jP0aAViVQDuDRj63LzlFwDnoQQWUb5jRe+hD9C0Xr8hTLH3WH8E/Pa9di1arVBLk49ZXtNpUHRi3gxMMQhf0Y4V1XMrk0cvFUVKLfaz5suTuvRviU5RzE5y/9eY7x0dt56p/MasZ9Ed2E5ByaAV+7TVpZBVcTfoxsSuXfTLrC4vRWZnBgQc/0FPqTOKP5rw+Bq1KoxBDgjhnOUl2Q86KwsEqx2fLs6nOXWtd+SCduNNOQjw5TOJkxy1wq0OZttE1HA49RhYyPZnjqEhawUSQ8FE6cQvZPgK5hVzja7HndYewSSurbJ3SiRuYFRmuh6VKBJMYyeQlYI4DhIyfxJAHJ2Zav98xkbnJMLHevWaOlHFKp90Gk248fjExRoqXVK0/l6oGp56JA28pRzTCznTVKi8lVAL7gp462LxTScklsGyc9FvaPKkf77y46dQPqTSIOaTNI+7BUkppdw09JzRQ1ZzUS/xj3cAtpD+uQGeCnaDz/FzbDH55d+3phS0+bZqpwpa2lq+skWl+iyyBP3w/X/BMsN4bZ+4KB4EcJNaRqFSxo+vDHHxNabTQz3U9wPAcAjKDLd76pyv4sOuOElVOtaDUu7q/GxnYCdWM5cqrxcxK3/5vsVuc9ykfyJzqqLn+5OK//vNSuTKSIxaDUo8Y0i4f7NchqEO8T/BIbc2L2sQ=
 env:
- global:
-   - USERNAME: snowball1990
-   - EMAIL: snowballer0705@gmail.com
-   - GH_REF: github.com/Damo-web/docs.git
-   - BRANCHNAME: gh-pages
+  global:
+  - USERNAME: snowball1990
+  - EMAIL: snowballer0705@gmail.com
+  - GH_REF: github.com/Damo-web/docs.git
+  - BRANCHNAME: gh-pages
