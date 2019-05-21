@@ -1,3 +1,3 @@
 # Static Page Generator
 
-敬请期待！
+敬请期待中！
