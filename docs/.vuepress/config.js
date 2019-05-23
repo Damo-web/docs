@@ -113,8 +113,8 @@ module.exports = {
           'eslint',
           'stylelint',
           'easymock',
-          'staticPage',
-          'slack'
+          'staticsite',
+          'ci'
         ]
       }],
       '/render/': [{
