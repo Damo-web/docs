@@ -28,7 +28,8 @@ notifications:
     on_failure: always
     template:
     - Repo `%{repository_slug}`build (<%{build_url}|#%{build_number}>) for commit
-      (<%{compare_url}|%{commit}>) on branch `%{branch}` by `%{author}`.
+      (<%{compare_url}|%{commit}>) 
+    - on branch `%{branch}` by `%{author}`.
     - 'Execution time: *%{duration}*'
     - 'Message: %{message}'
 env:
