@@ -30,8 +30,8 @@ notifications:
     - Repo `%{repository_slug}`build (<%{build_url}|#%{build_number}>) for commit
       (<%{compare_url}|%{commit}>) 
     - on branch `%{branch}` by `%{author}`.
-    - 'Execution time: *%{duration}*'
-    - 'Message: %{message}'
+    - Execution time: *%{duration}*
+    - Message: *%{message}*
 env:
   global:
   - USERNAME: snowball1990
