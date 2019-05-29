@@ -105,6 +105,17 @@ Starting jenkins (via systemctl):                          [  OK  ]
 
 6. 配置 Github 服务
 
+    Github 服务器相关配置主要利用 Github Webhook 来触发 Jenkins 任务的构建。
+
+    首先需要生成 Github Personal Access Token，细节可参阅：[Github | creating-a-personal-access-token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line#creating-a-token)
+
+    其次配置 Jenkins 凭据以供 Github 服务器使用：
+
+    ![](./img/jenkins_7.png)
+
+    再者，补充相关服务器信息，选择刚创建的凭据进行连接测试，如下图所示，即为服务器配置成功：
+
+    ![](./img/jenkins_8.png)
 
 7. 配置 SSH 秘钥
 
