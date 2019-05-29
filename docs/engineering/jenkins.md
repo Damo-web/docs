@@ -103,28 +103,100 @@ Starting jenkins (via systemctl):                          [  OK  ]
    
    ![](./img/jenkins_6.png)
 
-6. 配置 Github 服务
+6. 配置 Github Webhook
 
     Github 服务器相关配置主要利用 Github Webhook 来触发 Jenkins 任务的构建。
 
     首先需要生成 Github Personal Access Token，细节可参阅：[Github | creating-a-personal-access-token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line#creating-a-token)
 
-    其次配置 Jenkins 凭据以供 Github 服务器使用：
+    其次配置包含 Github Personal Access Token 的 Jenkins 凭据以供 Github 服务器使用：
 
     ![](./img/jenkins_7.png)
 
-    再者，补充相关服务器信息，选择刚创建的凭据进行连接测试，如下图所示，即为服务器配置成功：
+    再者，补充相关服务器信息，选择刚创建的凭据进行连接测试，如下图所示，即为 Github 服务器配置成功：
 
     ![](./img/jenkins_8.png)
 
+    Github 服务器配置成功后，进入项目配置页，如下图配置即完成 Github Webhook 的全部配置工作：
+
+    ![](./img/jenkins_9.png)
+
 7. 配置 SSH 秘钥
 
+    通常利用 ssh-keygen 来生成秘钥对：
+
+    ```bash
+    # 执行命令，下述结果仅为执行参考
+    ssh-keygen
+
+    # 执行结果
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/root/.ssh/id_rsa):
+    # passphrase 为 key 的密码，默认设置空 ，表示不需要密码
+    Enter passphrase (empty for no passphrase): 
+    Enter same passphrase again: 
+    Your identification has been saved in /root/.ssh/id_rsa.
+    Your public key has been saved in /root/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    SHA256:YwhPC9gxq6OPmVJ7XYiKI257bSPPnfpdBc root@snowball
+    The key's randomart image is:
+    +---[RSA 2048]----+
+    |   o*o           |
+    |  oo.=.          |
+    | =o=..          |
+    |+ o.o=+o.        |
+    | +o. ++oS.E      |
+    |..+.. .. . .     |
+    |.o + .... .      |
+    | +=.oo+. .       |
+    |++==+=.          |
+    +----[SHA256]-----+   
+
+    # 查看私钥
+    cat /root/.ssh/id_rsa
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAKCAQEAs1rxWQZzK+pOLbXY7vdLMoMfA85QVavrwuR06RksLImlFiXj
+    lDLhmYZUUijspp1Zw775+9VQxldejiCsL3mhzWSJPJ9wO5TJi1CXLn5QsEjY39dC
+    s5SEVq1EhqnVN0fjQqHaJn8GOOfy5bvzyTmV8WgO8Pl4CeR5vuuQbRYFDP+rjQnH
+    zLpeq73FiWASMRT5vIrZ1Rk92JoGN7TtBdI3ipP+O1kMimO0sATB9Rruww+lpuuZ
+    63jbHjPfmY24czMHbtbkpNjyDZNyvC7Mi2RNuIwcDkz4LQOJuWni
+    -----END RSA PRIVATE KEY-----
+
+    # 查看公钥
+    cat id_rsa.pub
+    ssh-rsa AAAAB3NzaC1yc2EAA2gQNDCo99NsjZzrkYYRZ4Uohrgt8LPXxTF0Zr3 root@snowball
+    ```
+
+    在 Jenkins 下新建全局凭据，添加私钥，如下图所示：
+
+    > 凭据 => 系统 => 全局凭据
+
+    ![](./img/jenkins_10.png)
+
+    在 Github 仓库下新建 Deploy keys ，添加公钥，如下图所示：
+
+    ![](./img/jenkins_11.png)
 
 8. 配置 Git 仓库
+
+    当配置好 Github Webhook 和 SSH 秘钥，就可以进入项目配置页，配置 Git 仓库来拉取及推送代码（ 推荐采用 SSH ）：
+
+    ![](./img/jenkins_12.png)
 
 
 9. 配置 Shell 命令
 
+    进入项目配置页，配置 Shell 环境变量及命令，用来执行构建任务：
+
+    ![](./img/jenkins_13.png)
+
+    至此，Jenkins 已可以通过源代码 push 事件实现自动化部署静态博客。
+
+    当然，可以对部署配置做一些简单优化，如下：
+
+    ![](./img/jenkins_14.png)
+
+    ![](./img/jenkins_15.png)
 
 10. 配置 Slack 通知
 
