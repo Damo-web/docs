@@ -114,7 +114,11 @@ module.exports = {
           'stylelint',
           'easymock',
           'staticsite',
-          'ci'
+          'ci',
+          'jenkins',
+          'drone',
+          'circle',
+          'travis'
         ]
       }],
       '/render/': [{
