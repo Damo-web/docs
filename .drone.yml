@@ -1,0 +1,56 @@
+---
+kind: pipeline
+name: drone
+
+steps:
+  - name: install
+    image: node
+    commands:
+      # https://github.com/yarnpkg/yarn/issues/5163
+      # - yarn cache clean
+      - yarn install
+  - name: build
+    image: node
+    commands:
+      - yarn build
+  - name: deploy
+    image: node
+    commands:
+      - cd ./dist
+      - ls
+      - git init
+      - git config user.name $${USERNAME}
+      - git config user.email $${EMAIL}
+      - git add -A
+      - git commit -m "[skip ci] deploy"
+      - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
+    environment:
+      USERNAME:
+        from_secret: USERNAME
+      EMAIL:
+        from_secret: EMAIL
+      GH_REF:
+        from_secret: GH_REF
+      GH_TOKEN:
+        from_secret: GH_TOKEN
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: SLACK_WEB_HOOK
+      channel: web-notification
+      template: >
+        {{#success build.status}}
+         Repo `{{repo.name}}`build (<{{build.link}}|#{{build.number}}>) for commit(<{{build.link}}|{{truncate build.commit 7}}>) 
+         on branch `{{build.branch}}` by `{{build.author}}`
+         Execution time: *{{since job.started}}*
+         Message: *The build {{build.status}}*
+        {{else}}
+          build {{build.number}} failed. Fix me please.
+        {{/success}} 
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
