@@ -247,13 +247,3 @@ Starting jenkins (via systemctl):                          [  OK  ]
 - [Jenkins打造强大的前端自动化工作流](https://juejin.im/post/5ad1980e6fb9a028c42ea1be)
 
 - [Jenkins 自动化部署实践](https://juejin.im/post/5c1a3282f265da61764ad51a)
-
-
-
-
-
-
-
-
-
-
