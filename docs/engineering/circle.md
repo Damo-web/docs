@@ -115,11 +115,17 @@ Circle CI 是一个用 Clojure 语言开发的基于容器运行的持续集成�
 
 - [commit message to skip ci](https://discuss.circleci.com/t/adding-circle-skip-to-commit-message-to-skip/2778)
 
+- [Generating a new SSH key and adding it to the ssh-agent](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+- [Configuring Deploys](https://circleci.com/docs/2.0/deployment-integrations/)
+
 - [使用 CircleCI 2.0 Workflows 挑戰三倍速](https://medium.com/@evenchange4/%E4%BD%BF%E7%94%A8-circleci-2-0-workflows-%E6%8C%91%E6%88%B0%E4%B8%89%E5%80%8D%E9%80%9F-9691e54b0ef0)
 
 - [使用 CircleCI 自动部署博客](https://halu.lu/post/auto-deploy-with-circleci/)
 
 - [CircleCI 实践 gh-pages 部署](https://hddhyq.github.io/2019/01/31/CircleCI%E5%AE%9E%E8%B7%B5gh-pages%E9%83%A8%E7%BD%B2/)
+
+- [如何使用 CircleCI for GitHub Pages 持续部署](https://juejin.im/post/5c41de1b51882525ea108983)
 
 
    
