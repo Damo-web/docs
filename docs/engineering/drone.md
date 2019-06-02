@@ -176,6 +176,10 @@ Drone 是一个用 Go 语言开发的基于容器运行的开源持续集成软�
 
 1. 浏览器访问 Drone CI 服务，点击<code>SYNC</code>按钮同步授权仓库信息
 
+  :::tip 提示
+  除了本地部署服务以外，官方同时提供了 [Drone CI 云服务](https://cloud.drone.io/)
+  :::
+
 2. 选择需要激活 Drone CI 服务的仓库，如下：
 
    ![](./img/drone_3.png)
