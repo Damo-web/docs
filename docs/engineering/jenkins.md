@@ -226,7 +226,8 @@ Starting jenkins (via systemctl):                          [  OK  ]
 
      ![](./img/jenkins_19.png)
 
-     
+     至此构建完成时，便会发送构建相关信息通知到 Slack 对应的频道。
+
 ## 参考链接
 
 - [Setup Jenkins on CentOS](https://medium.com/appgambit/setup-jenkins-on-centos-with-docker-for-selenium-b7dba07b9ffa)

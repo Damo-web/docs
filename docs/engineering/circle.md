@@ -105,6 +105,8 @@ Circle CI 是一个用 Clojure 语言开发的基于容器运行的持续集成�
 
    ![](./img/circle_7.png)
 
+   至此构建完成时，便会发送构建相关信息通知到 Slack 对应的频道。
+
 ## 参考链接
 
 - [CircleCI](https://circleci.com/docs/)
