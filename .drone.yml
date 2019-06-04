@@ -72,7 +72,7 @@ trigger:
     - push
 
 
-volumes:
-- name: cache
-  host:
-    path: /var/lib/docker/tmp
+# volumes:
+# - name: cache
+#   host:
+#     path: /var/lib/docker/tmp
