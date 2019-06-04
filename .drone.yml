@@ -2,20 +2,15 @@ kind: pipeline
 name: drone
 
 steps:
-  - name: restore-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
-    settings:
-      backend: "filesystem"
-      restore: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - ./node_modules
-    volumes:
-    - name: cache
-      path: /tmp/cache
+  - name: restore-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      restore: true  
+      mount:  
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache  
 
   - name: install
     image: node
@@ -48,20 +43,15 @@ steps:
         from_secret: GH_REF
       GH_TOKEN:
         from_secret: GH_TOKEN
-  - name: rebuild-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
-    settings:
-      backend: "filesystem"
-      rebuild: true
-      cache_key: "volume"
-      archive_format: "gzip"  
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - ./node_modules
-    volumes:
-    - name: cache
-      path: /tmp/cache
+  - name: rebuild-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      rebuild: true  
+      mount:    
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache
   - name: slack
     image: plugins/slack
     settings:
