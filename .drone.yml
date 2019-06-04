@@ -16,8 +16,7 @@ steps:
       mount:
         - 'vendor'
     volumes:
-    - name: cache
-      path: /tmp/cache
+      - /tmp/cache:/cache
 
   - name: install
     image: node
@@ -76,8 +75,7 @@ steps:
       mount:
         - 'vendor'
     volumes:
-    - name: cache
-      path: /tmp/cache
+      - /tmp/cache:/cache
 
 trigger:
   branch:
@@ -86,6 +84,6 @@ trigger:
     - push
 
 
-volumes:
-- name: cache
-  temp: {}
+# volumes:
+# - name: cache
+#   temp: {}
