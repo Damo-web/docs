@@ -22,8 +22,8 @@ steps:
   - name: install
     image: node
     volumes:
-    - name: cache
-      path: /tmp/cache
+      - name: cache
+        path: /tmp/cache
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
@@ -66,7 +66,7 @@ steps:
          Message: *The build {{build.status}}*
         {{else}}
           build {{build.number}} failed. Fix me please.
-        {{/success}} 
+        {{/success}}
   # - name: rebuild-cache-with-filesystem
   #   image: meltwater/drone-cache:dev
   #   pull: true
@@ -88,8 +88,7 @@ trigger:
   event:
     - push
 
-
 volumes:
-- name: cache
-  host:
-    path: /var/lib/cache
+  - name: cache
+    host:
+      path: /var/lib/cache
