@@ -8,6 +8,7 @@ steps:
     pull: true
     settings:
       backend: "filesystem"
+      debug: true
       restore: true
       cache_key: "volume"
       archive_format: "gzip"
