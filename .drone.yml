@@ -23,6 +23,20 @@ steps:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
       - yarn install
+  - name: rebuild-cache-with-filesystem
+    image: meltwater/drone-cache:dev
+    pull: true
+    settings:
+      backend: "filesystem"
+      rebuild: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      # filesystem_cache_root: "/tmp/cache"
+      mount:
+        - 'vendor'
+    volumes:
+    - name: cache
+      path: /tmp/cache
   - name: build
     image: node
     commands:
@@ -62,20 +76,6 @@ steps:
         {{else}}
           build {{build.number}} failed. Fix me please.
         {{/success}} 
-  - name: rebuild-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
-    settings:
-      backend: "filesystem"
-      rebuild: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
-    volumes:
-    - name: cache
-      path: /tmp/cache
 
 trigger:
   branch:
