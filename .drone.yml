@@ -78,4 +78,4 @@ trigger:
 volumes:
 - name: cache
   host:
-    path: ~/tmp/drone/cache
+    path: /tmp/drone/cache
