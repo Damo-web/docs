@@ -88,4 +88,4 @@ trigger:
 volumes:
   - name: cache
     host:
-      path: /var
+      path: /var/drone-cache
