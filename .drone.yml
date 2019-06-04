@@ -11,7 +11,7 @@ steps:
         - ./node_modules
     volumes:
     - name: cache
-      path: ./cache
+      path: /cache
 
   - name: install
     image: node
