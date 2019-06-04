@@ -89,4 +89,4 @@ trigger:
 volumes:
   - name: cache
     host:
-      path: /var/lib/cache 
+      path: /var/lib/docker/volumes
