@@ -25,6 +25,7 @@ steps:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
       - cd ../
+      - cd ../
       - ls
       - exit
       - yarn install
