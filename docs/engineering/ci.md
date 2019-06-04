@@ -256,6 +256,8 @@ CI 工具的构建速度可参考下图：
 
 - [如何理解持续集成、持续交付、持续部署？](https://www.zhihu.com/question/23444990)
 
+- [Docker 容器环境下的持续集成最佳实践：构建基于 Drone + GitFlow + K8s 的云原生语义化 CI 工作流](https://avnpc.com/pages/drone-gitflow-kubernetes-for-cloud-native-ci)
+
 - [The Product Managers’ Guide to Continuous Delivery and DevOps](https://www.mindtheproduct.com/2016/02/what-the-hell-are-ci-cd-and-devops-a-cheatsheet-for-the-rest-of-us/)
 
 - [Using Workflows to Schedule Jobs](https://circleci.com/docs/2.0/workflows/?mkt_tok=eyJpIjoiWm1VMU16Z3pNak5qWVdJeCIsInQiOiJqNmlWMXYzZmVJUGVMdWo4MXU1aWwzK1wvc2ZoNUl4YmJxTFwvbGVLaEF0cFwvS1dYaGN0YWRWNW1VUEhYMGdmSStYTXo2cGgxY3ZFc1U1R0pTZ3l3U2hVZlFrK3d2NzFHSDl0WTU5ak1XejYxcFI5N1BLbk1TdERhcVpOSGhIV2NqWSJ9)
