@@ -73,3 +73,8 @@ trigger:
     - master
   event:
     - push
+
+volumes:
+  - name: cache
+      host:
+        path: /tmp/drone/cache
