@@ -3,27 +3,29 @@ kind: pipeline
 name: drone
 
 steps:
-  - name: restore-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
-    settings:
-      backend: "filesystem"
-      debug: true
-      restore: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
-    volumes:
-    - name: cache
-      path: /tmp/cache
+  # - name: restore-cache-with-filesystem
+  #   image: meltwater/drone-cache:dev
+  #   pull: true
+  #   settings:
+  #     backend: "filesystem"
+  #     debug: true
+  #     restore: true
+  #     cache_key: "volume"
+  #     archive_format: "gzip"
+  #     # filesystem_cache_root: "/tmp/cache"
+  #     mount:
+  #       - 'vendor'
+  #   volumes:
+  #   - name: cache
+  #     path: /tmp/cache
 
   - name: install
     image: node
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
+      - ls
+      - exit
       - yarn install
   - name: build
     image: node
@@ -64,20 +66,20 @@ steps:
         {{else}}
           build {{build.number}} failed. Fix me please.
         {{/success}} 
-  - name: rebuild-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
-    settings:
-      backend: "filesystem"
-      rebuild: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
-    volumes:
-    - name: cache
-      path: /tmp/cache
+  # - name: rebuild-cache-with-filesystem
+  #   image: meltwater/drone-cache:dev
+  #   pull: true
+  #   settings:
+  #     backend: "filesystem"
+  #     rebuild: true
+  #     cache_key: "volume"
+  #     archive_format: "gzip"
+  #     # filesystem_cache_root: "/tmp/cache"
+  #     mount:
+  #       - 'vendor'
+  #   volumes:
+  #   - name: cache
+  #     path: /tmp/cache
 
 trigger:
   branch:
@@ -86,7 +88,7 @@ trigger:
     - push
 
 
-volumes:
-- name: cache
-  host:
-    path: /var/lib/drone/cache/
+# volumes:
+# - name: cache
+#   host:
+#     path: /var/lib/drone/cache/
