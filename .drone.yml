@@ -3,20 +3,27 @@ kind: pipeline
 name: drone
 
 steps:
-  - name: restore-cache
-    image: drillster/drone-volume-cache
-    restore: true
-    mount:
-      - ./node_modules
+  - name: restore-cache-with-filesystem
+    image: meltwater/drone-cache:dev
+    pull: true
+    settings:
+      backend: "filesystem"
+      debug: true
+      restore: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      # filesystem_cache_root: "/tmp/cache"
+      mount:
+        - 'vendor'
     volumes:
-      - /var/local/drone-cache:/cache
+    - name: cache
+      path: /tmp/cache
 
   - name: install
     image: node
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
-      - yarn config set registry 'https://registry.npm.taobao.org'
       - yarn install
   - name: build
     image: node
@@ -57,13 +64,20 @@ steps:
         {{else}}
           build {{build.number}} failed. Fix me please.
         {{/success}} 
-  - name: rebuild-cache
-    image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - ./node_modules
+  - name: rebuild-cache-with-filesystem
+    image: meltwater/drone-cache:dev
+    pull: true
+    settings:
+      backend: "filesystem"
+      rebuild: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      # filesystem_cache_root: "/tmp/cache"
+      mount:
+        - 'vendor'
     volumes:
-      - /var/local/drone-cache:/cache
+    - name: cache
+      path: /tmp/cache
 
 trigger:
   branch:
@@ -72,7 +86,6 @@ trigger:
     - push
 
 
-# volumes:
-# - name: cache
-#   host:
-#     path: /var/lib/docker/tmp
+volumes:
+- name: cache
+  temp: {}
