@@ -2,20 +2,16 @@ kind: pipeline
 name: drone
 
 steps:
-  - name: restore-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
+  - name: load-yarn-cache
+    image: sinlead/drone-cache:1.0.0
     settings:
-      backend: "filesystem"
-      restore: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
+      action: load
+      key: yarn.lock
+      mount: node_modules
+      prefix: yarn-modules-v1
     volumes:
-    - name: cache
-      path: /tmp/cache
+      - name: cache
+        path: /cache
 
   - name: install
     image: node
@@ -23,6 +19,17 @@ steps:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
       - yarn install
+  # save installed node_modules to cache
+  - name: save-yarn-cache
+    image: sinlead/drone-cache:1.0.0
+    settings:
+      action: save
+      key: yarn.lock
+      mount: node_modules
+      prefix: yarn-modules-v1
+    volumes:
+      - name: cache
+        path: /cache
   - name: build
     image: node
     commands:
@@ -62,20 +69,6 @@ steps:
         {{else}}
           build {{build.number}} failed. Fix me please.
         {{/success}} 
-  - name: rebuild-cache-with-filesystem
-    image: meltwater/drone-cache:dev
-    pull: true
-    settings:
-      backend: "filesystem"
-      rebuild: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
-    volumes:
-    - name: cache
-      path: /tmp/cache
 
 trigger:
   branch:
@@ -84,6 +77,8 @@ trigger:
     - push
 
 
+# the cache storage at your host
 volumes:
   - name: cache
-    temp: {}
+    host:
+      path: /tmp/cache
