@@ -11,7 +11,7 @@ steps:
         - ./node_modules
     volumes:
     - name: cache
-      path: /cache
+      path: ./cache
 
   - name: install
     image: node
@@ -74,8 +74,8 @@ trigger:
   event:
     - push
 
-    
+
 volumes:
 - name: cache
   host:
-    path: /tmp/drone/cache
+    path: ~/tmp/drone/cache
