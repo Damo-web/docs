@@ -12,7 +12,7 @@ steps:
       archive_format: "gzip"
       # filesystem_cache_root: "/tmp/cache"
       mount:
-        - 'vendor'
+        - ./node_modules
     volumes:
     - name: cache
       path: /tmp/cache
@@ -22,6 +22,7 @@ steps:
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
+      - yarn config set registry 'https://registry.npm.taobao.org'
       - yarn install
   - name: rebuild-cache-with-filesystem
     image: meltwater/drone-cache:dev
@@ -33,7 +34,7 @@ steps:
       archive_format: "gzip"
       # filesystem_cache_root: "/tmp/cache"
       mount:
-        - 'vendor'
+        - ./node_modules
     volumes:
     - name: cache
       path: /tmp/cache
