@@ -10,8 +10,8 @@ steps:
       mount:
         - ./node_modules
     volumes:
-      - name: cache
-          path: /cache
+    - name: cache
+      path: /cache
 
   - name: install
     image: node
@@ -65,8 +65,8 @@ steps:
       mount:
         - ./node_modules
     volumes:
-        - name: cache
-            path: /cache
+    - name: cache
+      path: /cache
 
 trigger:
   branch:
@@ -75,6 +75,6 @@ trigger:
     - push
 
 volumes:
-  - name: cache
-      host:
-        path: /tmp/drone/cache
+- name: cache
+  host:
+    path: /tmp/drone/cache
