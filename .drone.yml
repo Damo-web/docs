@@ -88,4 +88,5 @@ trigger:
 
 volumes:
   - name: cache
-    temp: {}
+    host:
+      path: /var/lib/cache 
