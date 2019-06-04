@@ -3,6 +3,16 @@ kind: pipeline
 name: drone
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    settings:
+      restore: true
+      mount:
+        - ./node_modules
+    volumes:
+      - name: cache
+          path: /cache
+
   - name: install
     image: node
     commands:
@@ -48,6 +58,15 @@ steps:
         {{else}}
           build {{build.number}} failed. Fix me please.
         {{/success}} 
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    settings:
+      rebuild: true
+      mount:
+        - ./node_modules
+    volumes:
+        - name: cache
+            path: /cache
 
 trigger:
   branch:
