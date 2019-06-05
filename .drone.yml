@@ -35,7 +35,7 @@ steps:
       - git config user.name $${USERNAME}
       - git config user.email $${EMAIL}
       - git add -A
-      - git commit -m "[skip ci] deploy"
+      - git commit -m "[CLEAR CACHE] deploy"
       - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
     environment:
       USERNAME:
