@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "vuepress dev docs",
     "build": "vuepress build docs",
-    "pre-run": "./node_modules/install-changed/bin/install-changed"
+    "pre-run": "bininstall-changed"
   },
   "dependencies": {
     "@vuepress/plugin-back-to-top": "^1.0.0-beta.2",
