@@ -118,7 +118,8 @@ module.exports = {
           'jenkins',
           'drone',
           'circle',
-          'travis'
+          'travis',
+          'build'
         ]
       }],
       '/render/': [{
