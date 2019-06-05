@@ -25,7 +25,6 @@ steps:
     commands:
       - yarn build
   - name: deploy
-    image: node
     commands:
       - cd ./dist
       - ls
