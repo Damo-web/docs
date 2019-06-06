@@ -17,7 +17,7 @@ steps:
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
-      - ./pre-install
+      - bash ./pre-install.sh
       # - rm -rf ./node_modules
       # - yarn install
       # - yarn pre-run
