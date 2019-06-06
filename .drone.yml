@@ -17,8 +17,9 @@ steps:
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
-      - rm -rf ./node_modules
-      - yarn install
+      - ./pre-install
+      # - rm -rf ./node_modules
+      # - yarn install
       # - yarn pre-run
       # - git diff HEAD~2 HEAD -- yarn.lock
       # - yarn config set registry 'https://registry.npm.taobao.org'
