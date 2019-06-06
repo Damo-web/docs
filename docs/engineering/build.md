@@ -27,3 +27,9 @@
 - [Drone将VUE项目持续部署到阿里云OSS](http://trylife.cn/drone-ci/vue-continuous-deploy-to-aliyun-oss/)
 
 - [容器环境持续集成优化，Drone CI 提速 500%](https://avnpc.com/pages/speed-up-drone-ci-workflow)
+
+- [npm install if package.json was modified](https://stackoverflow.com/questions/52466740/npm-install-if-package-json-was-modified)
+
+- [Git - show file diff between HEAD and initial (first) version](https://stackoverflow.com/questions/41371090/git-show-file-diff-between-head-and-initial-first-version)
+
+- [Finding diff between current and last version?](https://stackoverflow.com/questions/9903541/finding-diff-between-current-and-last-version)
