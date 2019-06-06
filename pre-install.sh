@@ -9,6 +9,8 @@ if [ -n "$changes" ]; then
     rm -rf ./node_modules
     yarn install
 else
+    echo ""
+    echo "*** CHANGES NOT FOUND ***"
     echo "Yarn.lock has not changed"
     yarn install
 fi
