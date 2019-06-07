@@ -17,12 +17,14 @@ steps:
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
+      - yarn config set registry https://registry.yarnpkg.com
+      - yarn config get registry
       - bash ./pre-install.sh
       # - yarn pre-run
       # - git diff HEAD~2 HEAD -- yarn.lock
       # - yarn config set registry 'https://registry.npm.taobao.org'
       # - yarn install --production=true
-      
+
   - name: build
     image: node
     commands:
