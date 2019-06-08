@@ -19,7 +19,7 @@ steps:
       # - yarn cache clean
       # - netstat -tanpl|grep 8118
       - /sbin/ip route|awk '/default/ { print $3 }'
-      - export all_proxy=socks5://172.17.0.1:1080
+      - export all_proxy=socks5://192.168.32.1:1080
       - curl ip.gs
       # - yarn config set registry https://registry.yarnpkg.com
       - yarn config get registry
