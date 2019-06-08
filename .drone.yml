@@ -18,8 +18,7 @@ steps:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
       # - netstat -tanpl|grep 8118
-      - sockip=$(/sbin/ip route|awk '/default/ { print $3 }')
-      - export all_proxy="socks5://$sockip:1080"
+      - ping 172.17.0.1
       - curl ip.gs
       # - yarn config set registry https://registry.yarnpkg.com
       - yarn config get registry
