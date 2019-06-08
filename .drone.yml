@@ -18,7 +18,7 @@ steps:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
       # - netstat -tanpl|grep 8118
-      - export ALL_PROXY=http://45.76.84.10:3000 
+      - export ALL_PROXY=socks5://172.17.0.1:1080 
       - curl ip.gs
       # - yarn config set registry https://registry.yarnpkg.com
       - yarn config get registry
