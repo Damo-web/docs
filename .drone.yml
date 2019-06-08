@@ -17,6 +17,7 @@ steps:
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
+      - docker network ls
       - curl ip.gs
       - curl www.google.com
       # - yarn config set registry https://registry.yarnpkg.com
