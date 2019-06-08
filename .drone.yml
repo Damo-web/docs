@@ -17,6 +17,7 @@ steps:
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
       # - yarn cache clean
+      - netstat -tanpl|grep 8118
       - curl ip.gs
       # - yarn config set registry https://registry.yarnpkg.com
       - yarn config get registry
