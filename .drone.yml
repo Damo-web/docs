@@ -19,7 +19,7 @@ steps:
       # - yarn cache clean
       - curl ip.gs
       # - yarn config set registry https://registry.yarnpkg.com
-      # - yarn config get registry
+      - yarn config get registry
       - bash ./pre-install.sh
       # - yarn pre-run
       # - git diff HEAD~2 HEAD -- yarn.lock
