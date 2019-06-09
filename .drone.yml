@@ -19,6 +19,8 @@ steps:
       # - yarn cache clean
       # - yarn config set registry https://registry.yarnpkg.com
       # - yarn config get registry
+      - export all_proxy=http://172.17.0.1:8118
+      - curl ip.gs
       - bash ./pre-install.sh
       # - yarn pre-run
       # - git diff HEAD~2 HEAD -- yarn.lock
