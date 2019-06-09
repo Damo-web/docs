@@ -34,10 +34,9 @@ steps:
   - name: deploy
     image: node
     commands:
-      - export all_proxy=http://172.17.0.1:8118
       - curl ip.gs
-      - git config --global http.proxy http://172.17.0.1:8118
-      - git config --global https.proxy http://172.17.0.1:8118
+      - git config --global http.proxy unset
+      - git config --global https.proxy unset
       - cd ./dist
       - ls
       - git init
