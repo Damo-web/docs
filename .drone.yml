@@ -35,8 +35,8 @@ steps:
     image: node
     commands:
       - curl ip.gs
-      - git config --global http.proxy unset
-      - git config --global https.proxy unset
+      - git config --global --unset http.proxy
+      - git config --global --unset https.proxy
       - cd ./dist
       - ls
       - git init
