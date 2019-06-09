@@ -36,7 +36,7 @@ steps:
     commands:
       - export all_proxy=http://172.17.0.1:8118
       - curl ip.gs
-      - git config --global http.https://github.com.proxy http://172.17.0.1:8118
+      - git config --global --unset http.https://github.com.proxy
       - cd ./dist
       - ls
       - git init
