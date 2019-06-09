@@ -34,6 +34,7 @@ steps:
   - name: deploy
     image: node
     commands:
+      - export all_proxy=http://172.17.0.1:8118
       - curl ip.gs
       - cd ./dist
       - ls
