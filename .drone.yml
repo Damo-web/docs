@@ -68,9 +68,12 @@ steps:
         from_secret: RSYNC_USER
       REMOTE_HOST:
         from_secret: REMOTE_HOST
+      REMOTE_HOST2:
+        from_secret: REMOTE_HOST2
     settings:
       hosts:
         - $$REMOTE_HOST
+        - $$REMOTE_HOST2
       source: ./dist
       target: ~/packages
   - name: slack
