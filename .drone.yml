@@ -78,7 +78,7 @@ steps:
       target: ~/nginx
       script:
         - curl ip.gs
-        - ls
+        - cd ~/nginx
         - docker build -t damo-docs .
         - docker run -d -p 80:80 damo-docs
   - name: slack
