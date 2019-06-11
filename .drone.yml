@@ -79,8 +79,8 @@ steps:
       script:
         - cd ~/nginx
         - docker images
-        # - docker stop nginx
-        # - docker rmi nginx
+        - docker stop web-server
+        - docker rmi web-server
         - docker build -t damo-docs .
         - docker run -d -p 3080:80 --name web-server damo-docs
   - name: slack
