@@ -78,6 +78,7 @@ steps:
       target: ~/nginx
       script:
         - cd ~/nginx
+        - docker image
         - docker stop damo-docs
         - docker rmi damo-docs
         - docker build -t damo-docs .
