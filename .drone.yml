@@ -59,6 +59,20 @@ steps:
     volumes:  
       - name: cache  
         path: /cache
+  - name: rsync
+    image: drillster/drone-rsync
+    environment:
+      RSYNC_KEY:
+        from_secret: RSYNC_KEY
+      RSYNC_USER:
+        from_secret: RSYNC_USER
+      REMOTE_HOST:
+        from_secret: REMOTE_HOST
+    settings:
+      hosts:
+        - REMOTE_HOST
+      source: ./dist
+      target: ~/packages
   - name: slack
     image: plugins/slack
     settings:
