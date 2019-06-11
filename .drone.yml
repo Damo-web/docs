@@ -77,8 +77,8 @@ steps:
       source: ./dist
       target: ~/nginx
       script:
-        - docker build -t Damo-docs .
-        - docker run -d -p 80:80 Damo-docs
+        - docker build -t damo-docs .
+        - docker run -d -p 80:80 damo-docs
   - name: slack
     image: plugins/slack
     settings:
