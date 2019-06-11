@@ -75,7 +75,10 @@ steps:
         - $$REMOTE_HOST
         - $$REMOTE_HOST2
       source: ./dist
-      target: ~/packages
+      target: ~/nginx
+      script:
+        - docker build -t Damo-docs .
+        - docker run -d -p 80:80 Damo-docs
   - name: slack
     image: plugins/slack
     settings:
