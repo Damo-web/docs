@@ -70,7 +70,7 @@ steps:
         from_secret: REMOTE_HOST
     settings:
       hosts:
-        - REMOTE_HOST
+        - $$REMOTE_HOST
       source: ./dist
       target: ~/packages
   - name: slack
