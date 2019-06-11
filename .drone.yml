@@ -78,9 +78,9 @@ steps:
       target: ~/nginx
       script:
         - cd ~/nginx
-        # - docker images
-        # - docker stop damo-docs
-        # - docker rmi damo-docs
+        - docker images
+        - docker stop nginx
+        - docker rmi nginx
         - docker build -t damo-docs .
         - docker run -d -p 3000:80 --name nginx-server damo-docs
   - name: slack
