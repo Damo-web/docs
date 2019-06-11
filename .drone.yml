@@ -77,7 +77,6 @@ steps:
       source: ./dist
       target: ~/nginx
       script:
-        - curl ip.gs
         - cd ~/nginx
         - docker build -t damo-docs .
         - docker run -d -p 3000:80 damo-docs
