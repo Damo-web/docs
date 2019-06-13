@@ -59,30 +59,30 @@ steps:
     volumes:  
       - name: cache  
         path: /cache
-  - name: rsync
-    image: drillster/drone-rsync
-    environment:
-      RSYNC_KEY:
-        from_secret: RSYNC_KEY
-      RSYNC_USER:
-        from_secret: RSYNC_USER
-      REMOTE_HOST:
-        from_secret: REMOTE_HOST
-      REMOTE_HOST2:
-        from_secret: REMOTE_HOST2
-    settings:
-      hosts:
-        - $$REMOTE_HOST
-        - $$REMOTE_HOST2
-      source: ./dist
-      target: ~/nginx
-      script:
-        - cd ~/nginx
-        # - docker ps
-        - docker container stop web-server
-        - docker rm -f web-server
-        - docker build -t damo-docs .
-        - docker run -d -p 3080:80 --name web-server damo-docs
+  # - name: rsync
+  #   image: drillster/drone-rsync
+  #   environment:
+  #     RSYNC_KEY:
+  #       from_secret: RSYNC_KEY
+  #     RSYNC_USER:
+  #       from_secret: RSYNC_USER
+  #     REMOTE_HOST:
+  #       from_secret: REMOTE_HOST
+  #     REMOTE_HOST2:
+  #       from_secret: REMOTE_HOST2
+  #   settings:
+  #     hosts:
+  #       - $$REMOTE_HOST
+  #       - $$REMOTE_HOST2
+  #     source: ./dist
+  #     target: ~/nginx
+  #     script:
+  #       - cd ~/nginx
+  #       # - docker ps
+  #       - docker container stop web-server
+  #       - docker rm -f web-server
+  #       - docker build -t damo-docs .
+  #       - docker run -d -p 3080:80 --name web-server damo-docs
   - name: slack
     image: plugins/slack
     settings:
