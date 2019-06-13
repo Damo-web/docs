@@ -8,12 +8,43 @@
 
 在持续集成及发布中，缓存是一把双刃剑，一方面，想尽可能的利用缓存，提升构建速度；一方面，想废弃缓存，确保构建应用及时更新。
 
-以 Node 为例，在 build 之前，需要利用 <code>node_modules</code> 来提升安装包的速度，而在 <code>package.json</code> 发生变更时，需要清空缓存，安装新增包或更新变更包，确保应用如期运行。
+以 Node 为例，在 build 之前，需要利用 <code>node_modules</code> 来提升构建速度，而在 <code>package.json</code> 发生变更时，需要清空缓存，安装新增包或更新变更包，确保应用如期运行。
 
+以 Drone CI 为例，利用<code>drillster/drone-volume-cache</code> 插件，缓存<code>node_modules</code>用以下次构建复用，从而跳过安装包的过长等待，提升构建速度。<code>.drone.yml</code>具体配置如下：
 
-
+```yaml
+# 详细配置可查阅：https://github.com/Drillster/drone-volume-cache/blob/master/DOCS.md
+# 取出存储 cache
+- name: restore-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      restore: true  
+      mount:  
+        - ./node_modules 
+    # 加载 cache 数据卷，CI服务器对应仓库需要勾选 "Trusted" 
+    volumes:  
+      - name: cache  
+        path: /cache 
+- ...
+# 重新存储 cache
+- name: rebuild-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      rebuild: true  
+      mount:    
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache
+volumes:
+  - name: cache
+    host:
+      # 倘若 path 不存在，需要在 CI 服务器上新建相应文件夹
+      path: /var/drone-cache
+```
 
 ## 工作流
+
 
 
 ## 参考链接
