@@ -6,42 +6,107 @@
  
 缓存（ Cache ）是构建流程中必须面对的话题。
 
-在持续集成及发布中，缓存是一把双刃剑，一方面，想尽可能的利用缓存，提升构建速度；一方面，想废弃缓存，确保构建应用及时更新。
+在持续集成及发布中，缓存是一把双刃剑，一方面，想尽可能的利用缓存，提升构建速度；一方面，想废弃缓存，确保应用的新鲜度。
 
-以 Node 为例，在 build 之前，需要利用 <code>node_modules</code> 来提升构建速度，而在 <code>package.json</code> 发生变更时，需要清空缓存，安装新增包或更新变更包，确保应用如期运行。
+以 Node 为例，在 build 之前，需要利用 <code>node_modules</code> 来提升构建速度，而当 <code>package.json</code> 中依赖发生变更时，需要清空缓存，安装新增包或更新变更包，确保应用如期运行。
 
-以 Drone CI 为例，利用<code>drillster/drone-volume-cache</code> 插件，缓存<code>node_modules</code>用以下次构建复用，从而跳过安装包的过长等待，提升构建速度。<code>.drone.yml</code>具体配置如下：
+下面以 Drone CI 为例，演示下构建过程中缓存的处理：
 
-```yaml
-# 详细配置可查阅：https://github.com/Drillster/drone-volume-cache/blob/master/DOCS.md
-# 取出存储 cache
-- name: restore-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      restore: true  
-      mount:  
-        - ./node_modules 
-    # 加载 cache 数据卷，CI服务器对应仓库需要勾选 "Trusted" 
-    volumes:  
-      - name: cache  
-        path: /cache 
-- ...
-# 重新存储 cache
-- name: rebuild-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      rebuild: true  
-      mount:    
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache
-volumes:
-  - name: cache
-    host:
-      # 倘若 path 不存在，需要在 CI 服务器上新建相应文件夹
-      path: /var/drone-cache
-```
+1. 介于 Drone CI 是容器化的自动化工具，并不能如 Jenkins 直接存储缓存至工作区中，倘若不能存储在工作区，其实很容易想到，可以使用第三方存储或容器共享文件夹来实现同样效果。
+
+   Drone CI 是基于插件化的自动化工具，缓存相关的插件如下：
+
+   - [Drillster/drone-volume-cache](https://github.com/Drillster/drone-volume-cache)
+
+   - [meltwater/drone-cache](https://github.com/meltwater/drone-cache)
+
+   - [drone-plugins/drone-s3-cache](https://github.com/drone-plugins/drone-s3-cache)
+
+   - [hvalle/drone-gcs-cache](https://github.com/hvalle/drone-gcs-cache)
+
+   - [appleboy/drone-sftp-cache](https://github.com/appleboy/drone-sftp-cache)
+
+    从上述插件可以看出，缓存插件也是分为第三方存储（ S3、GCS、SFTP等 ）和容器共享文件夹 ( volume ) 两大类，当然也有插件对这两项做了融合，比如<code>meltwater/drone-cache</code>插件。
+
+    因<code>meltwater/drone-cache</code>插件处理 <code>node_modules</code> 本地存储时，存在<code>node_modules/.bin</code>文件夹无法缓存的问题（ 可查阅：[Allow to configure skipping symbolic links](https://github.com/meltwater/drone-cache/issues/39) )，因此采用<code>drillster/drone-volume-cache</code>插件作为本地缓存存储方案。
+    
+    本文利用主机下<code>/var/drone-cache</code>文件夹来缓存构建时<code>node_modules</code>文件夹，当应用下次构建时可以复用该文件夹下的缓存，从而跳过包安装过程的漫长等待，提升构建速度。<code>.drone.yml</code>示例配置如下：
+
+    ```yaml
+    # 详细配置可查阅：https://github.com/Drillster/drone-volume-cache/blob/master/DOCS.md
+    steps:
+      # 取出存储 cache
+      - name: restore-cache  
+          image: drillster/drone-volume-cache  
+          settings:  
+            restore: true  
+            mount:  
+              - ./node_modules 
+          # 加载 cache 数据卷，CI服务器对应仓库需要勾选 "Trusted" 
+          volumes:  
+            - name: cache  
+              path: /cache 
+      # 构建其他步骤，在此不做显示
+      - ...
+      # 重新存储 cache
+      # 此步骤一般在发布至远程服务器前执行，用来确保 cache 的新鲜度
+      - name: rebuild-cache  
+          image: drillster/drone-volume-cache  
+          settings:  
+            rebuild: true  
+            mount:    
+              - ./node_modules  
+          volumes:  
+            - name: cache  
+              path: /cache
+    volumes:
+      - name: cache
+        host:
+          # 倘若 path 不存在，需要在 CI 服务器上新建相应文件夹
+          path: /var/drone-cache
+    ```
+
+    :::tip 友情提示
+    本地存储时，倘若存在多个项目或代码仓库，需要对其缓存做区分，不可如上做简单处理
+    :::
+
+2. 完成了缓存的存储后，还需要面对应用新鲜度的问题。当应用的<code>package.json</code> 中的依赖更新时，需要移除缓存并进行更新。
+   
+   如何监测依赖更新成为需要解决的问题，方案其实有很多，可以参阅：[npm install if package.json was modified](https://stackoverflow.com/questions/52466740/npm-install-if-package-json-was-modified)
+
+   通常做法可以分为**监测文件变化**（ package.json ）和**监测依赖变化**（ package.json 中 dependencies 及 devDependencies ）两大类。
+
+   监测依赖变化在实现上复杂点，但缓存的更新会更精确，可以通过比对前后依赖项生成校验文件 md5 来判定依赖是否发生变更，相关实现可参阅：[ninesalt/install-changed](https://github.com/ninesalt/install-changed/blob/master/lib/main.js)
+
+   监测文件变化在实现上简单点，可以利用 Git 来实现，可以通过比对前后两次package.json 文件是否有变动来判定依赖是否发生变更，但往往不太精确，package.json 中非 dependencies 及 devDependencies 部分的变动也会触发清除缓存的操作。
+
+   能不能把这两种方式结合起来，取长补短？
+
+   在 Node 中，依赖会通过 <code>package-lock.json</code> 或 <code>yarn.lock</code> 来锁版本，当依赖变更时，对应的<code>package-lock.json</code> 或 <code>yarn.lock</code> 也会更新。可以通过检测 lock 文件变化来判定依赖是否发生变更。
+
+   在发布版本时，通常会利用 npm version 命令进行版本更新，此时 <code>package-lock.json</code> 中 version 字段也会更新，并不能满足预期。而<code>yarn.lock</code>不会因 npm version 命令进行文件更新，只有当 dependencies 及 devDependencies 变动时才会更新。
+
+   通过以上的对比，宜采用 yarn 来管理包，并监测 <code>yarn.lock</code> 文件的变化来更新缓存。
+
+   ```bash
+    #!/bin/bash
+    # 判断当前与上次提交中 yarn.lock 是否有变化
+    changes=$(git diff HEAD^ HEAD -- yarn.lock)
+    if [ -n "$changes" ]; then
+      echo ""
+      echo "*** CHANGES FOUND ***"
+      echo "$changes"
+      echo "Yarn.lock has changed"
+      # 因 drillster/drone-volume-cache 并不可控，此处删除拉取后的缓存，以保证包的新鲜度
+      rm -rf ./node_modules
+      yarn install
+    else
+      echo ""
+      echo "*** CHANGES NOT FOUND ***"
+      echo "Yarn.lock keep unchanged"
+      yarn install
+    fi
+   ```
 
 ## 工作流
 
