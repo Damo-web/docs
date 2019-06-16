@@ -103,7 +103,6 @@ trigger:
   event: [tag,push]
   ref: [refs/tags/master,refs/tags/*]
 
-
 volumes:
   - name: cache
     host:
