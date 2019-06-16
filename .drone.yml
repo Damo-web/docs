@@ -104,8 +104,7 @@ trigger:
     - master
   event:
     ref:
-      include:
-        - refs/tags/v*.*
+      - refs/tags/v*.*
 
 
 volumes:
