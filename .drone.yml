@@ -104,7 +104,6 @@ trigger:
     - master
   event:
     - push
-    - tag
 
 volumes:
   - name: cache
