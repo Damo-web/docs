@@ -100,8 +100,8 @@ steps:
         {{/success}} 
 
 trigger:
-  event: tag
-  ref: refs/tags/*
+  event: [tag,push]
+  ref: [refs/tags/master,refs/tags/*]
 
 
 volumes:
