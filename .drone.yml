@@ -104,6 +104,8 @@ trigger:
   - refs/heads/master
   - refs/tags/*
 
+  
+
 volumes:
   - name: cache
     host:
