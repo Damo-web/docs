@@ -100,10 +100,8 @@ steps:
         {{/success}} 
 
 trigger:
-  branch:
-    - master
-  event:
-    - tag
+  ref:
+  - refs/tags/v1.*
 
 
 volumes:
