@@ -100,8 +100,10 @@ steps:
         {{/success}} 
 
 trigger:
-  event: [tag,push]
-  ref: [refs/tags/master,refs/tags/*]
+  branch:
+    - master
+  event:
+    - push
 
 volumes:
   - name: cache
