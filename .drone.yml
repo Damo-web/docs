@@ -98,8 +98,8 @@ steps:
 
 trigger:
   ref:
-  - refs/heads/master
-  - refs/tags/*
+    - refs/heads/master
+    - refs/tags/*
 
 volumes:
   - name: cache
