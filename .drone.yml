@@ -100,10 +100,10 @@ steps:
         {{/success}} 
 
 trigger:
-  branch:
-    - master
-  event:
-    - push
+  # branch:
+  #   - master
+  # event:
+  #   - push
 
 volumes:
   - name: cache
