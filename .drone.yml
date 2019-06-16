@@ -103,8 +103,7 @@ trigger:
   branch:
     - master
   event:
-    ref:
-      - refs/tags/v*.*
+    - tag
 
 
 volumes:
