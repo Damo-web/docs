@@ -292,3 +292,8 @@ $ ssh root@45.88.74.102
 - [ssh, rsync, and tar](https://medium.com/@amy/ssh-rsync-and-tar-8812a5a47410)
 
 - [两台Linux系统之间传输文件的几种方法](https://blog.csdn.net/gatieme/article/details/51673229)
+
+- [Build not running on tag](https://discourse.drone.io/t/build-not-running-on-tag/3376)
+
+- [Cannot execute a pipeline on either tag or push to specific branch
+](https://discourse.drone.io/t/cannot-execute-a-pipeline-on-either-tag-or-push-to-specific-branch/3490/4)
