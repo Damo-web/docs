@@ -7,7 +7,8 @@
   "scripts": {
     "serve": "vuepress dev docs",
     "build": "vuepress build docs",
-    "pre-run": "bininstall-changed"
+    "pre-run": "bininstall-changed",
+    "postversion": "git push --tags && yarn publish . --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "dependencies": {
     "@vuepress/plugin-back-to-top": "^1.0.0-beta.2",

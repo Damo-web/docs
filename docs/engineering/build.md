@@ -147,12 +147,13 @@
 在 Jenkins CI 中，这一操作通常利用 Publish Over SSH 插件来进行完成，大致过程如下：
 
 ```bash
-# 连接 jenkins-ci VPC（ Virtual Private Cloud ） 网络
+# 连接 Jenkins CI VPC（ Virtual Private Cloud ）网络
 # VPC 通常称为私有网络或者专有网络，更加安全，自定义度更高
 SSH: Connecting from host [vpc-jenkins-ci]
 # configuration 中即为分发服务器的配置项
 SSH: Connecting with configuration [vpc-web-prod-1-172.36.13.46] ...
-# 解压文件至对应文件夹，并删除压缩文件
+# 这里利用管道来传输文件，即压缩文件至 STDOUT 
+# 再利用 SSH 连接 Web服务器，拷贝并解压传输文件至对应文件夹，并删除压缩的传输文件
 SSH: EXEC: STDOUT/STDERR from command [cd /var/www/web/docs
 tar xzf docs.tar.gz -C /var/www/web/docs
 rm -f docs.tar.gz] ...
@@ -172,7 +173,7 @@ Build step 'Send files or execute commands over SSH' changed build result to SUC
 Finished: SUCCESS
 ```
 
-概括来说，CI 服务器需先通过 SSH 连接 Web 服务器，分发时再利用 rsync 传输文件至对应的 Web 服务器。
+概括来说，CI 服务器需先通过 SSH 连接 Web 服务器，分发时再传输文件至对应的 Web 服务器。
 
 以 Drone CI 为例，具体步骤如下：
 
@@ -226,7 +227,7 @@ ssh-rsa AAAAB3NzaC1yc2EAA2gQNDCo99NsjZzrkYYRZ4Uohrgt8LPXxTF0Zr3 root@snowball
 ```bash
 $ ssh root@45.88.74.102 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 # 成功后退出登录的 Web 服务器
-# 在 CI 服务器通过 SSH 连接 Web 服务器，无需密码即可登录则表示设置成功
+# 在 CI 服务器通过 SSH 连接 Web 服务器，免密可登录则表示设置成功
 $ ssh root@45.88.74.102
 ```
 
@@ -237,6 +238,12 @@ $ ssh root@45.88.74.102
    REMOTE_HOST 为第一台 Web 服务器 IP 地址，REMOTE_HOST2 为第二台 Web 服务器 IP 地址，以此类推；RSYNC_KEY 为 CI 服务器 Private SSH Key；RSYNC_USER 为 Web 服务器用户名，通常为 root
 
 4. 配置 <code>.drone.yml</code> 文件
+
+   服务器间数据传输存在 rsync、nc、ftp、scp、nfs 等多种方式，本文采用 rsync 来传输数据。
+   
+   rsync 是一个远程数据同步工具，可以通过 LAN/WAN 快速同步多台主机间的文件。rsync 使用 rsync 算法来保持本地和远程两个主机间的文件同步，只传送两个主机同一文件的不同部分，而不是每次全量更新，这种增量更新的方式，提升了文件传输的速度。
+
+   Drone CI 中一般使用 [drillster/drone-rsync](https://github.com/Drillster/drone-rsync/blob/master/1-DOCS.md) 插件来传输服务器间数据。示例如下：
 
    ```yaml
    - name: rsync
@@ -255,11 +262,14 @@ $ ssh root@45.88.74.102
          - $$REMOTE_HOST
          - $$REMOTE_HOST2
      source: ./dist
+     # 需要在 Web 服务器上安装 nginx
      # nginx 默认静态资源文件夹
      target: /usr/share/nginx/html
    ```
 
-## 工作流
+## 容器化
+
+
 
 ## 参考链接
 
@@ -278,3 +288,7 @@ $ ssh root@45.88.74.102
 - [Git - show file diff between HEAD and initial (first) version](https://stackoverflow.com/questions/41371090/git-show-file-diff-between-head-and-initial-first-version)
 
 - [Finding diff between current and last version?](https://stackoverflow.com/questions/9903541/finding-diff-between-current-and-last-version)
+
+- [ssh, rsync, and tar](https://medium.com/@amy/ssh-rsync-and-tar-8812a5a47410)
+
+- [两台Linux系统之间传输文件的几种方法](https://blog.csdn.net/gatieme/article/details/51673229)
