@@ -1,6 +1,3 @@
-kind: pipeline
-name: drone
-
 steps:
   - name: restore-cache  
     image: drillster/drone-volume-cache  
@@ -100,10 +97,9 @@ steps:
         {{/success}} 
 
 trigger:
-  branch:
-    - master
-  event:
-    - push
+  ref:
+  - refs/heads/master
+  - refs/tags/*
 
 volumes:
   - name: cache
