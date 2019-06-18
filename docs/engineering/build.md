@@ -269,6 +269,34 @@ $ ssh root@45.88.74.102
 
 ## 容器化
 
+上面从缓存和分发角度优化了构建项，使得整体构建更加自动化、速度更快。总体来说，以上的优化已经能满足日常构建的大部分场景。但倘若思考下整个构建流程，优化依然可以继续。
+
+目前来说，利用 Drone 部署远程 CI 服务器，所有的构建都是在容器内进行，已经完成了环境隔离，保障了本地与远程构建结果的一致性。
+
+稍微回望这一流程，拉取远端代码，构建产出 dist 目录的过程，其实是可以采用 Dockerfile 文件生成 dist 镜像文件来解决。Dockerfile 文件如下：
+
+```bash
+FROM node:alpine as builder
+# 注入环境变量
+ENV PROJECT_ENV production
+ENV NODE_ENV production
+# 新建工作目录
+WORKDIR /site
+WORKDIR /site-build
+ADD ./ /site-build/
+# 执行构建命令
+RUN yarn install && \
+    yarn run build && \
+    mv  /site-build/dist /site/ && \
+    rm -rf /site-build
+```
+如上利用 Dockerfile 可以不需引入 CI 服务器，即可完成打包的操作。
+
+重新审视下 Dockerfile 缓存和分发同样存在问题，缓存怎么处理？分发怎么处理？
+
+缓存其实可以走 Node 基础镜像来解决，本地构建出 Node 基础镜像（包含 node_modules ），  
+ 
+
 
 
 ## 参考链接

@@ -8,7 +8,8 @@
     "serve": "vuepress dev docs",
     "build": "vuepress build docs",
     "pre-run": "bininstall-changed",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "build-docker": "bash ./build/docker-build.sh" 
   },
   "dependencies": {
     "@vuepress/plugin-back-to-top": "^1.0.0-beta.2",
