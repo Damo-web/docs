@@ -34,7 +34,7 @@ steps:
       - sh ./build/auto-check.sh
 
   - name: build
-    image: node
+    image: harbor.snowball.site/web/node-base
     commands:
       - yarn build
 
