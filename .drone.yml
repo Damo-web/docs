@@ -46,6 +46,11 @@ steps:
 
   - name: build
     image: harbor.snowball.site/web/node-base
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
     commands:
       - apk add docker
       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
