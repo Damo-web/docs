@@ -11,5 +11,4 @@ else
     echo ""
     echo "*** CHANGES NOT FOUND ***"
     echo "Yarn.lock has not changed"
-    docker pull harbor.snowball.site/web/node-base:latest
 fi

@@ -31,7 +31,7 @@ steps:
     image: harbor.snowball.site/web/node-base
     commands: 
       - apk add --no-cache git
-      - sh ./build/pre-install.sh
+      - sh ./build/auto-check.sh
 
   - name: build
     image: node
