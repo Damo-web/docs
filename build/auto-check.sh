@@ -6,12 +6,12 @@ if [ -n "$changes" ]; then
     echo "*** CHANGES FOUND ***"
     echo "$changes"
     echo "Yarn.lock has changed"
-    # yarn install
-    # docker push harbor.snowball.site/web/node-base
+    yarn install
+    docker build -t node-base -f web.dockerfile .
+    docker tag node-base harbor.snowball.site/web/node-base
+    docker push harbor.snowball.site/web/node-base
 else
     echo ""
     echo "*** CHANGES NOT FOUND ***"
     echo "Yarn.lock has not changed"
-    yarn install
-    docker push harbor.snowball.site/web/node-base
 fi
