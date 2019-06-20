@@ -3,63 +3,68 @@ kind: pipeline
 name: drone
 
 steps:
-  - name: restore-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      restore: true  
-      mount:  
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache  
+  # - name: restore-cache  
+  #   image: drillster/drone-volume-cache  
+  #   settings:  
+  #     restore: true  
+  #     mount:  
+  #       - ./node_modules  
+  #   volumes:  
+  #     - name: cache  
+  #       path: /cache  
 
+  # - name: install
+  #   image: node
+  #   commands:
+  #     # https://github.com/yarnpkg/yarn/issues/5163
+  #     # - yarn cache clean
+  #     # - yarn config set registry https://registry.yarnpkg.com
+  #     # - yarn config get registry
+  #     - curl ip.gs
+  #     - bash ./build/pre-install.sh
+  #     # - yarn pre-run
+  #     # - git diff HEAD~2 HEAD -- yarn.lock
+  #     # - yarn config set registry 'https://registry.npm.taobao.org'
+  #     # - yarn install --production=true
   - name: install
-    image: node
-    commands:
-      # https://github.com/yarnpkg/yarn/issues/5163
-      # - yarn cache clean
-      # - yarn config set registry https://registry.yarnpkg.com
-      # - yarn config get registry
-      - curl ip.gs
-      - bash ./build/pre-install.sh
-      # - yarn pre-run
-      # - git diff HEAD~2 HEAD -- yarn.lock
-      # - yarn config set registry 'https://registry.npm.taobao.org'
-      # - yarn install --production=true
+    image: docker
+    commands: 
+      - sh ./build/auto-check.sh
 
   - name: build
     image: node
     commands:
       - yarn build
-  - name: deploy
-    image: node
-    commands:
-      - cd ./dist
-      - ls
-      - git init
-      - git config user.name $${USERNAME}
-      - git config user.email $${EMAIL}
-      - git add -A
-      - git commit -m "[skip ci] deploy"
-      - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
-    environment:
-      USERNAME:
-        from_secret: USERNAME
-      EMAIL:
-        from_secret: EMAIL
-      GH_REF:
-        from_secret: GH_REF
-      GH_TOKEN:
-        from_secret: GH_TOKEN
-  - name: rebuild-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      rebuild: true  
-      mount:    
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache
+
+  # - name: deploy
+  #   image: node
+  #   commands:
+  #     - cd ./dist
+  #     - ls
+  #     - git init
+  #     - git config user.name $${USERNAME}
+  #     - git config user.email $${EMAIL}
+  #     - git add -A
+  #     - git commit -m "[skip ci] deploy"
+  #     - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
+  #   environment:
+  #     USERNAME:
+  #       from_secret: USERNAME
+  #     EMAIL:
+  #       from_secret: EMAIL
+  #     GH_REF:
+  #       from_secret: GH_REF
+  #     GH_TOKEN:
+  #       from_secret: GH_TOKEN
+  # - name: rebuild-cache  
+  #   image: drillster/drone-volume-cache  
+  #   settings:  
+  #     rebuild: true  
+  #     mount:    
+  #       - ./node_modules  
+  #   volumes:  
+  #     - name: cache  
+  #       path: /cache
   # - name: rsync
   #   image: drillster/drone-rsync
   #   environment:
@@ -84,21 +89,21 @@ steps:
   #       - docker rm -f web-server
   #       - docker build -t damo-docs .
   #       - docker run -d -p 3080:80 --name web-server damo-docs
-  - name: slack
-    image: plugins/slack
-    settings:
-      webhook:
-        from_secret: SLACK_WEB_HOOK
-      channel: web-notification
-      template: >
-        {{#success build.status}}
-         Repo `{{repo.name}}`build (<{{build.link}}|#{{build.number}}>) for commit(<{{build.link}}|{{truncate build.commit 7}}>) 
-         on branch `{{build.branch}}` by `{{build.author}}`
-         Execution time: *{{since job.started}}*
-         Message: *The build {{build.status}}*
-        {{else}}
-          build {{build.number}} failed. Fix me please.
-        {{/success}} 
+  # - name: slack
+  #   image: plugins/slack
+  #   settings:
+  #     webhook:
+  #       from_secret: SLACK_WEB_HOOK
+  #     channel: web-notification
+  #     template: >
+  #       {{#success build.status}}
+  #        Repo `{{repo.name}}`build (<{{build.link}}|#{{build.number}}>) for commit(<{{build.link}}|{{truncate build.commit 7}}>) 
+  #        on branch `{{build.branch}}` by `{{build.author}}`
+  #        Execution time: *{{since job.started}}*
+  #        Message: *The build {{build.status}}*
+  #       {{else}}
+  #         build {{build.number}} failed. Fix me please.
+  #       {{/success}} 
 
 trigger:
   branch:

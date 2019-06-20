@@ -6,10 +6,10 @@ if [ -n "$changes" ]; then
     echo "*** CHANGES FOUND ***"
     echo "$changes"
     echo "Yarn.lock has changed"
-    docker build -t node-test .
+    yarn install
 else
     echo ""
     echo "*** CHANGES NOT FOUND ***"
     echo "Yarn.lock has not changed"
-    docker build -t node-test .
+    docker pull harbor.snowball.site/web/node-base:latest
 fi
