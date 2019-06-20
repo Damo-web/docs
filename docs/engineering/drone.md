@@ -23,6 +23,8 @@ Drone 是一个用 Go 语言开发的基于容器运行的开源持续集成软�
    $ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
    # Install docker-ce
    $ sudo yum install docker-ce
+   # Enable docker
+   $ sudo systemctl enable docker
    # Start Docker
    $ sudo systemctl start docker
    ```

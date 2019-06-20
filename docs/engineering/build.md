@@ -273,7 +273,7 @@ $ ssh root@45.88.74.102
 
 目前来说，利用 Drone 部署远程 CI 服务器，所有的构建都是在容器内进行，已经完成了环境隔离，保障了本地与远程构建结果的一致性。
 
-稍微回望这一流程，拉取远端代码，构建产出 dist 目录的过程，其实是可以采用 Dockerfile 文件生成 dist 镜像文件来解决。Dockerfile 文件如下：
+稍微回望这一流程，拉取远端代码，构建产出 dist 目录的过程，其实是可以采用 Dockerfile 文件生成 dist 静态镜像来解决。Dockerfile 文件如下：
 
 ```bash
 FROM node:alpine as builder
@@ -452,6 +452,10 @@ RUN yarn install && \
 
   接下来把该镜像上传到镜像仓库，在各预装 docker 的 Web 服务器上直接拉取并运行就行了。  
 
+## 体积
+
+  
+
 ## 参考链接
 
 - [The ultimate DroneCI caching guide](https://laszlo.cloud/the-ultimate-droneci-caching-guide)
@@ -483,3 +487,7 @@ RUN yarn install && \
 - [Docker 最佳实践之多阶段构建](https://www.hi-linux.com/posts/55545.html)
 
 - [为什么不能在服务器上 npm install ？](https://zhuanlan.zhihu.com/p/39209596)
+
+- [How to Build and Deploy Docker Images with Drone](http://paislee.io/how-to-build-and-deploy-docker-images-with-drone/)
+
+- [Docker 最佳实践之多阶段构建](https://www.hi-linux.com/posts/55545.html)

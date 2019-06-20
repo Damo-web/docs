@@ -6,6 +6,6 @@ RUN yarn build
 
 FROM nginx:alpine
 WORKDIR /root 
-COPY --from=builder /src/dist /usr/share/nginx/html 
-EXPOSE 80 
+COPY --from=builder /src/dist /usr/share/nginx/html/docs
+# EXPOSE 80 
 # CMD tail -f /dev/null
