@@ -28,9 +28,11 @@ steps:
   #     # - yarn install --production=true
 
   - name: install
-    image: plugins/docker
+    image: harbor.snowball.site/web/node-base
     commands: 
       - sh ./build/auto-check.sh
+    image_pull_secrets:
+      - dockerconfigjson
 
   - name: build
     image: node
@@ -116,3 +118,4 @@ volumes:
   - name: cache
     host:
       path: /var/drone-cache
+
