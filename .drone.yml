@@ -30,7 +30,7 @@ steps:
   - name: install
     image: harbor.snowball.site/web/node-base
     commands: 
-      - sh ./build/auto-check.sh
+      - ls
 
   - name: build
     image: node
