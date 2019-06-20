@@ -15,5 +15,5 @@ else
     echo ""
     echo "*** CHANGES NOT FOUND ***"
     echo "Yarn.lock has not changed"
-    echo $$USERNAME
+    echo $USERNAME
 fi
