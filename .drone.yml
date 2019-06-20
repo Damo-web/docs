@@ -30,7 +30,7 @@ steps:
   - name: install
     image: harbor.snowball.site/web/node-base
     commands: 
-      - ls
+      - apt-get update && apt-get install -y unzip git
       - git status
 
   - name: build
