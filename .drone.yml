@@ -34,6 +34,8 @@ steps:
         path: /var/run/docker.sock
     commands: 
       - apk add --no-cache git
+      - apk add docker
+      - service docker start
       - sh ./build/auto-check.sh
 
   - name: build
