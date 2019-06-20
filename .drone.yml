@@ -38,7 +38,6 @@ steps:
     image: node
     commands:
       - yarn build
-
   # - name: deploy
   #   image: node
   #   commands:
