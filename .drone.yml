@@ -29,7 +29,7 @@ steps:
   - name: install
     image: docker
     commands: 
-      - sh ./build/auto-check.sh
+      - bash ./build/auto-check.sh
 
   - name: build
     image: node
