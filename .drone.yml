@@ -29,6 +29,9 @@ steps:
 
   - name: install
     image: harbor.snowball.site/web/node-base
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
     commands: 
       - apk add --no-cache git
       - sh ./build/auto-check.sh
@@ -119,4 +122,8 @@ volumes:
   - name: cache
     host:
       path: /var/drone-cache
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
 
