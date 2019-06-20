@@ -31,14 +31,12 @@ steps:
     image: harbor.snowball.site/web/node-base
     commands: 
       - sh ./build/auto-check.sh
-    image_pull_secrets:
-      - dockerconfigjson
 
   - name: build
     image: node
     commands:
       - yarn build
-      
+
   # - name: deploy
   #   image: node
   #   commands:
@@ -107,6 +105,8 @@ steps:
   #       {{else}}
   #         build {{build.number}} failed. Fix me please.
   #       {{/success}} 
+image_pull_secrets:
+      - dockerconfigjson
 
 trigger:
   branch:
