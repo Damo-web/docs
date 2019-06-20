@@ -35,7 +35,7 @@ steps:
     commands: 
       - apk add --no-cache git
       - apk add docker
-      - nohup dockerd &
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
       - sh ./build/auto-check.sh
     privileged: true
 

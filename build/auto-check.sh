@@ -6,10 +6,8 @@ if [ -n "$changes" ]; then
     echo "*** CHANGES FOUND ***"
     echo "$changes"
     echo "Yarn.lock has changed"
-    yarn install
     docker build -t node-base -f node.dockerfile .
     docker tag node-base harbor.snowball.site/web/node-base
-    # docker login harbor.snowball.site
     docker push harbor.snowball.site/web/node-base
 else
     echo ""
