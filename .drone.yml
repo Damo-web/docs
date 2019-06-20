@@ -30,7 +30,7 @@ steps:
   - name: install
     image: harbor.snowball.site/web/node-base
     commands: 
-      - yum install git
+      - apk
       - git status
 
   - name: build
