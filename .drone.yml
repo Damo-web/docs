@@ -30,7 +30,7 @@ steps:
   - name: install
     image: plugins/docker
     commands: 
-      - bash ./build/auto-check.sh
+      - sh ./build/auto-check.sh
 
   - name: build
     image: node
