@@ -32,6 +32,11 @@ steps:
     volumes:
       - name: dockersock
         path: /var/run/docker.sock
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
     commands: 
       - apk add --no-cache git
       - apk add docker
