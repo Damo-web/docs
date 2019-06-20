@@ -47,7 +47,12 @@ steps:
   - name: build
     image: harbor.snowball.site/web/node-base
     commands:
-      - yarn build
+      - apk add docker
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      - docker build -t web-nginx -f web.dockerfile .
+      - docker tag web-nginx harbor.snowball.site/web/web-nginx
+      - docker push harbor.snowball.site/web/web-nginx
+    privileged: true
 
   # - name: deploy
   #   image: node
