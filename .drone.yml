@@ -31,6 +31,7 @@ steps:
     image: harbor.snowball.site/web/node-base
     commands: 
       - ls
+      - git status
 
   - name: build
     image: node
@@ -106,7 +107,7 @@ steps:
   #         build {{build.number}} failed. Fix me please.
   #       {{/success}} 
 image_pull_secrets:
-      - dockerconfigjson
+  - dockerconfigjson
 
 trigger:
   branch:
