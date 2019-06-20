@@ -30,7 +30,7 @@ steps:
   - name: install
     image: harbor.snowball.site/web/node-base
     commands: 
-      - apk
+      - apk add --no-cache git
       - git status
 
   - name: build
