@@ -65,6 +65,8 @@ steps:
     settings:
       hosts:
         - $$REMOTE_HOST
+      source: ./dist
+      target: ~/nginx
       script:
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
