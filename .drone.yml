@@ -51,17 +51,17 @@ steps:
 
   - name: rsync-web-image
     image: appleboy/drone-ssh
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-      RSYNC_KEY:
-        from_secret: RSYNC_KEY
-      RSYNC_USER:
-        from_secret: RSYNC_USER
-      REMOTE_HOST:
-        from_secret: REMOTE_HOST
+    # environment:
+    #   HARBOR_USERNAME:
+    #     from_secret: HARBOR_USERNAME
+    #   HARBOR_PWD:
+    #     from_secret: HARBOR_PWD
+    #   RSYNC_KEY:
+    #     from_secret: RSYNC_KEY
+    #   RSYNC_USER:
+    #     from_secret: RSYNC_USER
+    #   REMOTE_HOST:
+    #     from_secret: REMOTE_HOST
     settings:
       host:
         from_secret: REMOTE_HOST
