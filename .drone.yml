@@ -52,10 +52,10 @@ steps:
   - name: asysc-web-image
     image: drillster/drone-rsync
     environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
+      # HARBOR_USERNAME:
+      #   from_secret: HARBOR_USERNAME
+      # HARBOR_PWD:
+      #   from_secret: HARBOR_PWD
       RSYNC_KEY:
         from_secret: RSYNC_KEY
       RSYNC_USER:
@@ -64,7 +64,7 @@ steps:
         from_secret: REMOTE_HOST
     commands: 
       - apk add docker
-      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
       - docker pull harbor.snowball.site/web/web-nginx
       - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
 
