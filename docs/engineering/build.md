@@ -452,6 +452,99 @@ RUN yarn install && \
 
   接下来把该镜像上传到镜像仓库，在各预装 docker 的 Web 服务器上直接拉取并运行就行了。  
 
+整理完思路，但单靠上述容器化的实践并不能实现自动化部署的工作，将容器化理念融入进 Drone CI 中才是务实之举。
+
+之前利用 Drone Plugin 的功能，完成了缓存和分发的工作。其实容器化之后也大同小异，但需要对 <code>.drone.yml</code> 文件进行相应变更，细节如下：
+
+- 取消 CI 服务器本地缓存 node_modules 文件的策略，使用远程 docker image 来取代
+
+  ```yaml
+  # .drone.yml
+  - name: build-web-image
+    # 私有镜像，这里采用 harbor 来进行存储和管理
+    # 细节可参阅：https://github.com/goharbor/harbor
+    image: harbor.snowball.site/web/node-base
+    # 挂载主机 daemon 用来 tag
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
+    commands: 
+      # node 基础镜像没内置 git 和 docker，需要进行安装
+      - apk add --no-cache git
+      - apk add docker
+      # 登陆私有镜像仓库（ 倘若是公有仓库则可以忽略 ）
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      # 执行 auto-check.sh 脚本来检测缓存变更
+      # web.dockerfile 宜采用本地缓存，如 node-base ，保证缓存的新鲜度
+      - sh ./build/auto-check.sh
+      # 构建 web-nginx 镜像并推送至远程
+      - docker build -t web-nginx -f web.dockerfile .
+      - docker tag web-nginx harbor.snowball.site/web/web-nginx
+      - docker push harbor.snowball.site/web/web-nginx
+    # 容许主机访问主机服务
+    privileged: true
+  # 配置私有镜像仓库授权信息
+  # 可参阅：https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12
+  image_pull_secrets:
+    - dockerconfigjson
+  ```
+
+  ```bash
+  # auto-check.sh
+  #!/bin/bash
+  echo ========== CHECKING FOR CHANGES ========
+  changes=$(git diff HEAD^ HEAD -- yarn.lock)
+  if [ -n "$changes" ]; then
+      echo ""
+      echo "*** CHANGES FOUND ***"
+      echo "$changes"
+      echo "Yarn.lock has changed"
+      # 依赖变更时，需要构建新 node-base 镜像并推送至远程私有仓库
+      docker build -t node-base -f node.dockerfile .
+      docker tag node-base harbor.snowball.site/web/node-base
+      docker push harbor.snowball.site/web/node-base
+  else
+      echo ""
+      echo "*** CHANGES NOT FOUND ***"
+      echo "Yarn.lock has not changed"
+  fi
+  ```
+
+
+- 取消 CI 服务器传输文件至远程 Web 服务器的策略，使用拉取远程 docker image 来取代
+
+  ```yaml
+  # .drone.yml
+  - name: publish-web-server
+    #  使用 drone-ssh 插件连接远程服务器
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: REMOTE_HOST_1
+        from_secret: REMOTE_HOST_2
+      username: 
+        from_secret: REMOTE_USER
+      key: 
+        from_secret: REMOTE_KEY
+      # 暴漏至 script 的环境变量
+      envs: [ HARBOR_USERNAME,HARBOR_PWD ]
+      script:
+        - docker -v
+        # 停止并删除原有 container
+        - docker container stop web-server
+        - docker rm -f web-server
+        # 拉取最新镜像并运行
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+        - docker pull harbor.snowball.site/web/web-nginx
+        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
+  ```
+  
+
 ## 体积
 
   
