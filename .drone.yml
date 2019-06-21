@@ -75,7 +75,7 @@ steps:
         - docker -v
         - docker container stop web-server
         - docker rm -f web-server
-        - docker login harbor.snowball.site -u $HARBOR_USERNAME -p $HARBOR_PWD
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
         - echo "pull finished"
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
