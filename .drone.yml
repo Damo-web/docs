@@ -65,7 +65,7 @@ steps:
     commands: 
       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
       - docker pull harbor.snowball.site/web/web-nginx
-      - docker run -d -p 3080:80 --name web-server damo-docs
+      - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
 
   # - name: build
   #   image: harbor.snowball.site/web/node-base
