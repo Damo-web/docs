@@ -493,3 +493,5 @@ RUN yarn install && \
 - [Docker 最佳实践之多阶段构建](https://www.hi-linux.com/posts/55545.html)
 
 - [[1.0.0-rc1] How to pull image from private registry and execute commands in it](https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12)
+
+- [Secret in Drone 1.0.0-rc.1](https://github.com/appleboy/drone-ssh/issues/130)

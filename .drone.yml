@@ -73,6 +73,8 @@ steps:
       script:
         # - echo ${HARBOR_USERNAME}
         - docker -v
+        - docker container stop web-server
+        - docker rm -f web-server
         - docker login harbor.snowball.site -u $HARBOR_USERNAME -p $HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
         - echo "pull finished"
