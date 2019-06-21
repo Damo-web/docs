@@ -65,16 +65,12 @@ steps:
     settings:
       hosts:
         - $$REMOTE_HOST
-      secrets:
-        - source: HARBOR_USERNAME
-          target: HARBOR_USERNAME
-        - source: HARBOR_PWD
-          target: HARBOR_PWD
+      secrets: [ RSYNC_KEY,HARBOR_USERNAME,HARBOR_PWD ]
       source: ./
       target: ~/
       script:
-        # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-        # - docker pull harbor.snowball.site/web/web-nginx
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+        - docker pull harbor.snowball.site/web/web-nginx
         - echo "pull finished"
         # - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
 
