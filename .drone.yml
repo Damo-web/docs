@@ -49,7 +49,7 @@ steps:
       - docker push harbor.snowball.site/web/web-nginx
     privileged: true
 
-  - name: asysc-web-image
+  - name: async-web-image
     image: drillster/drone-rsync
     environment:
       HARBOR_USERNAME:
@@ -65,7 +65,7 @@ steps:
     settings:
       hosts:
         - $$REMOTE_HOST
-      source: ./dist
+      source: ./
       target: ~/nginx
       script:
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
