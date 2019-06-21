@@ -64,9 +64,11 @@ steps:
         from_secret: REMOTE_HOST
     settings:
       host:
-        - $$REMOTE_HOST
-      username: $$RSYNC_USER
-      key: $$RSYNC_KEY
+        - REMOTE_HOST
+      username: 
+        from_secret: RSYNC_USER
+      key: 
+        from_secret: RSYNC_KEY
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         # - echo ${HARBOR_USERNAME}
