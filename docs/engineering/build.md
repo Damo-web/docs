@@ -557,6 +557,11 @@ RUN yarn install && \
 基于此，可以便捷地复用和管理镜像，方便追踪及复现线上故障，增强了 Web 服务的伸缩性。
 
 
+:::tip 小贴士
+  在实际工作中，Harbor 中的镜像可以通过 tag 来区分版本号，以利于回滚，此处只用作简单演示
+:::
+
+
 ## 体积
 
 应用的体积是构建时需要面对的棘手问题，在前端服务中，主要体现在 npm 包和 Docker 镜像两方面：
@@ -588,16 +593,61 @@ RUN yarn install && \
 
 ## 网络
   
-在网络层面，国内访问 npm 官方源、Docker 镜像源 及 Github 仓库并不稳定，速度堪忧。这可能会导致 npm 包安装失败、Docker 镜像拉取失败、Github 仓库推送代码失败或过慢等问题。
+在网络层面，国内访问 npm 镜像源、Docker 镜像源 及 Github 仓库并不稳定，速度堪忧。这可能会导致 npm 包安装失败、Docker 镜像拉取失败、Github 仓库推送代码失败或过慢等问题。
 
 当然，解决方案也有很多，可以采用国外云服务器、引用国内镜像源或利用网络代理来解决。
 
 国内镜像源其实并不能解决 Github 仓库推送问题，而网络代理在 Docker 容器中存在诸多问题，推荐采用国外云服务器来解决。
 
-同等配置下的国内阿里云服务器和国外云服务部署的 Drone CI ，同次构建耗时如下：
+同等配置下的国外云服务和国内阿里云服务器部署的 Drone CI ，同次构建耗时依次如下：
 
 ![](./img/build_5.png)
 
+国外云服务构建详细信息：
+
+![](./img/build_6.png)
+
+国内阿里云服务器构建详细信息：
+
+![](./img/build_7.png)
+
+对比可见，主要耗时集中于 yarn install 和 deploy github 这两个阶段。 在拉取 Docker 镜像时，国内阿里云服务器偶尔会抛出无法获取镜像的错误，如下：
+
+```bash
+Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
+```
+
+为解决国内网络问题带来的构建用时成本，倘若条件容许，可以自建代码仓库（ GitLab、Gogs 等 ）、自建 npm 服务器（ sinopia、cnpm 等 ）及自建 dokcer 镜像仓库（ harbor等 ）来避免。
+
+倘若条件不容许，针对 npm 官方源 和 Docker 镜像源，可以采用国内镜像源来简单处理：
+
+- npm 镜像源
+
+  ```bash
+  $ yarn config set registry "https://registry.npm.taobao.org"
+  ```
+
+- Docker 镜像源
+
+  在 Linux 云服务的<code>/etc/docker/daemon.json</code>文件下写入如下信息：
+  
+  ```bash
+  # daemon.json 倘若不存在则新建
+  {
+    "registry-mirrors": [
+      "https://dockerhub.azk8s.cn",
+      "https://reg-mirror.qiniu.com"
+    ]
+  }
+  ```
+  
+  重启 Docker 服务：
+
+  ```bash
+  # 以 root 权限运行
+  $ systemctl daemon-reload
+  $ systemctl restart docker
+  ```
 
 
 ## 参考链接
@@ -639,3 +689,5 @@ RUN yarn install && \
 - [[1.0.0-rc1] How to pull image from private registry and execute commands in it](https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12)
 
 - [Secret in Drone 1.0.0-rc.1](https://github.com/appleboy/drone-ssh/issues/130)
+
+- [docker_practice](https://yeasy.gitbooks.io/docker_practice/install/mirror.html)
