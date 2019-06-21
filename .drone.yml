@@ -55,10 +55,6 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock
     environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
       RSYNC_KEY:
         from_secret: RSYNC_KEY
       RSYNC_USER:
@@ -70,6 +66,11 @@ steps:
         - $$REMOTE_HOST
       source: ./
       target: ~/
+      environment:
+        HARBOR_USERNAME:
+          from_secret: HARBOR_USERNAME
+        HARBOR_PWD:
+          from_secret: HARBOR_PWD
       script:
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
