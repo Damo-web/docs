@@ -49,8 +49,8 @@ steps:
       - docker push harbor.snowball.site/web/web-nginx
     privileged: true
 
-  - name: async-web-image
-    image: drillster/drone-rsync
+  - name: rsync-web-image
+    image: appleboy/drone-ssh
     environment:
       HARBOR_USERNAME:
         from_secret: HARBOR_USERNAME
@@ -63,17 +63,17 @@ steps:
       REMOTE_HOST:
         from_secret: REMOTE_HOST
     settings:
-      hosts:
+      host:
         - $$REMOTE_HOST
-      secrets: [ RSYNC_KEY,HARBOR_USERNAME,HARBOR_PWD ]
-      source: ./
-      target: ~/
+      username: $$RSYNC_USER
+      key: $$RSYNC_KEY
+      envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         # - echo ${HARBOR_USERNAME}
         - docker -v
-        # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-        # - docker pull harbor.snowball.site/web/web-nginx
-        # - echo "pull finished"
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+        - docker pull harbor.snowball.site/web/web-nginx
+        - echo "pull finished"
         # - docker run -d -p 80:80 --name web-server harbor.snowball.site/web/web-nginx
 
   # - name: build
