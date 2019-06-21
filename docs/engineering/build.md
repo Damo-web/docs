@@ -452,7 +452,7 @@ RUN yarn install && \
 
   接下来把该镜像上传到镜像仓库，在各预装 docker 的 Web 服务器上直接拉取并运行就行了。  
 
-整理完思路，但单靠上述容器化的实践并不能实现自动化部署的工作，将容器化理念融入进 Drone CI 中才是务实之举。
+整理完思路，但单靠上述容器化的实践并不能实现自动化部署的工作，将容器化理念融入进 Drone CI 工作流中才是务实之举。
 
 之前利用 Drone Plugin 的功能，完成了缓存和分发的工作。其实容器化之后也大同小异，但需要对 <code>.drone.yml</code> 文件进行相应变更，细节如下：
 
@@ -480,7 +480,7 @@ RUN yarn install && \
       # 登陆私有镜像仓库（ 倘若是公有仓库则可以忽略 ）
       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
       # 执行 auto-check.sh 脚本来检测缓存变更
-      # web.dockerfile 宜采用本地缓存，如 node-base ，保证缓存的新鲜度
+      # web.dockerfile 宜采用本地镜像，如 node-base ，保证缓存的新鲜度
       - sh ./build/auto-check.sh
       # 构建 web-nginx 镜像并推送至远程
       - docker build -t web-nginx -f web.dockerfile .
@@ -543,11 +543,62 @@ RUN yarn install && \
         - docker pull harbor.snowball.site/web/web-nginx
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
   ```
-  
+
+至此，Drone CI 容器化完成。
+
+需要说明的是，Dockerfile 构建时每行命令都是 Layer，Docker 构建时使用 Layer Cache 可以加速镜像构建过程，无需担心构建所产生的时间成本。整体构建用时与之前不相伯仲，如下图：
+
+![](./img/build_3.png)
+
+容器化完成之后，基础镜像和服务镜像都存放至 Harbor 私有仓库，如下图：
+
+![](./img/build_4.png)
+
+基于此，可以便捷地复用和管理镜像，方便追踪及复现线上故障，增强了 Web 服务的伸缩性。
+
 
 ## 体积
 
+应用的体积是构建时需要面对的棘手问题，在前端服务中，主要体现在 npm 包和 Docker 镜像两方面：
+
+- npm 包
+
+  npm 包分为 devDependencies 和 dependencies 两种依赖，其中 devDependencies 是日常开发环境所依赖的包，在部署时其实并不需要安装。
+
+  可以通过一下命令来优化 node_modules 文件夹的体积：
+
+  ```bash
+  # yarn
+  # 只安装 dependencies 中的包
+  $ yarn install --production
+  # npm 
+  $ npm prune --production
+  ```
+
+- Docker 镜像
+
+  Docker 镜像也存在大小之分，比如，Docker Hub 上就存在多个 Node 镜像，不同的镜像具有不同的大小，而在容器时代，Alpine 是最轻量的镜像，因此可以把基础镜像都采用 Alpine 版本，这样生成的镜像足够小，便于推送和拉取。
+
+  ```bash
+  # Dockerfile 中拉取 Alpine 版本
+  FROM node:alpine
+  # or
+  FROM nginx:alpine
+  ```
+
+## 网络
   
+在网络层面，国内访问 npm 官方源、Docker 镜像源 及 Github 仓库并不稳定，速度堪忧。这可能会导致 npm 包安装失败、Docker 镜像拉取失败、Github 仓库推送代码失败或过慢等问题。
+
+当然，解决方案也有很多，可以采用国外云服务器、引用国内镜像源或利用网络代理来解决。
+
+国内镜像源其实并不能解决 Github 仓库推送问题，而网络代理在 Docker 容器中存在诸多问题，推荐采用国外云服务器来解决。
+
+同等配置下的国内阿里云服务器和国外云服务部署的 Drone CI ，同次构建耗时如下：
+
+![](./img/build_5.png)
+
+
 
 ## 参考链接
 
