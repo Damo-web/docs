@@ -137,21 +137,21 @@ steps:
   #       - docker rm -f web-server
   #       - docker build -t damo-docs .
   #       - docker run -d -p 3080:80 --name web-server damo-docs
-  # - name: slack
-  #   image: plugins/slack
-  #   settings:
-  #     webhook:
-  #       from_secret: SLACK_WEB_HOOK
-  #     channel: web-notification
-  #     template: >
-  #       {{#success build.status}}
-  #        Repo `{{repo.name}}`build (<{{build.link}}|#{{build.number}}>) for commit(<{{build.link}}|{{truncate build.commit 7}}>) 
-  #        on branch `{{build.branch}}` by `{{build.author}}`
-  #        Execution time: *{{since job.started}}*
-  #        Message: *The build {{build.status}}*
-  #       {{else}}
-  #         build {{build.number}} failed. Fix me please.
-  #       {{/success}} 
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: SLACK_WEB_HOOK
+      channel: web-notification
+      template: >
+        {{#success build.status}}
+         Repo `{{repo.name}}`build (<{{build.link}}|#{{build.number}}>) for commit(<{{build.link}}|{{truncate build.commit 7}}>) 
+         on branch `{{build.branch}}` by `{{build.author}}`
+         Execution time: *{{since job.started}}*
+         Message: *The build {{build.status}}*
+        {{else}}
+          build {{build.number}} failed. Fix me please.
+        {{/success}} 
 image_pull_secrets:
   - dockerconfigjson
 
