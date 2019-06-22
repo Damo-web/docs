@@ -617,7 +617,7 @@ RUN yarn install && \
 Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
 ```
 
-为解决国内网络问题带来的构建用时成本，倘若条件容许，可以自建代码仓库（ GitLab、Gogs 等 ）、自建 npm 服务器（ sinopia、cnpm 等 ）及自建 dokcer 镜像仓库（ harbor等 ）来避免。
+为解决国内网络问题带来的构建用时成本，倘若条件容许，可以自建代码仓库（ GitLab、Gogs、Gitea 等 ）、自建 npm 服务器（ sinopia、cnpm 等 ）及自建 dokcer 镜像仓库（ harbor等 ）来避免。
 
 倘若条件不容许，针对 npm 官方源 和 Docker 镜像源，可以采用国内镜像源来简单处理：
 
