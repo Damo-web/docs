@@ -194,6 +194,18 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   $ docker rmi -f $(docker images -a -q)
   ```
 
+  - 删除所有 none 镜像
+
+  ```bash
+  docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+  ```
+
+  - 删除所有未启动容器
+
+  ```bash
+  docker rm $(docker ps -a -q)
+  ```
+
 - docker-compose
 
   更多命令可参阅：[Compose (docker-compose) CLI](https://docs.docker.com/compose/reference/overview/)
@@ -231,3 +243,10 @@ macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：
   $ Removing redis   ... done
   $ Removing network web-service
   ```
+
+
+## 参考链接
+
+- [docker docs](https://docs.docker.com/v17.12/engine/reference/run/)
+
+- [10分钟看懂Docker和K8S](https://zhuanlan.zhihu.com/p/53260098)

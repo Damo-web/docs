@@ -2,6 +2,8 @@
 
 > 之前文章介绍了 CI / CD 相关概念及主流工具，利用此类工具能便捷地进行持续集成及发布，但构建自动化并不意味着构建流程的结束，恰好是构建优化的开始。
 
+![](./img/build_1.png)
+
 ## 缓存
 
 缓存（ Cache ）是构建流程中必须面对的话题。
@@ -599,7 +601,7 @@ RUN yarn install && \
 
 国内镜像源其实并不能解决 Github 仓库推送问题，而网络代理在 Docker 容器中存在诸多问题，推荐采用国外云服务器来解决。
 
-同等配置下的国外云服务和国内阿里云服务器部署的 Drone CI ，同次构建耗时依次如下：
+同等配置下的国外云服务和国内阿里云服务器部署的 Drone CI ，无 node_modules 缓存，同次构建耗时依次如下：
 
 ![](./img/build_5.png)
 
@@ -684,10 +686,14 @@ Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: requ
 
 - [How to Build and Deploy Docker Images with Drone](http://paislee.io/how-to-build-and-deploy-docker-images-with-drone/)
 
-- [Docker 最佳实践之多阶段构建](https://www.hi-linux.com/posts/55545.html)
-
 - [[1.0.0-rc1] How to pull image from private registry and execute commands in it](https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12)
+
+- [Docker Credential Store](https://www.projectatomic.io/blog/2016/03/docker-credentials-store/)
+
+- [git not found in alpine image](https://github.com/nodejs/docker-node/issues/586)
 
 - [Secret in Drone 1.0.0-rc.1](https://github.com/appleboy/drone-ssh/issues/130)
 
-- [docker_practice](https://yeasy.gitbooks.io/docker_practice/install/mirror.html)
+- [docker practice](https://yeasy.gitbooks.io/docker_practice/install/mirror.html)
+
+- [Piplenes: docker login can not perform an interactive login from a non TTY](https://community.atlassian.com/t5/Bitbucket-questions/Piplenes-docker-login-can-not-perform-an-interactive-login-from/qaq-p/595736)

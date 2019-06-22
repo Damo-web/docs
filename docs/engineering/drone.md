@@ -336,3 +336,5 @@ Drone 是一个用 Go 语言开发的基于容器运行的开源持续集成软�
 - [Drone.io: first impressions](https://medium.com/@stepanvrany/drone-io-first-impressions-43d9338cd7e5)
 
 - [用 Drone 打造 CI/CD flow](https://medium.com/asiayo-engineering/%E7%94%A8-drone-%E6%89%93%E9%80%A0-ci-cd-flow-36b9d14c7620)
+
+- [Getting started with open-source Drone CI](https://medium.com/pixelpoint/getting-started-with-open-source-drone-ci-1528de836cd1)
