@@ -119,6 +119,7 @@ module.exports = {
           'drone',
           'circle',
           'travis',
+          'harbor',
           'build'
         ]
       }],
