@@ -223,6 +223,7 @@ For more details, please visit https://github.com/goharbor/harbor .
   $ cd certbot
   $ ./letsencrypt-auto certonly -d harbor.snowball.site
   # 执行结果如下即表示成功
+  # 授权方式选择 Spin up a temporary webserver (standalone)
   IMPORTANT NOTES:
   - Congratulations! Your certificate and chain have been saved at:
     /etc/letsencrypt/live/harbor.snowball.site/fullchain.pem
