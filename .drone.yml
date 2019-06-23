@@ -127,7 +127,7 @@ steps:
       - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
       - docker push harbor.snowball.site/web/web-nginx:latest
       # 清除 untagged images
-      # - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+      - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
     privileged: true
 
   - name: publish-web-server
@@ -148,7 +148,7 @@ steps:
         - docker pull harbor.snowball.site/web/web-nginx
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
         # 清除 untagged images
-        # - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+        - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
   # - name: build
   #   image: harbor.snowball.site/web/node-base

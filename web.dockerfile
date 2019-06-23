@@ -1,4 +1,4 @@
-FROM node-base as builder
+FROM node-base:latest as builder
 WORKDIR /src
 COPY . /src/
 RUN ls
