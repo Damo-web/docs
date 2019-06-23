@@ -1,4 +1,5 @@
 FROM node-base:latest as builder
+LABEL maintainer="snowballer0705@gmail.com"
 WORKDIR /src
 COPY . /src/
 RUN ls

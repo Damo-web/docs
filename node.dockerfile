@@ -1,4 +1,5 @@
 FROM node:alpine
+LABEL maintainer="snowballer0705@gmail.com"
 # alpine 版本不包含 git 和 docker
 RUN apk update && apk add --no-cache git && \
     apk add docker
