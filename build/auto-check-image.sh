@@ -7,7 +7,7 @@ if [ -n "$image" ]; then
 else
   echo "Docker image node-base is not existed"
   docker build -t node-base -f node.dockerfile .
-  docker tag node-base harbor.snowball.site/web/node-base
-  docker push harbor.snowball.site/web/node-base
+  docker tag node-base harbor.snowball.site/web/node-base:latest
+  docker push harbor.snowball.site/web/node-base:latest
 fi
 
