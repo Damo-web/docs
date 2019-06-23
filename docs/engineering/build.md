@@ -303,6 +303,11 @@ RUN yarn install && \
   ```bash
   # 拉取 node 镜像
   FROM node:alpine
+  # alpine 版本不包含 git 和 docker
+  # 但后续在此镜像中需要使用 git 和 docker，安装后体积会增加一倍
+  # 也可以不安装，在运行镜像时安装，主要还是在于镜像体积的取舍
+  RUN apk update && apk add --no-cache git && \
+      apk add docker
   # 新建并进入工作区
   RUN mkdir /src
   WORKDIR /src
@@ -310,7 +315,7 @@ RUN yarn install && \
   COPY ./package*.json /src/
   COPY ./yarn.lock /src/
   # 安装包
-  RUN yarn install
+  RUN yarn install --production
   ```
 
   在当前目录下执行构建镜像，如下：
@@ -345,7 +350,7 @@ RUN yarn install && \
   ---> b24da7a66597
   Step 5/6 : COPY ./yarn.lock /src/
   ---> 967926c6ebaf
-  Step 6/6 : RUN yarn install
+  Step 6/6 : RUN yarn install --production
   ---> Running in 8d75cadf2142
   yarn install v1.16.0
   [1/4] Resolving packages...
@@ -392,8 +397,8 @@ RUN yarn install && \
   FROM nginx:alpine
   # 新建工作区
   WORKDIR /root 
-  # 复制 builder 阶段 /src/dist 文件至当前 nginx 目录
-  COPY --from=builder /src/dist /usr/share/nginx/html 
+  # 复制 builder 阶段 /src/dist 文件至当前 nginx 目录 docs 下
+  COPY --from=builder /src/dist /usr/share/nginx/html/docs
   # 暴露端口（ nginx 基础镜像默认 80 端口，可忽略 ）
   EXPOSE 80 
   ```
@@ -476,28 +481,32 @@ RUN yarn install && \
       HARBOR_PWD:
         from_secret: HARBOR_PWD
     commands: 
-      # node 基础镜像没内置 git 和 docker，需要进行安装
-      - apk add --no-cache git
-      - apk add docker
+      # 倘若 node 基础镜像没内置 git 和 docker，需要进行安装
+      # - apk add --no-cache git
+      # - apk add docker
       # 登陆私有镜像仓库（ 倘若是公有仓库则可以忽略 ）
       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-      # 执行 auto-check.sh 脚本来检测缓存变更
+      # 执行 auto-check-install.sh 脚本来检测缓存变更
       # web.dockerfile 宜采用本地镜像，如 node-base ，保证缓存的新鲜度
-      - sh ./build/auto-check.sh
+      - sh ./build/auto-check-install.sh
       # 构建 web-nginx 镜像并推送至远程
       - docker build -t web-nginx -f web.dockerfile .
       - docker tag web-nginx harbor.snowball.site/web/web-nginx
       - docker push harbor.snowball.site/web/web-nginx
-    # 容许主机访问主机服务
+      # 清除 Web 服务器 untagged images
+      - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+    # 容许容器访问主机服务
     privileged: true
   # 配置私有镜像仓库授权信息
-  # 可参阅：https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12
+  # 通过 docker login [SERVER] 后，可通过 ~/.docker/config.json 获取授权信息
+  # 注意密码采用 -p 登陆，使用 --password-stdin 登陆将无法获取授权信息
+  # 具体配置可参阅：https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12
   image_pull_secrets:
     - dockerconfigjson
   ```
 
   ```bash
-  # auto-check.sh
+  # auto-check-install.sh
   #!/bin/bash
   echo ========== CHECKING FOR CHANGES ========
   changes=$(git diff HEAD^ HEAD -- yarn.lock)
@@ -540,13 +549,50 @@ RUN yarn install && \
         # 停止并删除原有 container
         - docker container stop web-server
         - docker rm -f web-server
+        # 清除 Web 服务器 untagged images
+        - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
         # 拉取最新镜像并运行
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
   ```
 
-至此，Drone CI 容器化完成。
+至此，Drone CI 容器化大致完成。但需要注意，刚部署项目时，本地和远程都未暂存基础镜像，需要在 build-web-image 步骤前追加 check-base-image 的步骤：
+
+```yaml
+# .drone.yml
+- name: check-base-image
+    image: docker:dind
+    # 挂载主机 daemon 用来 tag
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
+    commands: 
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      - sh ./build/auto-check-image.sh
+    privileged: true
+```
+
+```bash
+# auto-check-image.sh
+#!/bin/bash
+echo ========== CHECKING FOR NODE BASE IMAGE ========
+
+image=$(docker images -q node-base 2> /dev/null)
+if [ -n "$image" ]; then
+  echo "Docker image node-base is existed"
+else
+  echo "Docker image node-base is not existed"
+  docker build -t node-base -f node.dockerfile .
+  docker tag node-base harbor.snowball.site/web/node-base
+  docker push harbor.snowball.site/web/node-base
+fi
+```
 
 需要说明的是，Dockerfile 构建时每行命令都是 Layer，Docker 构建时使用 Layer Cache 可以加速镜像构建过程，无需担心构建所产生的时间成本。整体构建用时与之前不相伯仲，如下图：
 
@@ -698,4 +744,4 @@ Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: requ
 
 - [Piplenes: docker login can not perform an interactive login from a non TTY](https://community.atlassian.com/t5/Bitbucket-questions/Piplenes-docker-login-can-not-perform-an-interactive-login-from/qaq-p/595736)
 
-- [Docker remove <none> TAG images](https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images)
+- [Docker remove none TAG images](https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images)
