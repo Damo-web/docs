@@ -3,120 +3,64 @@ kind: pipeline
 name: drone
 
 steps:
-  - name: restore-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      restore: true  
-      mount:  
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache  
+  # =================================================
+  #                    传统模式 
+  # =================================================
 
-  - name: install
-    image: node
-    commands:
-      # https://github.com/yarnpkg/yarn/issues/5163
-      # - yarn cache clean
-      # - yarn config set registry https://registry.yarnpkg.com
-      # - yarn config get registry
-      - curl ip.gs
-      - bash ./build/pre-install.sh
-      # - yarn pre-run
-      # - git diff HEAD~2 HEAD -- yarn.lock
-      # - yarn config set registry 'https://registry.npm.taobao.org'
-      # - yarn install --production=true
+  # - name: restore-cache  
+  #   image: drillster/drone-volume-cache  
+  #   settings:  
+  #     restore: true  
+  #     mount:  
+  #       - ./node_modules  
+  #   volumes:  
+  #     - name: cache  
+  #       path: /cache  
 
-  # - name: build-web-image
-  #   image: harbor.snowball.site/web/node-base
-  #   # 挂载主机 daemon 用来 tag
-  #   volumes:
-  #     - name: dockersock
-  #       path: /var/run/docker.sock
-  #   environment:
-  #     HARBOR_USERNAME:
-  #       from_secret: HARBOR_USERNAME
-  #     HARBOR_PWD:
-  #       from_secret: HARBOR_PWD
-  #   commands: 
-  #     # node 基础镜像没内置 git 和 docker
-  #     - apk add --no-cache git
-  #     - apk add docker
-  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-  #     - sh ./build/auto-check.sh
-  #     - docker build -t web-nginx -f web.dockerfile .
-  #     - docker tag web-nginx harbor.snowball.site/web/web-nginx
-  #     - docker push harbor.snowball.site/web/web-nginx
-  #   privileged: true
-
-  # - name: publish-web-server
-  #   image: appleboy/drone-ssh
-  #   settings:
-  #     host:
-  #       from_secret: REMOTE_HOST_1
-  #       from_secret: REMOTE_HOST_2
-  #     username: 
-  #       from_secret: REMOTE_USER
-  #     key: 
-  #       from_secret: REMOTE_KEY
-  #     envs: [ HARBOR_USERNAME,HARBOR_PWD ]
-  #     script:
-  #       - docker container stop web-server
-  #       - docker rm -f web-server
-  #       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-  #       - docker pull harbor.snowball.site/web/web-nginx
-  #       - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
+  # - name: install
+  #   image: node
+  #   commands:
+  #     # https://github.com/yarnpkg/yarn/issues/5163
+  #     # - yarn cache clean
+  #     - curl ip.gs
+  #     - bash ./build/pre-install.sh
 
   # - name: build
-  #   image: harbor.snowball.site/web/node-base
-  #   environment:
-  #     HARBOR_USERNAME:
-  #       from_secret: HARBOR_USERNAME
-  #     HARBOR_PWD:
-  #       from_secret: HARBOR_PWD
+  #   image: node
   #   commands:
-  #     - apk add docker
-  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-  #     - docker build -t web-nginx -f web.dockerfile .
-  #     - docker tag web-nginx harbor.snowball.site/web/web-nginx
-  #     - docker push harbor.snowball.site/web/web-nginx
-  #   privileged: true
-  
-  - name: build
-    image: node
-    commands:
-      - yarn build
+  #     - yarn build
 
-  - name: deploy
-    image: node
-    commands:
-      - cd ./dist
-      - ls
-      - git init
-      - git config user.name $${USERNAME}
-      - git config user.email $${EMAIL}
-      - git add -A
-      - git commit -m "[skip ci] deploy"
-      - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
-    environment:
-      USERNAME:
-        from_secret: USERNAME
-      EMAIL:
-        from_secret: EMAIL
-      GH_REF:
-        from_secret: GH_REF
-      GH_TOKEN:
-        from_secret: GH_TOKEN
+  # - name: deploy
+  #   image: node
+  #   commands:
+  #     - cd ./dist
+  #     - ls
+  #     - git init
+  #     - git config user.name $${USERNAME}
+  #     - git config user.email $${EMAIL}
+  #     - git add -A
+  #     - git commit -m "[skip ci] deploy"
+  #     - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
+  #   environment:
+  #     USERNAME:
+  #       from_secret: USERNAME
+  #     EMAIL:
+  #       from_secret: EMAIL
+  #     GH_REF:
+  #       from_secret: GH_REF
+  #     GH_TOKEN:
+  #       from_secret: GH_TOKEN
 
-  - name: rebuild-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      rebuild: true  
-      mount:    
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache
+  # - name: rebuild-cache  
+  #   image: drillster/drone-volume-cache  
+  #   settings:  
+  #     rebuild: true  
+  #     mount:    
+  #       - ./node_modules  
+  #   volumes:  
+  #     - name: cache  
+  #       path: /cache
+
   # - name: rsync
   #   image: drillster/drone-rsync
   #   environment:
@@ -141,6 +85,82 @@ steps:
   #       - docker rm -f web-server
   #       - docker build -t damo-docs .
   #       - docker run -d -p 3080:80 --name web-server damo-docs
+
+  # =================================================
+  #                    容器模式
+  # =================================================
+
+  - name: check-base-image
+    image: docker:dind
+    # 挂载主机 daemon 用来 tag
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
+    commands: 
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      - sh ./build/auto-check-image.sh
+    privileged: true
+
+  - name: build-web-image
+    image: harbor.snowball.site/web/node-base
+    # 挂载主机 daemon 用来 tag
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
+    commands: 
+      # node 基础镜像没内置 git 和 docker
+      - apk add --no-cache git
+      - apk add docker
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      - sh ./build/auto-check-install.sh
+      - docker build -t web-nginx -f web.dockerfile .
+      - docker tag web-nginx harbor.snowball.site/web/web-nginx
+      - docker push harbor.snowball.site/web/web-nginx
+    privileged: true
+
+  - name: publish-web-server
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: REMOTE_HOST_1
+        from_secret: REMOTE_HOST_2
+      username: 
+        from_secret: REMOTE_USER
+      key: 
+        from_secret: REMOTE_KEY
+      envs: [ HARBOR_USERNAME,HARBOR_PWD ]
+      script:
+        - docker container stop web-server
+        - docker rm -f web-server
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+        - docker pull harbor.snowball.site/web/web-nginx
+        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
+
+  # - name: build
+  #   image: harbor.snowball.site/web/node-base
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   commands:
+  #     - apk add docker
+  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #     - docker build -t web-nginx -f web.dockerfile .
+  #     - docker tag web-nginx harbor.snowball.site/web/web-nginx
+  #     - docker push harbor.snowball.site/web/web-nginx
+  #   privileged: true
+  
   - name: slack
     image: plugins/slack
     settings:

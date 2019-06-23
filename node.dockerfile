@@ -3,7 +3,7 @@ RUN mkdir /src
 WORKDIR /src
 COPY ./package*.json /src/
 COPY ./yarn.lock /src/
-RUN yarn install
+RUN yarn install --production
 # CMD tail -f /dev/null
 
 
