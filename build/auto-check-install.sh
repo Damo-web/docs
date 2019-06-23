@@ -7,8 +7,8 @@ if [ -n "$changes" ]; then
     echo "*** CHANGES FOUND ***"
     echo "$changes"
     echo "Yarn.lock has changed"
-    docker build -t node-base -f node.dockerfile .
-    docker tag node-base harbor.snowball.site/web/node-base:latest
+    docker build -t node-base:latest -f node.dockerfile .
+    docker tag node-base:latest harbor.snowball.site/web/node-base:latest
     docker push harbor.snowball.site/web/node-base:latest
 else
     echo ""

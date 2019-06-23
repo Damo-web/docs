@@ -697,3 +697,5 @@ Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: requ
 - [docker practice](https://yeasy.gitbooks.io/docker_practice/install/mirror.html)
 
 - [Piplenes: docker login can not perform an interactive login from a non TTY](https://community.atlassian.com/t5/Bitbucket-questions/Piplenes-docker-login-can-not-perform-an-interactive-login-from/qaq-p/595736)
+
+- [Docker remove <none> TAG images](https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images)
