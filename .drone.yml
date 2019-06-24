@@ -154,21 +154,6 @@ steps:
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
-
-  # - name: build
-  #   image: harbor.snowball.site/web/node-base
-  #   environment:
-  #     HARBOR_USERNAME:
-  #       from_secret: HARBOR_USERNAME
-  #     HARBOR_PWD:
-  #       from_secret: HARBOR_PWD
-  #   commands:
-  #     - apk add docker
-  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-  #     - docker build -t web-nginx -f web.dockerfile .
-  #     - docker tag web-nginx harbor.snowball.site/web/web-nginx
-  #     - docker push harbor.snowball.site/web/web-nginx
-  #   privileged: true
   
   - name: slack
     image: plugins/slack
