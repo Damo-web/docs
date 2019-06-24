@@ -106,29 +106,29 @@ steps:
       - sh ./build/auto-check-image.sh
     privileged: true
 
-  - name: build-web-image
-    image: harbor.snowball.site/web/node-base
-    # 挂载主机 daemon 用来 tag
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    commands: 
-      # node 基础镜像没内置 git 和 docker
-      # - apk add --no-cache git
-      # - apk add docker
-      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-      - sh ./build/auto-check-install.sh
-      - docker build -t web-nginx:latest -f web.dockerfile .
-      - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
-      - docker push harbor.snowball.site/web/web-nginx:latest
-      # 清除 untagged images
-      - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-    privileged: true
+  # - name: build-web-image
+  #   image: harbor.snowball.site/web/node-base
+  #   # 挂载主机 daemon 用来 tag
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   commands: 
+  #     # node 基础镜像没内置 git 和 docker
+  #     # - apk add --no-cache git
+  #     # - apk add docker
+  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #     - sh ./build/auto-check-install.sh
+  #     - docker build -t web-nginx:latest -f web.dockerfile .
+  #     - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
+  #     - docker push harbor.snowball.site/web/web-nginx:latest
+  #     # 清除 untagged images
+  #     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+  #   privileged: true
 
   - name: publish-web-server
     image: appleboy/drone-ssh
@@ -137,10 +137,16 @@ steps:
         from_secret: HARBOR_USERNAME
       HARBOR_PWD:
         from_secret: HARBOR_PWD
+      REMOTE_HOST_1:
+        from_secret: REMOTE_HOST_1
+      REMOTE_HOST_2:
+        from_secret: REMOTE_HOST_2
     settings:
       host: 
-        - 66.42.115.162
-        - 144.202.103.102
+        - "$$REMOTE_HOST_1"
+        - "$$REMOTE_HOST_2"
+        # - 66.42.115.162
+        # - 144.202.103.102
       username: 
         from_secret: REMOTE_USER
       key: 
