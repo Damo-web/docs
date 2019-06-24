@@ -102,7 +102,7 @@ steps:
       HARBOR_PWD:
         from_secret: HARBOR_PWD
     commands: 
-      # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
       - sh ./build/auto-check-image.sh
     privileged: true
 
@@ -186,8 +186,8 @@ steps:
           build {{build.number}} failed. Fix me please.
         {{/success}} 
 
-image_pull_secrets:
-  - dockerconfigjson
+# image_pull_secrets:
+#   - dockerconfigjson
 
 trigger:
   branch:
