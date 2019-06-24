@@ -534,6 +534,11 @@ RUN yarn install && \
   - name: publish-web-server
     #  使用 drone-ssh 插件连接远程服务器
     image: appleboy/drone-ssh
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
     settings:
       host:
         from_secret: REMOTE_HOST_1
@@ -542,7 +547,7 @@ RUN yarn install && \
         from_secret: REMOTE_USER
       key: 
         from_secret: REMOTE_KEY
-      # 暴漏至 script 的环境变量
+      # 暴露至 script 的环境变量
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         - docker -v
