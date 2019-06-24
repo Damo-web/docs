@@ -9,4 +9,5 @@ FROM nginx:alpine
 WORKDIR /root 
 COPY --from=builder /src/dist /usr/share/nginx/html/docs
 # EXPOSE 80 
+# 保持容器存活不退出
 # CMD tail -f /dev/null

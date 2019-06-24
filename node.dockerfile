@@ -8,4 +8,5 @@ WORKDIR /src
 COPY ./package*.json /src/
 COPY ./yarn.lock /src/
 RUN yarn install --production
+# 保持容器存活不退出
 # CMD tail -f /dev/null
