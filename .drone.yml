@@ -144,6 +144,8 @@ steps:
       script:
         - docker container stop web-server
         - docker rm -f web-server
+        - echo "$$HARBOR_USERNAME"
+        - echo "$$HARBOR_PWD"
         # 清除 untagged images
         - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
