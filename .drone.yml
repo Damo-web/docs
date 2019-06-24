@@ -143,8 +143,8 @@ steps:
         from_secret: REMOTE_HOST_2
     settings:
       host: 
-        - "$$REMOTE_HOST_1"
-        - "$$REMOTE_HOST_2"
+        - REMOTE_HOST_1
+        - REMOTE_HOST_2
         # - 66.42.115.162
         # - 144.202.103.102
       username: 
