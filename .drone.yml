@@ -132,6 +132,11 @@ steps:
 
   - name: publish-web-server
     image: appleboy/drone-ssh
+    environment:
+      HARBOR_USERNAME:
+        from_secret: HARBOR_USERNAME
+      HARBOR_PWD:
+        from_secret: HARBOR_PWD
     settings:
       host:
         from_secret: REMOTE_HOST_1
@@ -144,11 +149,11 @@ steps:
       script:
         - docker container stop web-server
         - docker rm -f web-server
-        - echo $${HARBOR_USERNAME}
-        - echo $${HARBOR_PWD}
+        - echo $$HARBOR_USERNAME
+        - echo $$HARBOR_PWD
         # 清除 untagged images
         - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-        - docker login harbor.snowball.site -u $${HARBOR_USERNAME} -p $${HARBOR_PWD}
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
 
