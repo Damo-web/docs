@@ -556,12 +556,12 @@ RUN yarn install && \
         # 停止并删除原有 container
         - docker container stop web-server
         - docker rm -f web-server
-        # 清除 Web 服务器 untagged images
-        - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
         # 拉取最新镜像并运行
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
+        # 清除 Web 服务器 untagged images
+        - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
   ```
 
 至此，Drone CI 容器化大致完成。但需要注意，刚部署项目时，本地和远程都未暂存基础镜像，需要在 build-web-image 步骤前追加 check-base-image 的步骤：

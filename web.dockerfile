@@ -7,6 +7,7 @@ RUN yarn build
 
 FROM nginx:alpine
 WORKDIR /root 
+ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /src/dist /usr/share/nginx/html/docs
 # EXPOSE 80 
 # 保持容器存活不退出

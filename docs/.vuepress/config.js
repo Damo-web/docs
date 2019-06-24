@@ -120,7 +120,8 @@ module.exports = {
           'circle',
           'travis',
           'harbor',
-          'build'
+          'build',
+          'nginx'
         ]
       }],
       '/render/': [{
