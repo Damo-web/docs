@@ -470,6 +470,7 @@ RUN yarn install && \
   - name: build-web-image
     # 私有镜像，这里采用 harbor 来进行存储和管理
     # 细节可参阅：https://github.com/goharbor/harbor
+    # 必须配置 image_pull_secrets，否则会出错
     image: harbor.snowball.site/web/node-base
     # 挂载主机 daemon 用来 tag
     volumes:
@@ -540,9 +541,10 @@ RUN yarn install && \
       HARBOR_PWD:
         from_secret: HARBOR_PWD
     settings:
+      # 目前不支持 environment 存取
       host:
-        from_secret: REMOTE_HOST_1
-        from_secret: REMOTE_HOST_2
+        - 66.42.115.162
+        - 144.202.103.102
       username: 
         from_secret: REMOTE_USER
       key: 

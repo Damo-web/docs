@@ -152,8 +152,8 @@ steps:
         # 清除 untagged images
         - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-        - docker pull harbor.snowball.site/web/web-nginx
-        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx
+        - docker pull harbor.snowball.site/web/web-nginx:latest
+        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
   
   - name: slack
     image: plugins/slack
