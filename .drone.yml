@@ -186,8 +186,8 @@ steps:
           build {{build.number}} failed. Fix me please.
         {{/success}} 
 
-# image_pull_secrets:
-#   - dockerconfigjson
+image_pull_secrets:
+  - dockerconfigjson
 
 trigger:
   branch:
