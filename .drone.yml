@@ -7,59 +7,59 @@ steps:
   #                    传统模式 
   # =================================================
 
-  # - name: restore-cache  
-  #   image: drillster/drone-volume-cache  
-  #   settings:  
-  #     restore: true  
-  #     mount:  
-  #       - ./node_modules  
-  #   volumes:  
-  #     - name: cache  
-  #       path: /cache  
+  - name: restore-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      restore: true  
+      mount:  
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache  
 
-  # - name: install
-  #   image: node
-  #   commands:
-  #     # https://github.com/yarnpkg/yarn/issues/5163
-  #     # - yarn cache clean
-  #     - curl ip.gs
-  #     - bash ./build/pre-install.sh
+  - name: install
+    image: node
+    commands:
+      # https://github.com/yarnpkg/yarn/issues/5163
+      # - yarn cache clean
+      - curl ip.gs
+      - bash ./build/pre-install.sh
 
-  # - name: build
-  #   image: node
-  #   commands:
-  #     - yarn build
+  - name: build
+    image: node
+    commands:
+      - yarn build
 
-  # - name: deploy
-  #   image: node
-  #   commands:
-  #     - cd ./dist
-  #     - ls
-  #     - git init
-  #     - git config user.name $${USERNAME}
-  #     - git config user.email $${EMAIL}
-  #     - git add -A
-  #     - git commit -m "[skip ci] deploy"
-  #     - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
-  #   environment:
-  #     USERNAME:
-  #       from_secret: USERNAME
-  #     EMAIL:
-  #       from_secret: EMAIL
-  #     GH_REF:
-  #       from_secret: GH_REF
-  #     GH_TOKEN:
-  #       from_secret: GH_TOKEN
+  - name: deploy
+    image: node
+    commands:
+      - cd ./dist
+      - ls
+      - git init
+      - git config user.name $${USERNAME}
+      - git config user.email $${EMAIL}
+      - git add -A
+      - git commit -m "[skip ci] deploy"
+      - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
+    environment:
+      USERNAME:
+        from_secret: USERNAME
+      EMAIL:
+        from_secret: EMAIL
+      GH_REF:
+        from_secret: GH_REF
+      GH_TOKEN:
+        from_secret: GH_TOKEN
 
-  # - name: rebuild-cache  
-  #   image: drillster/drone-volume-cache  
-  #   settings:  
-  #     rebuild: true  
-  #     mount:    
-  #       - ./node_modules  
-  #   volumes:  
-  #     - name: cache  
-  #       path: /cache
+  - name: rebuild-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      rebuild: true  
+      mount:    
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache
 
   # - name: rsync
   #   image: drillster/drone-rsync
@@ -90,71 +90,71 @@ steps:
   #                    容器模式
   # =================================================
 
-  - name: check-base-image
-    image: docker:dind
-    # 挂载主机 daemon 用来 tag
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    commands: 
-      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-      - sh ./build/auto-check-image.sh
-    privileged: true
+  # - name: check-base-image
+  #   image: docker:dind
+  #   # 挂载主机 daemon 用来 tag
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   commands: 
+  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #     - sh ./build/auto-check-image.sh
+  #   privileged: true
 
-  - name: build-web-image
-    image: harbor.snowball.site/web/node-base
-    # 挂载主机 daemon 用来 tag
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    commands: 
-      # node 基础镜像没内置 git 和 docker
-      # - apk add --no-cache git
-      # - apk add docker
-      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-      - sh ./build/auto-check-install.sh
-      - docker build -t web-nginx:latest -f web.dockerfile .
-      - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
-      - docker push harbor.snowball.site/web/web-nginx:latest
-      # 清除 untagged images
-      - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-    privileged: true
+  # - name: build-web-image
+  #   image: harbor.snowball.site/web/node-base
+  #   # 挂载主机 daemon 用来 tag
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   commands: 
+  #     # node 基础镜像没内置 git 和 docker
+  #     # - apk add --no-cache git
+  #     # - apk add docker
+  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #     - sh ./build/auto-check-install.sh
+  #     - docker build -t web-nginx:latest -f web.dockerfile .
+  #     - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
+  #     - docker push harbor.snowball.site/web/web-nginx:latest
+  #     # 清除 untagged images
+  #     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+  #   privileged: true
 
-  - name: publish-web-server
-    image: appleboy/drone-ssh
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    settings:
-      host:
-        - 45.77.119.141
-        - 144.202.103.102
-      username: 
-        from_secret: REMOTE_USER
-      key: 
-        from_secret: REMOTE_KEY
-      envs: [ HARBOR_USERNAME,HARBOR_PWD ]
-      script:
-        # todo 判断是否存在 web-server 容器
-        - docker container stop web-server
-        - docker rm -f web-server
-        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-        - docker pull harbor.snowball.site/web/web-nginx:latest
-        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
-        # 清除 untagged images
-        - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+  # - name: publish-web-server
+  #   image: appleboy/drone-ssh
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   settings:
+  #     host:
+  #       - 45.77.119.141
+  #       - 144.202.103.102
+  #     username: 
+  #       from_secret: REMOTE_USER
+  #     key: 
+  #       from_secret: REMOTE_KEY
+  #     envs: [ HARBOR_USERNAME,HARBOR_PWD ]
+  #     script:
+  #       # todo 判断是否存在 web-server 容器
+  #       - docker container stop web-server
+  #       - docker rm -f web-server
+  #       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #       - docker pull harbor.snowball.site/web/web-nginx:latest
+  #       - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
+  #       # 清除 untagged images
+  #       - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
   
   - name: slack
     image: plugins/slack

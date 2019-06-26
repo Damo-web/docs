@@ -135,13 +135,50 @@ server {
 
 ![](./img/nginx_2.png)
 
+假设如今有两台服务器，一台负载均衡服务器，一台普通 Web 服务器，而负载均衡服务器上也运行与普通 Web 服务器同样的 Web 应用，在负载均衡服务器安装 nginx ，<code>/etc/nginx/conf.d/default.conf</code> 文件配置如下：
+
 ```bash
+# 定义负载均衡服务器集群
+upstream balanceServer {
+    server 45.77.119.141:3080;
+    server localhost:3080;
+}
+server {
+    listen       80;
+    server_name doc.snowball.site;
 
+    location / {
+        proxy_pass http://balanceServer;
+    }
 
+    #error_page  404              /404.html;
 
-
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
 ```
 
+配置完成后，重启 nginx 服务。
+
+负载均衡服务器上修改文件 <code>/usr/share/nginx/html/index.html</code> 中欢迎文字，如下：
+
+![](./img/nginx_3.png)
+
+普通 Web 服务器上修改文件 <code>/usr/share/nginx/html/index.html</code> 中欢迎文字，如下：
+
+![](./img/nginx_4.png)
+
+访问 http://doc.snowball.site 刷新页面时随机出现如下两种情况，即表示一个极简版的 nginx 负载均衡配置成功：
+
+![](./img/nginx_5.png)
+
+![](./img/nginx_6.png)
+
+当然，nginx 的负载均衡并不仅限于此，它还提供丰富的配置项。
 
 ## 跨域处理
 
