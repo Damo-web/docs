@@ -147,6 +147,7 @@ steps:
         from_secret: REMOTE_KEY
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
+        # todo 判断是否存在 web-server 容器
         - docker container stop web-server
         - docker rm -f web-server
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
