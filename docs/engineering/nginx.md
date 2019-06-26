@@ -135,7 +135,12 @@ server {
 
 ![](./img/nginx_2.png)
 
+```bash
 
+
+
+
+```
 
 
 ## 跨域处理
