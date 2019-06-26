@@ -543,7 +543,7 @@ RUN yarn install && \
     settings:
       # 目前不支持 environment 存取
       host:
-        - 66.42.115.162
+        - 45.77.119.141
         - 144.202.103.102
       username: 
         from_secret: REMOTE_USER
