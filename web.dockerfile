@@ -10,7 +10,7 @@ WORKDIR /root
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir -p /var/www/html
 # 因文档部署于 github pages 下 docs 中，这里需要复制至 docs 下
-COPY --from=builder /src/dist /usr/share/nginx/html/docs
+COPY --from=builder /src/dist /var/www/html/docs
 # EXPOSE 80 
 # 保持容器存活不退出
 # CMD tail -f /dev/null
