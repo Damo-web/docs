@@ -178,9 +178,27 @@ server {
 
 ![](./img/nginx_6.png)
 
-当然，nginx 的负载均衡并不仅限于此，它还提供丰富的配置项。
+当然，nginx 的负载均衡并不仅限于此，它还提供丰富的配置项，支持轮询策略（ 默认 ）、最小连接数策略、最快响应时间策略以及客户端IP地址绑定策略，这里不加赘述，详细可参阅：[Using nginx as HTTP load balancer](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
 
 ## 跨域处理
+
+Nginx 是非常优秀的反向代理服务器，可以用它来解决浏览器跨域问题。
+
+假设前端域名为 fe.snowball.site ，后端域名为 api.snowball.site，根据浏览器同源策略，前端访问后端 HTTP 服务时会触发跨域问题，当然解决办法有很多，可以让后端服务器进行处理，可以利用 Webpack 中 proxy 属性来配置等，其实也可以利用 nginx 来解决这一问题。
+
+
+```bash
+# 接口域名用 fe.snowball.site 代替 api.snowball.site
+# 如下配置代理，即可完成跨域
+server {
+    listen       80;
+    server_name  fe.snowball.site;
+    location / {
+        proxy_pass api.snowball.site;
+    }
+}
+
+```
 
 ## 性能优化
 
