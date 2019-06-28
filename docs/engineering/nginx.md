@@ -211,6 +211,88 @@ server {
 }
 ```
 
+## 网站安全
+
+当网站以 HTTP 运行时，可能会被网络运营商劫持，在网站中植入广告代码，这种攻击方式称作为中间人攻击（ Man In The Middle Attack，可简称 MITM ），示意图如下：
+
+![](./img/nginx_12.png)
+
+因 HTTP 是明文传输，网络运营商可以随意篡改网站信息，但倘若网站升级为 HTTPS ，采用加密传输，运营商就不能截获及篡改网站信息。
+
+Nginx 可以通过简单的配置，将网站升级为 HTTPS ，步骤如下：
+
+1. CentOS7 防火墙开启 https 服务
+
+  生成 SSL 证书时需要注意，CentOS7 默认防火墙 firewalld 关闭了 https 服务，需要进行开启：
+
+  ```bash
+  # 开启防护墙 http 服务并重启
+  $ firewall-cmd --zone=public --permanent --add-service=https
+  $ firewall-cmd --reload
+  # 查看防护墙所有服务
+  $ firewall-cmd --list-service
+  ```
+
+2. 利用 Let's Encrypt 生成工具 [acme.sh](https://github.com/Neilpang/acme.sh) 来签发证书
+
+    - 安装 acme.sh ，如下：
+
+    ```bash
+    # 生成证书需安装 socat
+    $ yum install socat
+    # 此命令做了如下两件事
+    # 把 acme.sh 安装到你的 home 目录下，即 ~/.acme.sh/
+    # 创建 一个 bash 的 alias, 方便你的使用: alias acme.sh=~/.acme.sh/acme.sh
+    # 自动为你创建 cronjob, 每天 0:00 点自动检测所有的证书, 如果快过期了, 需要更新, 则会自动更新证书
+    $ curl  https://get.acme.sh | sh
+    ```
+
+    - 生成 SSL 证书：
+
+    ```bash
+    $ cd ~/.acme.sh/
+    $ sh acme.sh  --issue -d doc.snowball.site  --standalone
+    ```
+
+    - 复制证书至系统文件夹：
+
+    ```bash
+    # 打开 /opt/ 文件夹并新建 certs 文件夹
+    $ cd /opt/ && mkdir -p certs
+    # 使用 --installcert 命令指定目标文件夹位置
+    $ cd ~/.acme.sh/
+    $ sh acme.sh  --installcert  -d  doc.snowball.site \
+          --key-file /opt/certs/doc.snowball.site.key \
+          --fullchain-file /opt/certs/fullchain.cer
+    ```
+3. 变更 nginx 配置文件
+
+    ```bash
+    # 基础配置
+    server {
+      listen       80;
+      # https 配置
+      listen       443 ssl;
+      server_name  doc.snowball.site;
+      # 证书
+      ssl_certificate  /opt/certs/fullchain.cer;
+      # 私钥
+      ssl_certificate_key  /opt/certs/doc.snowball.site.key;
+      # SSL 协议
+      ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+      # 定义算法
+      ssl_ciphers  HIGH:!aNULL:!MD5;
+
+      location / {
+          root   /usr/share/nginx/html;
+        index  index.html index.htm;
+      }
+    }
+    ```
+
+3. 重启 nginx ，访问 https://doc.snowball.site/docs/ 即可生效
+
+
 ## 性能优化
 
 - gzip
@@ -219,7 +301,7 @@ server {
 
   ![](./img/nginx_7.png)
 
-  但其实存在一个问题，当单个文件过大时（ 在大型项目中会出现多个单文件过大 ），而且在 HTTP/1.1 时代，若上一个请求没响应完成，后续请求会被阻塞，导致整体传输速度会很慢，流量也会比较大，网站速度自然不需多说。
+  但其实存在一个问题，当单个文件过大时（ 在大型项目中会出现多个单文件过大 ），而且在 HTTP/1.1 时代，TCP 的连接数有限，若先前请求没响应完成，后续请求会被阻塞，导致整体传输速度会很慢，流量也会比较大，网站速度自然不需多说。
 
   为解决 HTTP 文件传输过慢的问题，引入了 gizp ，HTTP 请求流程如下：
 
@@ -318,9 +400,40 @@ server {
     ![](./img/nginx_11.png)
 
 
-- http2
+- http/2
 
-- https
+  在 http/1.1 时代，TCP 的连接数有限，若先前请求没响应完成，后续请求会被阻塞，为解决这一问题需要采用合并请求策略。
+
+  而 http/2 最大的优点是多路复用，即对同一域名的服务器仅需建立一次 TCP 连接，就可以加载多个资源。除此之外，使用二进制帧传输及 http 头部压缩也是其亮点。概括来说，http/2 解决了 http/1.1 时代的痛点。
+
+  使用 HTTP/2 时，必须使用 SSL/TLS 加密，有关 HTTPS 配置信息可见上方网站安全部分。
+  
+  Nginx 相关配置如下：
+
+  ```bash
+    # nginx
+    # 在 https 基础上追加 http/2 即可
+    server {
+      listen       80;
+      # http/2 配置
+      listen       443 ssl http2;
+      server_name  doc.snowball.site;
+      ssl_certificate  /opt/certs/fullchain.cer;
+      ssl_certificate_key  /opt/certs/doc.snowball.site.key;
+      ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+      ssl_ciphers  HIGH:!aNULL:!MD5;
+
+      location / {
+          root   /usr/share/nginx/html;
+        index  index.html index.htm;
+      }
+    }
+  ```
+
+  配置完成后，重启 nginx 服务器，通过浏览器面板查看请求，倘若 Protocol 栏目下显示 h2 ，则表示网站 http/2 已经生效：
+
+  ![](./img/nginx_13.png)
+
 
 ## 参考链接
 
@@ -328,5 +441,19 @@ server {
 
 - [前端开发者必备的Nginx知识](https://zhuanlan.zhihu.com/p/68948620)
 
+- [Web前端必备-Nginx知识汇总](https://zhuanlan.zhihu.com/p/62264210)
+
 - [How To Optimize Your Site With GZIP Compression](https://betterexplained.com/articles/how-to-optimize-your-site-with-gzip-compression/)
+
+- [https连接的前几毫秒发生了什么](https://www.rrfed.com/2017/02/03/https/)
+
+- [为什么要把网站升级到HTTPS](https://www.rrfed.com/2017/09/03/upgrade-to-https/)
+
+- [Nginx 配置 HTTPS 服务器](https://aotu.io/notes/2016/08/16/nginx-https/index.html)
+
+- [HTTP/2 Now Fully Supported in NGINX Plus](https://www.nginx.com/blog/http2-r7/)
+
+- [怎样把网站升级到http/2](https://zhuanlan.zhihu.com/p/29609078)
+
+- [HTTP2 详解](https://blog.wangriyu.wang/2018/05-HTTP2.html)
 
