@@ -149,7 +149,7 @@ steps:
       script:
         # todo 判断是否存在 web-server 容器
         # - docker container stop web-server && docker rm -f web-server
-        - if ( $(docker ps -a | grep web-server)=="" ) echo '112222'
+        - if [ $(docker ps -a | grep web-server)=="" ] echo '112222'
         # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         # - docker pull harbor.snowball.site/web/web-nginx:latest
         # - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
