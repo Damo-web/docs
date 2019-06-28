@@ -113,6 +113,8 @@ Circle CI 是一个用 Clojure 语言开发的基于容器运行的持续集成�
 
 - [Easy-Peasy CI/CD with CircleCI](https://medium.com/static-void-academy/easy-peasy-ci-cd-w-circleci-282bc85ddcf5)
 
+- [How To Setup Continuous Integration With React, CircleCI, and GitHub](https://medium.com/better-programming/how-to-setup-continuous-integration-ci-with-react-circleci-and-github-e0efd5040b03)
+
 - [Skipping a Build](https://circleci.com/docs/2.0/skip-build/)
 
 - [commit message to skip ci](https://discuss.circleci.com/t/adding-circle-skip-to-commit-message-to-skip/2778)
