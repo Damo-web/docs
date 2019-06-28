@@ -149,11 +149,11 @@ steps:
       script:
         # 判断是否存在 web-server 容器，存在则停止并清空
         - docker ps -q --filter "name=web-server" | grep -q . && (echo "Docker container web-server is existed" && docker container stop web-server && docker rm -f web-server) || echo "Docker container web-server is not existed"
-        # - docker container stop web-server
-        # - docker rm -f web-server
-        # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-        # - docker pull harbor.snowball.site/web/web-nginx:latest
-        # - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
+        - docker container stop web-server
+        - docker rm -f web-server
+        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+        - docker pull harbor.snowball.site/web/web-nginx:latest
+        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
         # # 清除 untagged images
         # - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
   
