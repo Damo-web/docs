@@ -148,7 +148,7 @@ steps:
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         # todo 判断是否存在 web-server 容器
-        - [ "$(docker ps -a | grep web-server)" ] && docker container stop web-server && docker rm -f web-server
+        - if ("$(docker ps -a | grep web-server)") docker container stop web-server && docker rm -f web-server
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx:latest
         - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
