@@ -223,15 +223,15 @@ Nginx 可以通过简单的配置，将网站升级为 HTTPS ，步骤如下：
 
 1. CentOS7 防火墙开启 https 服务
 
-  生成 SSL 证书时需要注意，CentOS7 默认防火墙 firewalld 关闭了 https 服务，需要进行开启：
+    生成 SSL 证书时需要注意，CentOS7 默认防火墙 firewalld 关闭了 https 服务，需要进行开启：
 
-  ```bash
-  # 开启防护墙 http 服务并重启
-  $ firewall-cmd --zone=public --permanent --add-service=https
-  $ firewall-cmd --reload
-  # 查看防护墙所有服务
-  $ firewall-cmd --list-service
-  ```
+    ```bash
+    # 开启防护墙 http 服务并重启
+    $ firewall-cmd --zone=public --permanent --add-service=https
+    $ firewall-cmd --reload
+    # 查看防护墙所有服务
+    $ firewall-cmd --list-service
+    ```
 
 2. 利用 Let's Encrypt 生成工具 [acme.sh](https://github.com/Neilpang/acme.sh) 来签发证书
 
