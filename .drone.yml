@@ -148,7 +148,7 @@ steps:
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         # todo 判断是否存在 web-server 容器
-        - docker ps -q --filter "name=web-server" | grep -q . && echo Found || echo Not Found
+        - docker ps -q --filter "name=web-server" | grep -q . && (docker container stop web-server && docker rm -f web-server) || echo Not Found
         # - docker container stop web-server
         # - docker rm -f web-server
         # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
