@@ -90,45 +90,45 @@ steps:
   #                    容器模式
   # =================================================
 
-  - name: check-base-image
-    image: docker:dind
-    # 挂载主机 daemon 用来 tag
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    commands: 
-      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-      - sh ./build/auto-check-image.sh
-    privileged: true
+  # - name: check-base-image
+  #   image: docker:dind
+  #   # 挂载主机 daemon 用来 tag
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   commands: 
+  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #     - sh ./build/auto-check-image.sh
+  #   privileged: true
 
-  - name: build-web-image
-    image: harbor.snowball.site/web/node-base
-    # 挂载主机 daemon 用来 tag
-    volumes:
-      - name: dockersock
-        path: /var/run/docker.sock
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    commands: 
-      # node 基础镜像没内置 git 和 docker
-      # - apk add --no-cache git
-      # - apk add docker
-      - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-      - sh ./build/auto-check-install.sh
-      - docker build -t web-nginx:latest -f web.dockerfile .
-      - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
-      - docker push harbor.snowball.site/web/web-nginx:latest
-      # 清除 untagged images
-      - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-    privileged: true
+  # - name: build-web-image
+  #   image: harbor.snowball.site/web/node-base
+  #   # 挂载主机 daemon 用来 tag
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run/docker.sock
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   commands: 
+  #     # node 基础镜像没内置 git 和 docker
+  #     # - apk add --no-cache git
+  #     # - apk add docker
+  #     - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #     - sh ./build/auto-check-install.sh
+  #     - docker build -t web-nginx:latest -f web.dockerfile .
+  #     - docker tag web-nginx:latest harbor.snowball.site/web/web-nginx:latest
+  #     - docker push harbor.snowball.site/web/web-nginx:latest
+  #     # 清除 untagged images
+  #     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+  #   privileged: true
 
   - name: publish-web-server
     image: appleboy/drone-ssh
@@ -148,7 +148,15 @@ steps:
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         # todo 判断是否存在 web-server 容器
-        - sh ./build/auto-check-container.sh
+        - #!/bin/bash
+          echo ========== CHECKING FOR WEB CONTAINER ========
+
+          container=$(docker ps -q -f name="web-server")
+          if [ -n "$container" ]; then
+            echo "Docker container web-server is existed"
+          else
+            echo "Docker container web-server is not existed"
+          fi
         - docker container stop web-server
         - docker rm -f web-server
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD

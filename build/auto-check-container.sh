@@ -1,5 +1,5 @@
 #!/bin/bash
-echo ========== CHECKING FOR NODE BASE IMAGE ========
+echo ========== CHECKING FOR WEB CONTAINER ========
 
 container=$(docker ps -q -f name="web-server")
 if [ -n "$container" ]; then
