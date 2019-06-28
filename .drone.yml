@@ -147,8 +147,8 @@ steps:
         from_secret: REMOTE_KEY
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
-        # todo 判断是否存在 web-server 容器
-        - docker ps -q --filter "name=web-server" | grep -q . && (docker container stop web-server && docker rm -f web-server) || echo Not Found
+        # 判断是否存在 web-server 容器，存在则停止并清空
+        - docker ps -q --filter "name=web-server" | grep -q . && (echo "Docker container web-server is existed" && docker container stop web-server && docker rm -f web-server) || echo "Docker container web-server is not existed"
         # - docker container stop web-server
         # - docker rm -f web-server
         # - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
