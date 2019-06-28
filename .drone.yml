@@ -146,7 +146,7 @@ steps:
       key: 
         from_secret: REMOTE_KEY
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
-      target: ~/auto-check-container.sh
+      target: ~/shell
       source:
         - ./build/auto-check-container.sh
       script:
