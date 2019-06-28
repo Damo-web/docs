@@ -553,9 +553,8 @@ RUN yarn install && \
       envs: [ HARBOR_USERNAME,HARBOR_PWD ]
       script:
         - docker -v
-        # 停止并删除原有 container
-        - docker container stop web-server
-        - docker rm -f web-server
+        # 判断是否存在 web-server 容器，存在则停止并删除原有 container
+        - docker ps -q --filter "name=web-server" | grep -q . && (echo "Docker container web-server is existed" && docker container stop web-server && docker rm -f web-server) || echo "Docker container web-server is not existed"
         # 拉取最新镜像并运行
         - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
         - docker pull harbor.snowball.site/web/web-nginx

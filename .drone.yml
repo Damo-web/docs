@@ -7,59 +7,59 @@ steps:
   #                    传统模式 
   # =================================================
 
-  # - name: restore-cache  
-  #   image: drillster/drone-volume-cache  
-  #   settings:  
-  #     restore: true  
-  #     mount:  
-  #       - ./node_modules  
-  #   volumes:  
-  #     - name: cache  
-  #       path: /cache  
+  - name: restore-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      restore: true  
+      mount:  
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache  
 
-  # - name: install
-  #   image: node
-  #   commands:
-  #     # https://github.com/yarnpkg/yarn/issues/5163
-  #     # - yarn cache clean
-  #     - curl ip.gs
-  #     - bash ./build/pre-install.sh
+  - name: install
+    image: node
+    commands:
+      # https://github.com/yarnpkg/yarn/issues/5163
+      # - yarn cache clean
+      - curl ip.gs
+      - bash ./build/pre-install.sh
 
-  # - name: build
-  #   image: node
-  #   commands:
-  #     - yarn build
+  - name: build
+    image: node
+    commands:
+      - yarn build
 
-  # - name: deploy
-  #   image: node
-  #   commands:
-  #     - cd ./dist
-  #     - ls
-  #     - git init
-  #     - git config user.name $${USERNAME}
-  #     - git config user.email $${EMAIL}
-  #     - git add -A
-  #     - git commit -m "[skip ci] deploy"
-  #     - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
-  #   environment:
-  #     USERNAME:
-  #       from_secret: USERNAME
-  #     EMAIL:
-  #       from_secret: EMAIL
-  #     GH_REF:
-  #       from_secret: GH_REF
-  #     GH_TOKEN:
-  #       from_secret: GH_TOKEN
+  - name: deploy
+    image: node
+    commands:
+      - cd ./dist
+      - ls
+      - git init
+      - git config user.name $${USERNAME}
+      - git config user.email $${EMAIL}
+      - git add -A
+      - git commit -m "[skip ci] deploy"
+      - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
+    environment:
+      USERNAME:
+        from_secret: USERNAME
+      EMAIL:
+        from_secret: EMAIL
+      GH_REF:
+        from_secret: GH_REF
+      GH_TOKEN:
+        from_secret: GH_TOKEN
 
-  # - name: rebuild-cache  
-  #   image: drillster/drone-volume-cache  
-  #   settings:  
-  #     rebuild: true  
-  #     mount:    
-  #       - ./node_modules  
-  #   volumes:  
-  #     - name: cache  
-  #       path: /cache
+  - name: rebuild-cache  
+    image: drillster/drone-volume-cache  
+    settings:  
+      rebuild: true  
+      mount:    
+        - ./node_modules  
+    volumes:  
+      - name: cache  
+        path: /cache
 
   # - name: rsync
   #   image: drillster/drone-rsync
@@ -130,32 +130,32 @@ steps:
   #     - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
   #   privileged: true
 
-  - name: publish-web-server
-    image: appleboy/drone-ssh
-    environment:
-      HARBOR_USERNAME:
-        from_secret: HARBOR_USERNAME
-      HARBOR_PWD:
-        from_secret: HARBOR_PWD
-    settings:
-      host:
-        # - 45.77.119.141
-        - 144.202.103.102
-      username: 
-        from_secret: REMOTE_USER
-      key: 
-        from_secret: REMOTE_KEY
-      envs: [ HARBOR_USERNAME,HARBOR_PWD ]
-      script:
-        # 判断是否存在 web-server 容器，存在则停止并清空
-        - docker ps -q --filter "name=web-server" | grep -q . && (echo "Docker container web-server is existed" && docker container stop web-server && docker rm -f web-server) || echo "Docker container web-server is not existed"
-        - docker container stop web-server
-        - docker rm -f web-server
-        - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
-        - docker pull harbor.snowball.site/web/web-nginx:latest
-        - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
-        # # 清除 untagged images
-        # - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+  # - name: publish-web-server
+  #   image: appleboy/drone-ssh
+  #   environment:
+  #     HARBOR_USERNAME:
+  #       from_secret: HARBOR_USERNAME
+  #     HARBOR_PWD:
+  #       from_secret: HARBOR_PWD
+  #   settings:
+  #     host:
+  #       # - 45.77.119.141
+  #       - 144.202.103.102
+  #     username: 
+  #       from_secret: REMOTE_USER
+  #     key: 
+  #       from_secret: REMOTE_KEY
+  #     envs: [ HARBOR_USERNAME,HARBOR_PWD ]
+  #     script:
+  #       # 判断是否存在 web-server 容器，存在则停止并清空
+  #       - docker ps -q --filter "name=web-server" | grep -q . && (echo "Docker container web-server is existed" && docker container stop web-server && docker rm -f web-server) || echo "Docker container web-server is not existed"
+  #       - docker container stop web-server
+  #       - docker rm -f web-server
+  #       - docker login harbor.snowball.site -u $$HARBOR_USERNAME -p $$HARBOR_PWD
+  #       - docker pull harbor.snowball.site/web/web-nginx:latest
+  #       - docker run -d -p 3080:80 --name web-server harbor.snowball.site/web/web-nginx:latest
+  #       # 清除 untagged images
+  #       - docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
   
   - name: slack
     image: plugins/slack
