@@ -149,18 +149,18 @@ steps:
       script:
         # todo 判断是否存在 web-server 容器
         # - docker container stop web-server && docker rm -f web-server
-        - cat > ~/check-shell.sh << EOF
-          #!/bin/bash
-          echo ========== CHECKING FOR CONTAINER ========
+        - cat > ~/check-shell.sh << EOF\
+          #!/bin/bash\
+          echo ========== CHECKING FOR CONTAINER ========\
 
-          container=$(docker ps -a | grep web-server)
-          if [ -n "$container" ]; then
-            echo "Docker container web-server is existed"
-            docker container stop web-server
-            docker rm -f web-server
-          else
-            echo "Docker container web-server is not existed"
-          fi
+          container=$(docker ps -a | grep web-server)\
+          if [ -n "$container" ]; then\
+            echo "Docker container web-server is existed"\
+            docker container stop web-server\
+            docker rm -f web-server\
+          else\
+            echo "Docker container web-server is not existed"\
+          fi\
           EOF
         - chmod 700 ~/check-shell.sh
         - sh ~/check-shell.sh
