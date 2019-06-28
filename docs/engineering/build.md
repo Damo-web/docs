@@ -751,3 +751,5 @@ Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: requ
 - [Piplenes: docker login can not perform an interactive login from a non TTY](https://community.atlassian.com/t5/Bitbucket-questions/Piplenes-docker-login-can-not-perform-an-interactive-login-from/qaq-p/595736)
 
 - [Docker remove none TAG images](https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images)
+
+- [How to execute a Bash command only if a Docker container with a given name does not exist?(https://stackoverflow.com/questions/38576337/how-to-execute-a-bash-command-only-if-a-docker-container-with-a-given-name-does)
