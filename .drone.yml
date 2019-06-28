@@ -139,7 +139,7 @@ steps:
         from_secret: HARBOR_PWD
     settings:
       host:
-        - 45.77.119.141
+        # - 45.77.119.141
         - 144.202.103.102
       username: 
         from_secret: REMOTE_USER
