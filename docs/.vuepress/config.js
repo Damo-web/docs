@@ -121,7 +121,8 @@ module.exports = {
           'travis',
           'harbor',
           'build',
-          'nginx'
+          'nginx',
+          'domain'
         ]
       }],
       '/render/': [{
