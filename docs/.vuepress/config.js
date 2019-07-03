@@ -122,7 +122,8 @@ module.exports = {
           'harbor',
           'build',
           'nginx',
-          'domain'
+          'domain',
+          'cdn'
         ]
       }],
       '/render/': [{
