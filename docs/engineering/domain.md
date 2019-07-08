@@ -16,7 +16,7 @@
 
 ## 域名注册
 
-域名的注册由域名注册商来提供。
+域名的注册由域名注册商来提供，常见的域名注册商有[Godaddy](https://sg.godaddy.com/zh)、[NameSilo](https://www.namesilo.com/)、[Name](https://www.name.com/zh-cn/)、[万网](https://wanwang.aliyun.com/domain/)、[新网](http://www.xinnet.com/)等。
 
 ## 域名解析
 
