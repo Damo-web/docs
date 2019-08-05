@@ -752,4 +752,4 @@ Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: requ
 
 - [Docker remove none TAG images](https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images)
 
-- [How to execute a Bash command only if a Docker container with a given name does not exist?(https://stackoverflow.com/questions/38576337/how-to-execute-a-bash-command-only-if-a-docker-container-with-a-given-name-does)
+- [How to execute a Bash command only if a Docker container with a given name does not exist?](https://stackoverflow.com/questions/38576337/how-to-execute-a-bash-command-only-if-a-docker-container-with-a-given-name-does)
