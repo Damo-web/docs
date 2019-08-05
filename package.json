@@ -9,13 +9,13 @@
     "build": "vuepress build docs",
     "pre-run": "bininstall-changed",
     "postversion": "git push --follow-tags",
-    "build-docker": "bash ./build/docker-build.sh" 
+    "build-docker": "bash ./build/docker-build.sh"
   },
   "dependencies": {
-    "@vuepress/plugin-back-to-top": "^1.0.0-beta.2",
-    "@vuepress/plugin-medium-zoom": "^1.0.0-beta.2",
-    "@vuepress/plugin-pwa": "^1.0.0-beta.2",
+    "@vuepress/plugin-back-to-top": "^1.0.3",
+    "@vuepress/plugin-medium-zoom": "^1.0.3",
+    "@vuepress/plugin-pwa": "^1.0.3",
     "moment": "^2.24.0",
-    "vuepress": "^1.0.0-beta.2"
+    "vuepress": "^1.0.3"
   }
 }
