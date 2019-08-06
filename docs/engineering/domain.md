@@ -18,11 +18,23 @@
 
 如上所示，顶级域名即为 <code>.com</code> ，二级域名为 <code>google.com</code>，三级域名为 <code>www.google.com</code>。
 
+当购买域名时，其实是购买一个二级域名的使用权限（ 例如 snowball.site ），可以基于此域名来扩展三级域名及四级域名。
+
 ## 域名注册
 
-域名的注册由域名注册商来提供，常见的域名注册商有 [Godaddy](https://sg.godaddy.com/zh)、[NameSilo](https://www.namesilo.com/)、[Name](https://www.name.com/zh-cn/)、[万网](https://wanwang.aliyun.com/domain/)、[新网](http://www.xinnet.com/)等。
+在上文中，我们概览了域名基础知识及层级结构，那我们如何购买域名（ 注册域名 ）呢？
 
-需要注意的是，阿里云采用万网来注册域名，腾讯云采用新网来注册域名。
+域名的注册由域名注册商来提供，常见的域名注册商有 [Godaddy](https://sg.godaddy.com/zh)、[NameSilo](https://www.namesilo.com/)、[Name](https://www.name.com/zh-cn/)、[万网](https://wanwang.aliyun.com/domain/)、[新网](http://www.xinnet.com/)等。需要注意的是，阿里云采用**万网**来注册域名，腾讯云采用**新网**来注册域名。
+
+至于如何选择域名注册商，还是要看建站的实际需求。倘若仅仅是个人站点，只关注国内可访问性，为避免备案的烦恼，可以选用国外的域名注册商；倘若是商业性的国内网站，可以选用国内的域名注册商。总之，域名注册商的选择还是看网站具体用途。
+
+下面以 Godaddy 为例，演示域名注册的大致流程：
+
+- 访问 [Godaddy](https://sg.godaddy.com/zh) 官网，注册相应账号
+
+- 在 Godaddy 官网中搜索相应域名，添加域名进入购物车，如下：
+
+  ![](./img/domain_2.png)
 
 ## 域名解析
 
