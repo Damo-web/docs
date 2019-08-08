@@ -10,7 +10,7 @@
 
 域名的核心是域名系统 ( Domain Name System，简称 DNS )，域名系统中的任何名称都是域名。
 
-域名主要分为根域名（ root domain ）、顶级域名（ top-level domain，简称 TLD ）和子域名（ sub-level domain ）两大部分。顶级域名为域名的最后一部分，也可称为一级域名，通常为了表明该域名使用目的（ 例如 .com 、.net 、.org 及 .cn 等 ）；子域名包含除了顶级域名外的域名所有部分，一级一级往下，可分为二级域名、三级域名等，是为了细分域名及提供多元服务。
+域名主要分为根域名（ root domain ）、顶级域名（ top-level domain，简称 TLD ）和子域名（ sub-level domain ）三大部分。根域名，通常省略，例如 <code>www.google.com.root</code> ；顶级域名，也可称为一级域名，通常为了表明该域名使用目的（ 例如 .com 、.net 、.org 及 .cn 等 ）；子域名包含除了根域名及顶级域名外的域名部分，一级一级往下，可分为二级域名、三级域名等，用以细分域名及提供多元服务。
 
 网络链接通常构成如下：
 
@@ -18,7 +18,7 @@
 
 如上所示，顶级域名即为 <code>.com</code> ，二级域名为 <code>google.com</code>，三级域名为 <code>www.google.com</code>。
 
-当购买域名时，其实是购买一个二级域名的使用权限（ 例如 snowball.site ），可以基于此域名来扩展三级域名及四级域名。
+当购买域名时，其实是购买一个二级域名( second-level domain，缩写为 SLD )的使用权限（ 例如 snowball.site ），可以基于此域名来扩展三级域名及四级域名。
 
 ## 域名注册
 
