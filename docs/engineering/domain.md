@@ -82,6 +82,14 @@
 
   CAA（Certification Authority Authorization，即证书颁发机构授权）用于防止域名证书劫持
 
+  CAA记录的格式为：[flag] [tag] [value]，是由一个标志字节的[flag]和一个被称为属性的[tag]-[value]（标签-值）对组成。您可以将多个CAA字段添加到域名的DNS记录中。
+
+  | 字段           | 说明           | 
+  | ------------- |:-------------| 
+  | flag          | 0-255之间的无符号整数，用于标志认证机构。通常情况下填0，表示如果颁发证书机构无法识别本条信息，就忽略。 | 
+  | tag           | 支持 issue、issuewild 和 iodef。<br>issue：CA授权单个证书颁发机构发布的 任何类型 域名证书。<br>issuewild：CA授权单个证书颁发机构发布主机名的 通配符 证书。<br>iodef：CA可以将违规的颁发记录URL发送给某个电子邮箱。      |  
+  | value         | CA的域名或用于违规通知的电子邮箱。      |  
+
 - SOA记录：用于在众多 NS 记录中标志主服务器
 
 - NS 记录：域名解析服务器记录
