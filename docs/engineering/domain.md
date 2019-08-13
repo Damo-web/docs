@@ -82,15 +82,26 @@
 
   CAA（Certification Authority Authorization，即证书颁发机构授权）用于防止域名证书劫持
 
-  CAA记录的格式为：[flag] [tag] [value]，是由一个标志字节的[flag]和一个被称为属性的[tag]-[value]（标签-值）对组成。您可以将多个CAA字段添加到域名的DNS记录中。
+  CAA记录的格式为：[flag] [tag] [value]，是由一个标志字节的[flag]和一个被称为属性的[tag]-[value]（标签-值）对组成。您可以将多个CAA字段添加到域名的DNS记录中。格式说明细节如下：
 
   | 字段           | 说明           | 
   | ------------- |:-------------| 
   | flag          | 0-255之间的无符号整数，用于标志认证机构。通常情况下填0，表示如果颁发证书机构无法识别本条信息，就忽略。 | 
-  | tag           | 支持 issue、issuewild 和 iodef。<br>issue：CA授权单个证书颁发机构发布的 任何类型 域名证书。<br>issuewild：CA授权单个证书颁发机构发布主机名的 通配符 证书。<br>iodef：CA可以将违规的颁发记录URL发送给某个电子邮箱。      |  
+  | tag           | 支持 issue、issuewild 和 iodef。<br>issue：CA授权单个证书颁发机构发布的任何类型域名证书。<br>issuewild：CA授权单个证书颁发机构发布主机名的通配符证书。<br>iodef：CA可以将违规的颁发记录URL发送给某个电子邮箱。      |  
   | value         | CA的域名或用于违规通知的电子邮箱。      |  
 
+  添加记录示例如下：
+
+  | 类型          | 名称           |  值           |  TTL           |
+  | ------------- |:-------------:| :-------------:|  :-------------:|
+  | CAA           | @             | symantec.com 0 issue | 1小时 |
+  | CAA           | @             | mailto:admin@snwoballer0705@gmail.com 0 iodef| 1小时 |
+
 - SOA记录：用于在众多 NS 记录中标志主服务器
+
+  | 类型          | 名称           |  值           |  TTL           |
+  | ------------- |:-------------:| :-------------:|  :-------------:|
+  | SOA           | @             | 主要域名服务器：ns51.domaincontrol.com.| 1小时 |
 
 - NS 记录：域名解析服务器记录
 
@@ -102,4 +113,6 @@
 ## 参考链接
 
 - [顶级域名 一级域名 二级域名 三级域名什么区别?](https://www.zhihu.com/question/29998374)
+
+- [使用CAA记录防止域名证书劫持](https://help.aliyun.com/document_detail/65537.html)
  
