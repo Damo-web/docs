@@ -10,7 +10,7 @@
 
 域名的核心是域名系统 ( Domain Name System，简称 DNS )，域名系统中的任何名称都是域名。
 
-域名主要分为根域名（ root domain ）、顶级域名（ top-level domain，简称 TLD ）和子域名（ sub-level domain ）三大部分。根域名，通常省略，例如 <code>www.google.com.root</code> ，常简写为 <code>www.google.com.</code> ；顶级域名，也可称为一级域名，通常为了表明该域名使用目的（ 例如 .com 、.net 、.org 及 .cn 等 ）；子域名包含除了根域名及顶级域名外的域名部分，一级一级往下，可分为二级域名、三级域名等，用以细分域名及提供多元服务。
+域名主要分为根域名（ root domain ）、顶级域名（ top-level domain，简称 TLD ）和子域名（ sub-level domain ）三大部分。根域名，通常省略，例如 <code>www.google.com.root</code> ，常简写为 <code>www.google.com.</code> ；顶级域名，也可称为一级域名，通常为了表明该域名使用目的（ 例如 .com 、.net 、.org 及 .cn 等 ）；子域名包含除了根域名及顶级域名外的域名部分，一级一级往下，可分为三级域名、四级域名等，用以细分域名及提供多元服务。
 
 网络链接通常构成如下：
 
@@ -169,11 +169,31 @@ TTL 表示域名解析记录在 DNS 服务器中的缓存时间，时间长度�
 
 ## 解析流程
 
+以 doc.snowball.site 为例，DNS 解析流程如下：
+
 1. 在浏览器中访问域名时，浏览器会先查询浏览器缓存中是否存在该域名的解析 IP 地址，若存在则返回对应 IP 地址
 
 2. 当浏览器中无该域名的 IP 地址缓存时，会向本地 DNS 服务器（ Local DNS，可简称 LDNS ）发起域名解析请求，LDNS检查本地 DNS 缓存中若存在对应 IP 地址，则返回对应 IP 地址
 
-3. 当 LDNS 中不存在对应 IP 地址缓存时，则向根 DNS 服务器发起域名查询请求，
+3. 当 LDNS 中不存在对应 IP 地址缓存时，则向根 DNS 服务器发起域名查询请求
+
+4. 根 DNS 服务器告知 LDNS 该域名已授权给 site 区管理，并返回 site 顶级域名服务器 IP 地址。同时将 site DNS服务器及其 IP 地址加入到 LDNS 缓存中，当缓存未过期时，LDNS 可以不通过根 DNS 服务器，直接请求 site 顶级域名服务器 IP 地址
+
+5. LDNS 向 site 顶级域名服务器发起域名查询请求
+
+6. site 顶级域名服务器告知 LDNS 该域名已授权给 snowball.site 区管理，并返回 snowball.site 二级域名服务器 IP 地址。同时将 snowball.site DNS服务器及其 IP 地址加入到 LDNS 缓存中，当缓存未过期时，LDNS 可以不通过 site 顶级域名服务器，直接请求 snowball.site 服务器 IP 地址
+
+7. LDNS 向 snowball.site 二级域名服务器发起域名查询请求
+
+8. snowball.site 二级域名服务器告知 LDNS 该域名 IP 地址，同时将该域名 IP 地址加入到 LDNS 缓存中，当缓存未过期时，LDNS 可以不通过权威 DNS 服务器，直接请求该域名 IP 地址
+
+9. 浏览器缓存该域名解析后的 IP 地址，若再次请求，则无需请求 LDNS，直接返回对应 IP 地址
+
+## 安全扩展
+
+早期互联网环境良好，DNS 采用 UDP 协议，并没有考虑太多安全问题。正因它使用 UDP 明文通信，DNS 服务器无法验证来源，在现今互联网环境下存在DNS 欺骗、DNS Cache 污染、DNS 放大攻击等一系列问题。
+
+为了解决安全问题，DNSSec（ Domain Name System Security Extensions，即 DNS 安全扩展 ）应运而生，使用密码学方法，实现了资源记录的签名和验证，保证数据通信的安全性。
 
 ## 参考链接
 
@@ -186,4 +206,6 @@ TTL 表示域名解析记录在 DNS 服务器中的缓存时间，时间长度�
 - [腾讯云 - MX记录](https://cloud.tencent.com/document/product/302/12648)
 
 - [域名背后那些事](https://leancloudblog.com/domain-name-story-confirm/)
+
+- [DNS入门：域名解析流程详解](https://zhuanlan.zhihu.com/p/38499577)
  
