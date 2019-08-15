@@ -193,7 +193,7 @@ TTL 表示域名解析记录在 DNS 服务器中的缓存时间，时间长度�
 
 早期互联网环境良好，DNS 采用 UDP 协议，并没有考虑太多安全问题。正因它使用 UDP 明文通信，DNS 服务器无法验证来源，在现今互联网环境下存在DNS 欺骗、DNS Cache 污染、DNS 放大攻击等一系列问题。
 
-为了解决安全问题，DNSSec（ Domain Name System Security Extensions，即 DNS 安全扩展 ）应运而生，使用密码学方法，实现了资源记录的签名和验证，保证数据通信的安全性。
+为了解决安全问题，DNSSec（ Domain Name System Security Extensions，即 DNS 安全扩展 ）应运而生，使用密码学方法，实现了资源记录的签名和验证，保证了数据通信的安全性。
 
 ## 参考链接
 
