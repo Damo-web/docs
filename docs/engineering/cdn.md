@@ -12,9 +12,19 @@ CDN 缓存服务器一般称作 CDN 节点，其实跟电商网购平台的物�
 
 ## CDN 原理
 
-CDN 的基本流程如下：
+CDN 的基本流程图如下：
 
 ![](./img/cdn_flow.svg)
+
+举个例子，网站 <code>www.snowball.site</code> 中静态资源的预设 CDN 域名为 <code>cdn-static.snowball.site</code>，CDN 服务商提供的 CNAME 地址为 <code>ouyt4c4z5.bkt.clouddn.com</code> ，静态资源的 CDN 域名指向对应的 CNAME 地址这一绑定操作已完成。
+
+CDN 整体分为两大步骤，即 DNS 解析 和 CDN 服务，具体步骤如下：
+
+1. 浏览器访问 <code>cdn-static.snowball.site</code> 下的资源，倘若存在缓存，则直接使用缓存，否则对该域名进行 DNS 解析（ 此处细节可参阅 [域名解析流程](/engineering/domain.html#解析流程) ），通过网站域名服务器查询得知该域名为 CNAME 记录，指向 <code>ouyt4c4z5.bkt.clouddn.com</code>
+
+2. 对域名 <code>ouyt4c4z5.bkt.clouddn.com</code> 进行 DNS 查询，由 CDN 服务商的全局负载均衡系统（ Global Server Load Balancing，可简称 GSLB ）给出该域名 A 或 AAAA 记录下 IP 地址 66.42.115.162，即离用户最近的 CDN 边缘节点，至此 DNS 解析流程完成
+
+3. 
 
 ## CDN 命中率
 
