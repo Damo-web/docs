@@ -20,17 +20,23 @@ CDN 的基本流程图如下：
 
 CDN 整体分为两大步骤，即 DNS 解析 和 CDN 服务，具体步骤如下：
 
-1. 浏览器访问 <code>cdn-static.snowball.site</code> 下的资源，倘若存在缓存，则直接使用缓存，否则对该域名进行 DNS 解析（ 此处细节可参阅 [域名解析流程](/engineering/domain.html#解析流程) ），通过网站域名服务器查询得知该域名为 CNAME 记录，指向 <code>ouyt4c4z5.bkt.clouddn.com</code>
+1. 浏览器访问 <code>cdn-static.snowball.site</code> 下的资源，倘若存在缓存，则直接使用缓存，否则对该域名进行 DNS 解析（ 此处细节可参阅 [域名解析流程](/engineering/domain.html#解析流程) ），通过网站域名服务器查询得知该域名为 CNAME 记录，指向 <code>ouyt4c4z5.bkt.clouddn.com</code> 。
 
-2. 对域名 <code>ouyt4c4z5.bkt.clouddn.com</code> 进行 DNS 查询，由 CDN 服务商的全局负载均衡系统（ Global Server Load Balancing，可简称 GSLB ）给出该域名 A 或 AAAA 记录下 IP 地址 66.42.115.162，即离用户最近的 CDN 边缘节点，至此 DNS 解析流程完成
+2. 对域名 <code>ouyt4c4z5.bkt.clouddn.com</code> 进行 DNS 查询，由 CDN 服务商的全局负载均衡系统（ Global Server Load Balancing，可简称 GSLB ）给出该域名 A 或 AAAA 记录下 IP 地址 66.42.115.162，即离用户最近的 CDN 边缘节点，至此 DNS 解析流程完成。
 
-3. 对 CDN 边缘节点 66.42.115.162 发起请求，倘若边缘节点存在该静态资源缓存，则直接返回缓存结果，否则向 CDN 中心节点发起请求
+3. 对 CDN 边缘节点 66.42.115.162 发起请求，倘若边缘节点存在该静态资源缓存，则直接返回缓存结果，否则向 CDN 中心节点发起请求。
 
-4. CDN 中心节点在其缓存中查询是否存在该静态资源，若存在则返回缓存结果至 CDN 边缘节点，否则回源拉取资源
+4. CDN 中心节点在其缓存中查询是否存在该静态资源，若存在则返回缓存结果至 CDN 边缘节点，否则回源拉取资源。
 
 5. CDN 中心节点依据设置的回源地址（ 可以是域名或 IP 地址，比如 <code>www.snowball.site</code> ），将请求转发至源站，由源站提供静态资源服务，至此 CDN 服务流程完成。
 
+:::tip 提示
+回源地址指预先在 CDN 服务商处配置的源站服务器 IP 或 域名，用于无缓存资源、缓存过期或非缓存资源时，回溯至源站获取资源；回源 HOST 指当源站服务器存在众多站点时，由回源 HOST 决定访问源站服务器上具体站点。需要注意，当回源 HOST 未配置时，默认会将其加速域名（ 以上述 cdn-static.snowball.site 为例 ）作为 回源 HOST；当回源 HOST 配置不正确时，会导致回源失败。
+:::
+
 ## CDN 命中率
+
+
 
 ## CDN 链路回源
 
