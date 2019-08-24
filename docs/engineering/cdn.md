@@ -68,7 +68,120 @@ CDN 加速按业务主要分为五种类型：
 
 静态资源缓存通常用 Hit 及 Miss 来表明是否命中 CDN 缓存：Hit 表示命中 CDN 缓存，Miss 表示未命中 CDN 缓存。CDN 服务商会在 HTTP 响应头信息中采用自定义 HTTP 头信息方式来表明资源是否命中 CDN 缓存，不同服务商用于描述 CDN 缓存命中情况的字段往往不同，通常会采用 x-cache 或 x-cache-lookup 字段来描述。
 
-以国内阿里云、腾讯云、七牛云为例，HTTP 响应头信息如下：
+以国内阿里云、腾讯云、七牛云、网宿为例，HTTP 响应头信息如下：
+
+- 阿里云
+
+```bash {17}
+# 请求资源
+curl -I https://img.alicdn.com/tfs/TB1Ly5oS3HqK1RjSZFPXXcwapXa-238-54.png
+
+# 响应头信息
+HTTP/2 200 
+server: Tengine
+content-type: image/png
+content-length: 1100
+date: Thu, 23 May 2019 05:56:00 GMT
+last-modified: Fri, 26 Apr 2019 08:36:57 GMT
+expires: Fri, 22 May 2020 05:56:00 GMT
+cache-control: max-age=31536000
+ali-swift-global-savetime: 1558590960
+via: cache15.l2hk71[0,200-0,H], cache16.l2hk71[0,0], cache5.jp3[0,200-0,H], cache12.jp3[0,0]
+access-control-allow-origin: *
+age: 7704720
+x-cache: HIT TCP_MEM_HIT dirn:9:280914441
+x-swift-savetime: Thu, 23 May 2019 07:23:54 GMT
+x-swift-cachetime: 31530726
+timing-allow-origin: *
+eagleid: 2ff604a015662956808786212e
+```
+
+- 腾讯云
+
+```bash
+# 请求资源
+curl -I https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/portal/css/img/QRcode.png
+
+# 响应头信息
+HTTP/2 200 
+server: NWSs
+date: Sat, 24 Aug 2019 15:53:18 GMT
+content-type: image/png
+content-length: 13232
+cache-control: max-age=3600
+expires: Sat, 24 Aug 2019 16:53:17 GMT
+last-modified: Wed, 07 Aug 2019 11:47:48 GMT
+x-nws-log-uuid: ad280c57-bb5a-42fd-ac3f-45a7867200a8
+server_ip: 203.205.138.79
+vary: Accept
+x-cache-lookup: Hit From Disktank3
+x-datasrc: 2
+x-reqgue: 0
+```
+
+- 七牛云
+
+```bash
+# 请求资源
+curl -I https://mars-assets.qnssl.com/FspZJF8xgIz24cG8xWeq8Sq3yIKB
+
+# 响应头信息
+HTTP/1.1 200 OK
+Server: Tengine
+Content-Type: image/jpeg
+Content-Length: 619829
+Connection: keep-alive
+Date: Thu, 08 Aug 2019 00:53:22 GMT
+Cache-Control: max-age=2592000
+Expires: Sat, 07 Sep 2019 00:53:22 GMT
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: X-Log, X-Reqid
+Access-Control-Max-Age: 2592000
+Etag: "FspZJF8xgIz24cG8xWeq8Sq3yIKB"
+X-Log: X-Log
+X-M-Log: QNM:jjh1877;SRCPROXY:jjh1495;SRC:106/304;SRCPROXY:106/304;QNM3:107/304
+X-M-Reqid: HnIAAJJARmtkzLgV
+X-Qiniu-Zone: 0
+X-Qnm-Cache: Miss
+X-Reqid: A3gAAAA6ZWtkzLgV
+X-Svr: IO
+Accept-Ranges: bytes
+Content-Disposition: inline; filename="FspZJF8xgIz24cG8xWeq8Sq3yIKB"; filename*=utf-8' 'FspZJF8xgIz24cG8xWeq8Sq3yIKB
+Content-Transfer-Encoding: binary
+Last-Modified: Wed, 08 Aug 2018 06:05:56 GMT
+Via: cache8.l2hk71[0,304-0,H], cache1.l2hk71[234,0], cache11.jp3[0,200-0,H], cache14.jp3[1,0]
+Age: 1436810
+Ali-Swift-Global-Savetime: 1539571636
+X-Cache: HIT TCP_MEM_HIT dirn:10:289161632
+X-Swift-SaveTime: Sun, 11 Aug 2019 14:41:23 GMT
+X-Swift-CacheTime: 2592000
+Timing-Allow-Origin: *
+EagleId: 2ff604a215666624129318679e
+```
+- 网宿云
+
+```bash
+# 请求资源
+curl -I https://www.wangsu.com/Upload/image/20190505/20190505162956_0140.jpg
+
+# 响应头信息
+HTTP/1.1 200 OK
+Date: Sat, 24 Aug 2019 16:19:09 GMT
+Content-Type: image/jpeg
+Content-Length: 113484
+Connection: keep-alive
+Server: waf/2.15.2-15.el6
+Cache-Control: no-cache
+Last-Modified: Sun, 05 May 2019 08:29:56 GMT
+Accept-Ranges: bytes
+ETag: "c4554bb81c3d51:0"
+X-Powered-By: ASP.NET
+Age: 1
+X-Via: 1.1 jn42:3 (Cdn Cache Server V2.0), 1.1 PSrbJP1am225:10 (Cdn Cache Server V2.0)
+```
+
+以国外 Akamai、AWS、Cloudflare 为例，HTTP 响应头信息如下：
+
 
 
 
@@ -85,3 +198,5 @@ CDN 加速按业务主要分为五种类型：
 - [CDN加速对动态网站有影响吗？](https://www.zhihu.com/question/20024922)
 
 - [CDN缓存那些事儿](http://genie88.github.io/2015/11/03/talk-about-content-delivery-network-and-caches/)
+
+- [varnish / squid / nginx cache 有什么不同？](https://www.zhihu.com/question/20143441)
