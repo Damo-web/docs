@@ -66,7 +66,7 @@ CDN 加速按业务主要分为五种类型：
 
 顾名思义，CDN 命中率是指用户访问资源时命中缓存的概率。通常，CDN 命中率越高，表明网站加速效果越好。
 
-静态资源缓存通常用 Hit 及 Miss 来表明是否命中 CDN 缓存：Hit 表示命中 CDN 缓存，Miss 表示未命中 CDN 缓存。CDN 服务商会在 HTTP 响应头信息中采用自定义 HTTP 头信息方式来表明资源是否命中 CDN 缓存，不同服务商用于描述 CDN 缓存命中情况的字段往往不同，通常会采用 x-cache 或 x-cache-lookup 字段来描述。
+网站静态资源通常用 Hit 及 Miss 来表明是否命中 CDN 缓存：Hit 表示命中 CDN 缓存，Miss 表示未命中 CDN 缓存。CDN 服务商会在 HTTP 响应头信息中采用自定义 HTTP 头信息方式来表明资源是否命中 CDN 缓存，不同服务商用于描述 CDN 缓存命中情况的字段往往不同，通常会采用 x-cache 或 x-cache-lookup 字段来描述。
 
 以国内阿里云、腾讯云、七牛云、网宿为例，HTTP 响应头信息如下：
 
@@ -158,7 +158,7 @@ X-Swift-CacheTime: 2592000
 Timing-Allow-Origin: *
 EagleId: 2ff604a215666624129318679e
 ```
-- 网宿云
+- 网宿
 
 ```bash
 # 请求资源
@@ -180,9 +180,89 @@ Age: 1
 X-Via: 1.1 jn42:3 (Cdn Cache Server V2.0), 1.1 PSrbJP1am225:10 (Cdn Cache Server V2.0)
 ```
 
-以国外 Akamai、AWS、Cloudflare 为例，HTTP 响应头信息如下：
+以国外 Akamai、AWS CloudFront、Cloudflare 为例，HTTP 响应头信息如下：
 
+- Akamai
 
+```bash
+# 请求资源
+curl -I https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/portal/css/img/QRcode.png
+
+# 响应头信息
+HTTP/2 200 
+server: NWSs
+date: Sat, 24 Aug 2019 15:53:18 GMT
+content-type: image/png
+content-length: 13232
+cache-control: max-age=3600
+expires: Sat, 24 Aug 2019 16:53:17 GMT
+last-modified: Wed, 07 Aug 2019 11:47:48 GMT
+x-nws-log-uuid: ad280c57-bb5a-42fd-ac3f-45a7867200a8
+server_ip: 203.205.138.79
+vary: Accept
+x-cache-lookup: Hit From Disktank3
+x-datasrc: 2
+x-reqgue: 0
+```
+
+- AWS CloudFront
+
+```bash
+# 请求资源
+curl -I https://d1.awsstatic.com/logos/customers/Netflix-logo.0eba3826789115172a6870cff5c6c35f8d478d65.png
+
+# 响应头信息
+HTTP/2 200 
+content-type: image/png
+content-length: 3847
+date: Sun, 25 Aug 2019 15:42:07 GMT
+x-amz-replication-status: COMPLETED
+last-modified: Thu, 13 Dec 2018 21:50:25 GMT
+etag: "d74db421bcfcd1ece26e9990199960c7"
+x-amz-meta-version: 2018-12-13T21:48:21.932Z
+cache-control: max-age=31536000
+x-amz-version-id: e23.pgOuANwy9ERXZAB_roB7W3i4LCTt
+accept-ranges: bytes
+server: AmazonS3
+age: 12
+x-cache: Hit from cloudfront
+via: 1.1 10e0af8ebbb9eea9a777605bac3912db.cloudfront.net (CloudFront)
+x-amz-cf-pop: NRT12-C2
+x-amz-cf-id: fFy_bspNOdTBH7aOSBxxrl7C28-Yw7dcW9I8joUH7KhVcfWOtYEgRA==
+```
+
+x-cache 字段存在 Miss from cloudfront 及 Hit from cloudfront 两个字段。
+
+- Cloudflare
+
+```bash
+# 请求资源
+curl -I https://cdn-images-1.medium.com/fit/c/304/312/1*5gr12p-iLOr9ySir83Gzbg.png
+
+# 响应头信息
+HTTP/2 200 
+date: Sun, 25 Aug 2019 15:40:11 GMT
+content-type: image/png
+content-length: 128430
+set-cookie: __cfduid=d99a08cf01203ce4cd7220812e5636dbb1566747611; expires=Mon, 24-Aug-20 15:40:11 GMT; path=/; domain=.medium.com; HttpOnly
+access-control-allow-origin: *
+cache-control: public, max-age=2592000
+etag: "16.3"
+expires: Tue, 24 Sep 2019 15:40:11 GMT
+pragma: public
+x-obvious-info: 16.3, 3197-fb89d63
+x-powered-by: Geomyidae artificij
+strict-transport-security: max-age=15552000; includeSubDomains; preload
+cf-cache-status: HIT
+age: 977007
+accept-ranges: bytes
+x-content-type-options: nosniff
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+server: cloudflare
+cf-ray: 50bea9b8cea8d63d-NRT
+```
+
+cf-cache-status 字段存在 HIT、MISS 及 EXPIRED 三种状态。
 
 
 ## CDN 回源
