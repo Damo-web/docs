@@ -56,7 +56,7 @@ CDN 加速按业务主要分为五种类型：
 
 - 全站加速
   
-  以存在大量动静态内容，并且以动态资源居多的网站或应用
+  存在大量动静态内容，并且以动态资源居多的网站或应用
 
 目前，网站通常采用动静分离的方案，即只针对网页样式文件、脚本文件及图片等静态资源进行 CDN 加速，常与静态资源存储相结合；倘若动态资源居多，也可采用动静结合的方案，即对整站动静态资源进行 CDN 加速，需要注意，动态资源加速需要回源，只不过进行了链路优化。
 
@@ -68,201 +68,281 @@ CDN 加速按业务主要分为五种类型：
 
 网站静态资源通常用 Hit 及 Miss 来表明是否命中 CDN 缓存：Hit 表示命中 CDN 缓存，Miss 表示未命中 CDN 缓存。CDN 服务商会在 HTTP 响应头信息中采用自定义 HTTP 头信息方式来表明资源是否命中 CDN 缓存，不同服务商用于描述 CDN 缓存命中情况的字段往往不同，通常会采用 x-cache 或 x-cache-lookup 字段来描述。
 
-以国内阿里云、腾讯云、七牛云、网宿为例，HTTP 响应头信息如下：
+以国内阿里云、腾讯云、七牛云、网宿、白山云为例，HTTP 响应头信息如下：
 
 - 阿里云
 
-```bash {17}
-# 请求资源
-curl -I https://img.alicdn.com/tfs/TB1Ly5oS3HqK1RjSZFPXXcwapXa-238-54.png
+  ```bash {17}
+  # 请求资源
+  curl -I https://img.alicdn.com/tfs/TB1Ly5oS3HqK1RjSZFPXXcwapXa-238-54.png
 
-# 响应头信息
-HTTP/2 200 
-server: Tengine
-content-type: image/png
-content-length: 1100
-date: Thu, 23 May 2019 05:56:00 GMT
-last-modified: Fri, 26 Apr 2019 08:36:57 GMT
-expires: Fri, 22 May 2020 05:56:00 GMT
-cache-control: max-age=31536000
-ali-swift-global-savetime: 1558590960
-via: cache15.l2hk71[0,200-0,H], cache16.l2hk71[0,0], cache5.jp3[0,200-0,H], cache12.jp3[0,0]
-access-control-allow-origin: *
-age: 7704720
-x-cache: HIT TCP_MEM_HIT dirn:9:280914441
-x-swift-savetime: Thu, 23 May 2019 07:23:54 GMT
-x-swift-cachetime: 31530726
-timing-allow-origin: *
-eagleid: 2ff604a015662956808786212e
-```
+  # 响应头信息
+  HTTP/2 200 
+  server: Tengine
+  content-type: image/png
+  content-length: 1100
+  date: Thu, 23 May 2019 05:56:00 GMT
+  last-modified: Fri, 26 Apr 2019 08:36:57 GMT
+  expires: Fri, 22 May 2020 05:56:00 GMT
+  cache-control: max-age=31536000
+  ali-swift-global-savetime: 1558590960
+  via: cache15.l2hk71[0,200-0,H], cache16.l2hk71[0,0], cache5.jp3[0,200-0,H], cache12.jp3[0,0]
+  access-control-allow-origin: *
+  age: 7704720
+  x-cache: HIT TCP_MEM_HIT dirn:9:280914441
+  x-swift-savetime: Thu, 23 May 2019 07:23:54 GMT
+  x-swift-cachetime: 31530726
+  timing-allow-origin: *
+  eagleid: 2ff604a015662956808786212e
+  ```
+
+  阿里云 CDN 缓存是否命中通过 x-cache 字段来描述： HIT TCP_MEM_HIT 表示命中 CDN 缓存，MISS TCP_MISS 表示未命中CDN 缓存。
+
+  有关缓存时间的字段如下：
+
+  - x-swift-savetime：资源在 CDN 上缓存的时间。
+
+  - x-swift-cachetime：CDN 默认缓存时间，以秒为单位。
+
+  - age：资源在 CDN 上已缓存的时间，以秒为单位。
 
 - 腾讯云
 
-```bash
-# 请求资源
-curl -I https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/portal/css/img/QRcode.png
+  ```bash
+  # 请求资源
+  curl -I https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/portal/css/img/QRcode.png
 
-# 响应头信息
-HTTP/2 200 
-server: NWSs
-date: Sat, 24 Aug 2019 15:53:18 GMT
-content-type: image/png
-content-length: 13232
-cache-control: max-age=3600
-expires: Sat, 24 Aug 2019 16:53:17 GMT
-last-modified: Wed, 07 Aug 2019 11:47:48 GMT
-x-nws-log-uuid: ad280c57-bb5a-42fd-ac3f-45a7867200a8
-server_ip: 203.205.138.79
-vary: Accept
-x-cache-lookup: Hit From Disktank3
-x-datasrc: 2
-x-reqgue: 0
-```
+  # 响应头信息
+  HTTP/2 200 
+  server: NWSs
+  date: Sat, 24 Aug 2019 15:53:18 GMT
+  content-type: image/png
+  content-length: 13232
+  cache-control: max-age=3600
+  expires: Sat, 24 Aug 2019 16:53:17 GMT
+  last-modified: Wed, 07 Aug 2019 11:47:48 GMT
+  x-nws-log-uuid: ad280c57-bb5a-42fd-ac3f-45a7867200a8
+  server_ip: 203.205.138.79
+  vary: Accept
+  x-cache-lookup: Hit From Disktank3
+  x-datasrc: 2
+  x-reqgue: 0
+  ```
+
+  腾讯云 CDN 缓存是否命中通过 x-cache-lookup 字段来描述： Hit From MemCache 表示命中 CDN 节点内存，Hit From Disktank 表示命中 CDN 节点磁盘，Hit From Upstream 表示未命中 CDN 缓存。
 
 - 七牛云
 
-```bash
-# 请求资源
-curl -I https://mars-assets.qnssl.com/FspZJF8xgIz24cG8xWeq8Sq3yIKB
+  ```bash
+  # 请求资源
+  curl -I https://mars-assets.qnssl.com/FspZJF8xgIz24cG8xWeq8Sq3yIKB
 
-# 响应头信息
-HTTP/1.1 200 OK
-Server: Tengine
-Content-Type: image/jpeg
-Content-Length: 619829
-Connection: keep-alive
-Date: Thu, 08 Aug 2019 00:53:22 GMT
-Cache-Control: max-age=2592000
-Expires: Sat, 07 Sep 2019 00:53:22 GMT
-Access-Control-Allow-Origin: *
-Access-Control-Expose-Headers: X-Log, X-Reqid
-Access-Control-Max-Age: 2592000
-Etag: "FspZJF8xgIz24cG8xWeq8Sq3yIKB"
-X-Log: X-Log
-X-M-Log: QNM:jjh1877;SRCPROXY:jjh1495;SRC:106/304;SRCPROXY:106/304;QNM3:107/304
-X-M-Reqid: HnIAAJJARmtkzLgV
-X-Qiniu-Zone: 0
-X-Qnm-Cache: Miss
-X-Reqid: A3gAAAA6ZWtkzLgV
-X-Svr: IO
-Accept-Ranges: bytes
-Content-Disposition: inline; filename="FspZJF8xgIz24cG8xWeq8Sq3yIKB"; filename*=utf-8' 'FspZJF8xgIz24cG8xWeq8Sq3yIKB
-Content-Transfer-Encoding: binary
-Last-Modified: Wed, 08 Aug 2018 06:05:56 GMT
-Via: cache8.l2hk71[0,304-0,H], cache1.l2hk71[234,0], cache11.jp3[0,200-0,H], cache14.jp3[1,0]
-Age: 1436810
-Ali-Swift-Global-Savetime: 1539571636
-X-Cache: HIT TCP_MEM_HIT dirn:10:289161632
-X-Swift-SaveTime: Sun, 11 Aug 2019 14:41:23 GMT
-X-Swift-CacheTime: 2592000
-Timing-Allow-Origin: *
-EagleId: 2ff604a215666624129318679e
-```
+  # 响应头信息
+  HTTP/1.1 200 OK
+  Server: Tengine
+  Content-Type: image/jpeg
+  Content-Length: 619829
+  Connection: keep-alive
+  Date: Fri, 23 Aug 2019 23:49:08 GMT
+  Cache-Control: public, max-age=31536000
+  Etag: "FspZJF8xgIz24cG8xWeq8Sq3yIKB"
+  X-M-Log: QNM:jjh1877;QNM3:15/304
+  X-M-Reqid: HnIAAKOV40Yssr0V
+  X-Qnm-Cache: Hit
+  Access-Control-Allow-Origin: *
+  Access-Control-Expose-Headers: X-Log, X-Reqid
+  Access-Control-Max-Age: 2592000
+  X-Log: X-Log
+  X-Qiniu-Zone: 0
+  X-Reqid: c68AAACfQWhLZ7QV
+  X-Svr: IO
+  Accept-Ranges: bytes
+  Content-Disposition: inline; filename="FspZJF8xgIz24cG8xWeq8Sq3yIKB"; filename*=utf-8' 'FspZJF8xgIz24cG8xWeq8Sq3yIKB
+  Content-Transfer-Encoding: binary
+  Last-Modified: Wed, 08 Aug 2018 06:05:56 GMT
+  Ali-Swift-Global-Savetime: 1561275461
+  Via: cache6.l2cn1820[0,200-0,H], cache24.l2cn1820[1,0], cache5.cn348[0,200-0,H], cache4.cn348[0,0]
+  Age: 202747
+  X-Cache: HIT TCP_MEM_HIT dirn:3:101958844
+  X-Swift-SaveTime: Sat, 24 Aug 2019 19:26:57 GMT
+  X-Swift-CacheTime: 2592000
+  Timing-Allow-Origin: *
+  EagleId: 75198b9015668068952507972e
+  ```
+
+  七牛云 CDN 缓存是否命中通过 X-Qnm-Cache 字段来描述： HIT 表示命中 CDN 缓存，MISS 表示未命中CDN 缓存。
+
 - 网宿
 
-```bash
-# 请求资源
-curl -I https://www.wangsu.com/Upload/image/20190505/20190505162956_0140.jpg
+  ```bash
+  # 请求资源
+  curl -I https://www.wangsu.com/Upload/image/20190505/20190505162956_0140.jpg
 
-# 响应头信息
-HTTP/1.1 200 OK
-Date: Sat, 24 Aug 2019 16:19:09 GMT
-Content-Type: image/jpeg
-Content-Length: 113484
-Connection: keep-alive
-Server: waf/2.15.2-15.el6
-Cache-Control: no-cache
-Last-Modified: Sun, 05 May 2019 08:29:56 GMT
-Accept-Ranges: bytes
-ETag: "c4554bb81c3d51:0"
-X-Powered-By: ASP.NET
-Age: 1
-X-Via: 1.1 jn42:3 (Cdn Cache Server V2.0), 1.1 PSrbJP1am225:10 (Cdn Cache Server V2.0)
-```
+  # 响应头信息
+  HTTP/1.1 200 OK
+  Date: Mon, 26 Aug 2019 09:34:00 GMT
+  Content-Type: image/png
+  Content-Length: 1446
+  Connection: keep-alive
+  Server: waf/2.15.3-8.el6
+  Last-Modified: Thu, 25 Oct 2018 03:10:46 GMT
+  ETag: "6000539-5a6-57904f2ecf980"
+  Accept-Ranges: bytes
+  Age: 1
+  X-Via: 1.1 PSbjwjBGP2pt139:2 (Cdn Cache Server V2.0), 1.1 adianxin68:13 (Cdn Cache Server V2.0)
+  Cache-Control: max-age=604800
+  ```
 
-以国外 Akamai、AWS CloudFront、Cloudflare 为例，HTTP 响应头信息如下：
+  网宿 CDN 缓存是否命中通过 X-Via 字段来描述：Cdn Cache Server 字段表明采用了 CDN 服务。
+
+- 白山云
+
+  ```bash
+  # 请求资源
+  curl -I https://pic4.zhimg.com/v2-b43a4701f84d12e9cbd1c43a7b276be6_l.jpg
+
+  # 响应头信息
+  HTTP/2 200 
+  date: Mon, 26 Aug 2019 09:17:47 GMT
+  content-type: image/jpeg
+  content-length: 5998
+  server: AliyunOSS
+  x-oss-request-id: 5B3F08BF776D387FCB8617B5
+  etag: "B43A4701F84D12E9CBD1C43A7B276BE6"
+  last-modified: Mon, 25 Dec 2017 04:35:25 GMT
+  x-oss-object-type: Normal
+  x-oss-storage-class: Standard
+  x-oss-meta-format: jpeg
+  x-oss-meta-height: 896
+  x-oss-meta-width: 896
+  x-oss-hash-crc64ecma: 11490056169299473555
+  x-ser: BC34_dx-lt-yd-fujian-xiamen-8-cache-3, BC240_dx-zhejiang-jinhua-2-cache-8
+  x-cache: HIT from BC240_dx-zhejiang-jinhua-2-cache-8(baishan)
+  cache-control: public, max-age=31536000
+  access-control-allow-origin: *
+  access-control-max-age: 2592000
+  x-cdn-provider: BS
+  ```
+
+  白山云 CDN 缓存是否命中通过 x-cache 字段来描述： HIT 表示命中 CDN 缓存，MISS 表示未命中CDN 缓存。
+
+以国外 Akamai、AWS CloudFront、Cloudflare、Fastly 为例，HTTP 响应头信息如下：
 
 - Akamai
 
-```bash
-# 请求资源
-curl -I https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/portal/css/img/QRcode.png
+  ```bash
+  # 请求资源
+  curl -I -H "Pragma: akamai-x-cache-on,akamai-x-get-cache-key" https://a0.muscache.com/im/pictures/1e338975-3b45-4681-a493-934c1b26baf6.jpg?aki_policy=large
 
-# 响应头信息
-HTTP/2 200 
-server: NWSs
-date: Sat, 24 Aug 2019 15:53:18 GMT
-content-type: image/png
-content-length: 13232
-cache-control: max-age=3600
-expires: Sat, 24 Aug 2019 16:53:17 GMT
-last-modified: Wed, 07 Aug 2019 11:47:48 GMT
-x-nws-log-uuid: ad280c57-bb5a-42fd-ac3f-45a7867200a8
-server_ip: 203.205.138.79
-vary: Accept
-x-cache-lookup: Hit From Disktank3
-x-datasrc: 2
-x-reqgue: 0
-```
+  # 响应头信息
+  HTTP/2 200 
+  etag: "672916e11cf4620bc09d3f5f1998afe000a5b3d9"
+  last-modified: Fri, 26 Jul 2019 13:32:52 GMT
+  server: Akamai Image Manager
+  x-akamai-ssl-client-sid: SCHxwOaBMKXMexiInrJ7ZQ==
+  x-edgeconnect-midmile-rtt: 63
+  x-edgeconnect-origin-mex-latency: 202
+  content-length: 18921
+  content-type: image/jpeg
+  x-serial: 1354
+  x-check-cacheable: YES
+  x-akamai-pragma-client-ip: 165.254.156.76, 149.28.71.143
+  cache-control: private, no-transform, max-age=1683156
+  expires: Sat, 14 Sep 2019 04:25:22 GMT
+  date: Sun, 25 Aug 2019 16:52:46 GMT
+  x-cache: TCP_HIT from a165-254-156-76.deploy.akamaitechnologies.com (AkamaiGHost/9.8.0-26986073) (-)
+  x-cache-key: L1/L/16382/485063/30d/origin-images.airbnb.com/im/pictures/1e338975-3b45-4681-a493-934c1b26baf6.jpg cid=___IM_FILE_NAME=large.1.5000.generic&IM_API_TOKEN=airbnb-10168275&IM_COMB_ON=true
+  x-cache-key-extended-internal-use-only: L1/L/16382/485063/30d/origin-images.airbnb.com/im/pictures/1e338975-3b45-4681-a493-934c1b26baf6.jpg vcd=12141 cid=___IM_FILE_NAME=large.1.5000.generic&IM_API_TOKEN=airbnb-10168275&IM_COMB_ON=true
+  strict-transport-security: max-age=10886400; includeSubDomains
+  access-control-allow-methods: GET
+  access-control-allow-origin: *
+  timing-allow-origin: *
+  ```
 
 - AWS CloudFront
 
-```bash
-# 请求资源
-curl -I https://d1.awsstatic.com/logos/customers/Netflix-logo.0eba3826789115172a6870cff5c6c35f8d478d65.png
+  ```bash
+  # 请求资源
+  curl -I https://d1.awsstatic.com/logos/customers/Netflix-logo.0eba3826789115172a6870cff5c6c35f8d478d65.png
 
-# 响应头信息
-HTTP/2 200 
-content-type: image/png
-content-length: 3847
-date: Sun, 25 Aug 2019 15:42:07 GMT
-x-amz-replication-status: COMPLETED
-last-modified: Thu, 13 Dec 2018 21:50:25 GMT
-etag: "d74db421bcfcd1ece26e9990199960c7"
-x-amz-meta-version: 2018-12-13T21:48:21.932Z
-cache-control: max-age=31536000
-x-amz-version-id: e23.pgOuANwy9ERXZAB_roB7W3i4LCTt
-accept-ranges: bytes
-server: AmazonS3
-age: 12
-x-cache: Hit from cloudfront
-via: 1.1 10e0af8ebbb9eea9a777605bac3912db.cloudfront.net (CloudFront)
-x-amz-cf-pop: NRT12-C2
-x-amz-cf-id: fFy_bspNOdTBH7aOSBxxrl7C28-Yw7dcW9I8joUH7KhVcfWOtYEgRA==
-```
+  # 响应头信息
+  HTTP/2 200 
+  content-type: image/png
+  content-length: 3847
+  date: Sun, 25 Aug 2019 15:42:07 GMT
+  x-amz-replication-status: COMPLETED
+  last-modified: Thu, 13 Dec 2018 21:50:25 GMT
+  etag: "d74db421bcfcd1ece26e9990199960c7"
+  x-amz-meta-version: 2018-12-13T21:48:21.932Z
+  cache-control: max-age=31536000
+  x-amz-version-id: e23.pgOuANwy9ERXZAB_roB7W3i4LCTt
+  accept-ranges: bytes
+  server: AmazonS3
+  age: 12
+  x-cache: Hit from cloudfront
+  via: 1.1 10e0af8ebbb9eea9a777605bac3912db.cloudfront.net (CloudFront)
+  x-amz-cf-pop: NRT12-C2
+  x-amz-cf-id: fFy_bspNOdTBH7aOSBxxrl7C28-Yw7dcW9I8joUH7KhVcfWOtYEgRA==
+  ```
 
-x-cache 字段存在 Miss from cloudfront 及 Hit from cloudfront 两个字段。
+  x-cache 字段存在 Miss from cloudfront 及 Hit from cloudfront 两个字段。
 
 - Cloudflare
 
-```bash
-# 请求资源
-curl -I https://cdn-images-1.medium.com/fit/c/304/312/1*5gr12p-iLOr9ySir83Gzbg.png
+  ```bash
+  # 请求资源
+  curl -I https://cdn-images-1.medium.com/fit/c/304/312/1*5gr12p-iLOr9ySir83Gzbg.png
 
-# 响应头信息
-HTTP/2 200 
-date: Sun, 25 Aug 2019 15:40:11 GMT
-content-type: image/png
-content-length: 128430
-set-cookie: __cfduid=d99a08cf01203ce4cd7220812e5636dbb1566747611; expires=Mon, 24-Aug-20 15:40:11 GMT; path=/; domain=.medium.com; HttpOnly
-access-control-allow-origin: *
-cache-control: public, max-age=2592000
-etag: "16.3"
-expires: Tue, 24 Sep 2019 15:40:11 GMT
-pragma: public
-x-obvious-info: 16.3, 3197-fb89d63
-x-powered-by: Geomyidae artificij
-strict-transport-security: max-age=15552000; includeSubDomains; preload
-cf-cache-status: HIT
-age: 977007
-accept-ranges: bytes
-x-content-type-options: nosniff
-expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-server: cloudflare
-cf-ray: 50bea9b8cea8d63d-NRT
-```
+  # 响应头信息
+  HTTP/2 200 
+  date: Sun, 25 Aug 2019 15:40:11 GMT
+  content-type: image/png
+  content-length: 128430
+  set-cookie: __cfduid=d99a08cf01203ce4cd7220812e5636dbb1566747611; expires=Mon, 24-Aug-20 15:40:11 GMT; path=/; domain=.medium.com; HttpOnly
+  access-control-allow-origin: *
+  cache-control: public, max-age=2592000
+  etag: "16.3"
+  expires: Tue, 24 Sep 2019 15:40:11 GMT
+  pragma: public
+  x-obvious-info: 16.3, 3197-fb89d63
+  x-powered-by: Geomyidae artificij
+  strict-transport-security: max-age=15552000; includeSubDomains; preload
+  cf-cache-status: HIT
+  age: 977007
+  accept-ranges: bytes
+  x-content-type-options: nosniff
+  expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+  server: cloudflare
+  cf-ray: 50bea9b8cea8d63d-NRT
+  ```
 
-cf-cache-status 字段存在 HIT、MISS 及 EXPIRED 三种状态。
+  cf-cache-status 字段存在 HIT、MISS 及 EXPIRED 三种状态。
+
+- Fastly
+
+  ```bash
+  # 请求资源
+  curl -I https://cdn.dribbble.com/assets/icon-shot-x-light-2x-a4fcd61bdb114023583740bd9f5a46734e243e5be2bff1baa3e1cc33e7877fcd.png
+
+  # 响应头信息
+  HTTP/2 200 
+  content-type: image/png
+  last-modified: Wed, 27 Feb 2019 03:35:29 GMT
+  expires: Thu, 31 Dec 2037 23:55:55 GMT
+  cache-control: max-age=315360000, public
+  access-control-allow-origin: *
+  via: 1.1 varnish
+  accept-ranges: bytes
+  date: Sun, 25 Aug 2019 16:47:44 GMT
+  via: 1.1 varnish
+  age: 12798556
+  x-served-by: cache-jfk8128-JFK, cache-bur17527-BUR
+  x-cache: HIT, HIT
+  x-cache-hits: 785, 4638
+  x-timer: S1566751665.941825,VS0,VE0
+  vary: Cookie
+  content-length: 1306
+  ```
 
 
 ## CDN 回源
