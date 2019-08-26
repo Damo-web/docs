@@ -60,7 +60,7 @@ CDN 加速按业务主要分为五种类型：
 
 目前，网站通常采用动静分离的方案，即只针对网页样式文件、脚本文件及图片等静态资源进行 CDN 加速，常与静态资源存储相结合；倘若动态资源居多，也可采用动静结合的方案，即对整站动静态资源进行 CDN 加速，需要注意，动态资源加速需要回源，只不过进行了链路优化。
 
-## CDN 命中率
+## CDN 命中
 
 当网站静态资源采用 CDN 时，CDN 命中率是常见指标，用来衡量网站加速效果。
 
@@ -96,7 +96,7 @@ CDN 加速按业务主要分为五种类型：
   eagleid: 2ff604a015662956808786212e
   ```
 
-  阿里云 CDN 缓存是否命中通过 x-cache 字段来描述： HIT TCP_MEM_HIT 表示命中 CDN 缓存，MISS TCP_MISS 表示未命中CDN 缓存。
+  阿里云 CDN 缓存是否命中通过 x-cache 字段来描述： HIT TCP_MEM_HIT 表示命中 CDN 缓存，MISS TCP_MISS 表示未命中 CDN 缓存。
 
   有关缓存时间的字段如下：
 
@@ -170,7 +170,7 @@ CDN 加速按业务主要分为五种类型：
   EagleId: 75198b9015668068952507972e
   ```
 
-  七牛云 CDN 缓存是否命中通过 X-Qnm-Cache 字段来描述： HIT 表示命中 CDN 缓存，MISS 表示未命中CDN 缓存。
+  七牛云 CDN 缓存是否命中通过 X-Qnm-Cache 字段来描述： HIT 表示命中 CDN 缓存，MISS 表示未命中 CDN 缓存。
 
 - 网宿
 
@@ -224,7 +224,7 @@ CDN 加速按业务主要分为五种类型：
   x-cdn-provider: BS
   ```
 
-  白山云 CDN 缓存是否命中通过 x-cache 字段来描述： HIT 表示命中 CDN 缓存，MISS 表示未命中CDN 缓存。
+  白山云 CDN 缓存是否命中通过 x-cache 字段来描述： HIT 表示命中 CDN 缓存，MISS 表示未命中 CDN 缓存。
 
 以国外 Akamai、AWS CloudFront、Cloudflare、Fastly 为例，HTTP 响应头信息如下：
 
@@ -259,6 +259,50 @@ CDN 加速按业务主要分为五种类型：
   timing-allow-origin: *
   ```
 
+  Akamai CDN 缓存是否命中通过 x-cache 字段来描述，具体缓存响应状态如下：
+
+  - TCP_HIT：
+
+    资源在缓存中是新鲜的，并且资源只缓存在磁盘中，直接从缓存中返回资源
+
+  - TCP_MISS：
+
+    资源不在缓存中，则从源站获取资源
+
+  - TCP_REFRESH_HIT：
+  
+    资源在缓存中显示是陈旧的，通过 If-Modified-Since 请求源站得知资源依然是新鲜的
+
+  - TCP_REFRESH_MISS：
+    
+    资源在缓存中显示是陈旧的，通过 If-Modified-Since 请求源站得知资源是陈旧的，则获取并返回新资源
+
+  - TCP_REFRESH_FAIL_HIT：
+  
+    资源在缓存中显示是陈旧的，通过 If-Modified-Since 请求源站，但无法访问源站，依旧返回该资源
+
+  - TCP_IMS_HIT：
+
+    发现客户端之前通过 IF-Modified-Since 请求过资源，并且资源在缓存中是新鲜的，无需请求源站直接返回资源
+
+  - TCP_NEGATIVE_HIT：
+
+    资源之前响应失败，依旧会缓存这次失败响应，重复访问时，会命中之前的资源响应失败的缓存
+
+  - TCP_MEM_HIT：
+
+    在内存中发现缓存资源，直接返回至客户端
+
+  - TCP_DENIED：
+
+    无论出于何种原因拒绝客户端访问
+    
+  - TCP_COOKIE_DENY：
+
+    拒绝客户端通过 cookie 验证方式访问
+  
+  除此之外还有 x-check-cacheable 这个字段，用于描述是否该资源在 Akamai 配置中设置为可缓存，Yes 表明已设置为可缓存，No 表明未进行设置。
+
 - AWS CloudFront
 
   ```bash
@@ -285,7 +329,7 @@ CDN 加速按业务主要分为五种类型：
   x-amz-cf-id: fFy_bspNOdTBH7aOSBxxrl7C28-Yw7dcW9I8joUH7KhVcfWOtYEgRA==
   ```
 
-  x-cache 字段存在 Miss from cloudfront 及 Hit from cloudfront 两个字段。
+  AWS CloudFront 缓存是否命中通过 x-cache 字段来描述： Hit from cloudfront 表示命中 CDN 缓存，Miss from cloudfront 表示未命中 CDN 缓存。
 
 - Cloudflare
 
@@ -316,7 +360,35 @@ CDN 加速按业务主要分为五种类型：
   cf-ray: 50bea9b8cea8d63d-NRT
   ```
 
-  cf-cache-status 字段存在 HIT、MISS 及 EXPIRED 三种状态。
+  Cloudflare 缓存是否命中通过 cf-cache-status 字段来描述，具体缓存响应状态如下：
+  
+  - HIT
+    
+    资源在缓存中，直接从缓存中返回
+
+  - MISS
+
+    资源不在缓存中，从源站获取并返回
+
+  - EXPIRED
+
+    资源在缓存中，但已经过期，从源站获取并返回
+
+  - STALE
+
+    资源在缓存中，但已经过期，向源站请求，但其未响应，依旧返回已过期资源
+
+  - BYPASS
+
+    源站设置 CDN 始终绕过缓存，请求头 cache-control 为不缓存
+
+  - REVALIDATED
+
+    缓存中资源是陈旧的，但已被 If-Modified-Since 或 If-None-Match 请求验证
+
+  - UPDATING
+   
+    资源正在缓存中，而且现有缓存中资源是陈旧的。通常只有大文件或高热度资源更新时触发此状态。
 
 - Fastly
 
@@ -344,6 +416,12 @@ CDN 加速按业务主要分为五种类型：
   content-length: 1306
   ```
 
+  Fastly 缓存是否命中通过 x-cache 字段来描述，其字段值里只要存在 HIT ，则表明命中 CDN 缓存；只有当字段值为 MISS 和  MISS, MISS 时，才表明未命中 CDN 缓存。
+
+  需要简单说明下，x-cache 字段的值为双个或单个，仅当此时最优的 CDN 节点为中心节点时为单值。倘若为双值，第一个值代表中心节点，第二个值代表边缘节点；倘若为单值，即代表中心节点。
+  
+  字段 x-served-by 和 x-cache-hits 与此类似，x-served-by 为 CDN 缓存节点标识，x-cache-hits 为 CDN 缓存命中数。
+
 
 ## CDN 回源
 
@@ -355,8 +433,22 @@ CDN 加速按业务主要分为五种类型：
 
 - [到底什么是CDN？](https://zhuanlan.zhihu.com/p/52362950)
 
+- [what-is-cdn-how-it-works](https://www.imperva.com/learn/performance/what-is-cdn-how-it-works/)
+
+- [Origin Shield - Extra CDN Caching Layer](https://www.keycdn.com/support/origin-shield)
+
 - [CDN加速对动态网站有影响吗？](https://www.zhihu.com/question/20024922)
 
 - [CDN缓存那些事儿](http://genie88.github.io/2015/11/03/talk-about-content-delivery-network-and-caches/)
+
+- [Testing Global CDN Caching](https://pantheon.io/docs/test-global-cdn-caching)
+
+- [Using Akamai Pragma headers to investigate or troubleshoot Akamai content delivery](https://community.akamai.com/customers/s/article/Using-Akamai-Pragma-headers-to-investigate-or-troubleshoot-Akamai-content-delivery?language=en_US)
+
+- [Akamai - Pragma Headers overview](https://support.globaldots.com/hc/en-us/articles/115003996705-Akamai-Pragma-Headers-overview)
+
+- [What do the various Cloudflare cache responses (HIT, Expired, etc.) mean?](https://support.cloudflare.com/hc/en-us/articles/200168266-What-do-the-various-Cloudflare-cache-responses-HIT-Expired-etc-mean-)
+
+- [Understanding cache HIT and MISS headers with shielded services](https://docs.fastly.com/en/guides/understanding-cache-hit-and-miss-headers-with-shielded-services)
 
 - [varnish / squid / nginx cache 有什么不同？](https://www.zhihu.com/question/20143441)
