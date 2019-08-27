@@ -422,6 +422,11 @@ CDN 加速按业务主要分为五种类型：
   
   字段 x-served-by 和 x-cache-hits 与此类似，x-served-by 为 CDN 缓存节点标识，x-cache-hits 为 CDN 缓存命中数。
 
+概括来说，CDN 命中状态的描述与其缓存服务器（ varnish、squid 及 nginx ）紧密相连，因本文面向前端人员，在此不做扩展。除了以上流行的 CDN 服务商，自建 CDN 服务也在科技公司中屡见不鲜，比如 Twitter 、Facebook、Netflix、网易等公司。自建的 CDN 服务在其可控性、定制化、安全性上具有诸多优势，同时可以降低成本、提升用户体验。
+
+
+
+
 
 ## CDN 回源
 
