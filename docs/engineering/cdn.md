@@ -424,9 +424,23 @@ CDN 加速按业务主要分为五种类型：
 
 概括来说，CDN 命中状态的描述与其缓存服务器（ varnish、squid 及 nginx ）紧密相连，因本文面向前端人员，在此不做扩展。除了以上流行的 CDN 服务商，自建 CDN 服务也在科技公司中屡见不鲜，比如 Twitter 、Facebook、Netflix、网易等公司。自建的 CDN 服务在其可控性、定制化、安全性上具有诸多优势，同时可以降低成本、提升用户体验。
 
+静态资源的单次缓存命中情况不足以衡量网站加速的好坏，CDN 控制台的缓存命中率才是判断的标准。当网站资源 CDN 命中率低于50%，可以认为其命中率偏低，通常可以从缓存设置和资源本身两方面进行排查，具体如下：
 
+- 缓存设置
 
+  - 源站响应头信息设置不当，主要指 cache-control 设置为 cache-control：no-cache/no-store/max-age=0/private 或 Pragma 设置为 no-cache
 
+  - CDN 控制台缓存配置不合理，CDN 缓存时间过短或未缓存
+
+- 资源本身
+
+  - 源站动态资源偏多，动态资源需要回源处理
+
+  - 访问 CDN 资源的 URL 具有可变参数，每次访问会被认为是新请求，会进行回源拉取
+
+  - 资源文件热度不够，CDN 节点上缓存会按照热度进行末尾淘汰制
+
+  - CDN 刷新操作频繁，刷新缓存会让 CDN 节点重新回源，影响 CDN 命中率
 
 ## CDN 回源
 
@@ -457,3 +471,5 @@ CDN 加速按业务主要分为五种类型：
 - [Understanding cache HIT and MISS headers with shielded services](https://docs.fastly.com/en/guides/understanding-cache-hit-and-miss-headers-with-shielded-services)
 
 - [varnish / squid / nginx cache 有什么不同？](https://www.zhihu.com/question/20143441)
+
+- [阿里云 - CDN命中率低](https://help.aliyun.com/knowledge_detail/63874.html)
