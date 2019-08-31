@@ -515,7 +515,10 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
     cache-control: no-cache, no-store, must-revalidate, private, max-age=0
     # HTTP/1.0
     pragma: no-cache
-    expires: 0
+    # expires 为 0 不代表资源过期，代表非法的日期格式，适宜用过去的绝对时间来替代
+    # https://tools.ietf.org/html/rfc2616#section-14.21
+    # https://stackoverflow.com/questions/11357430/http-expires-header-values-0-and-1
+    expires: Fri, 02 Jan 2000 00:00:00 GMT
     ```
 
   - 协商缓存  
@@ -526,9 +529,26 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     ![](./img/http_cache-3.png)
 
-    当浏览器第一次跟服务器通信请求资源时，服务器会在返回对应资源的同时，在响应头信息中追加 Last-Modified/Etag 字段，再次请求该资源时，会在请求头追加 If-Modified-Since/If-None-Match 字段（ Last-Modified 则追加 If-Modified-Since 字段，Etag 则追加 If-None-Match 字段，其值为上次返回的 Last-Modified/Etag 值 ），服务器再次接受到请求时会根据服务器上该资源现有 Last-Modified 字段或资源现有信息生成的 Etag 字段，前后进行对比（ If-Modified-Since 与 Last-Modified ，If-None-Match 与 Etag 两两对比是否相同 ），倘若一致，说明资源未进行修改，返回 304 ，从本地缓存中直接加载资源；倘若不一致，说明资源已经修改，返回 200 ，拉取最新资源。
+    当浏览器第一次跟服务器通信请求资源时，服务器会在返回对应资源的同时，在响应头信息中追加 Last-Modified/ETag 字段，再次请求该资源时，会在请求头追加 If-Modified-Since/If-None-Match 字段（ Last-Modified 则追加 If-Modified-Since 字段，ETag 则追加 If-None-Match 字段，其值为上次返回的 Last-Modified/ETag 值 ），服务器再次接受到请求时会根据服务器上该资源现有 Last-Modified 字段或资源现有信息生成的 ETag 字段，前后进行对比（ If-Modified-Since 与 Last-Modified ，If-None-Match 与 ETag 两两对比是否相同 ），倘若一致，说明资源未进行修改，返回 304 ，从本地缓存中直接加载资源；倘若不一致，说明资源已经修改，返回 200 ，拉取最新资源。
+
+    Last-Modified 是 HTTP/1.0 年代用于判断资源是否变更的依据，其值为服务器上绝对的 GMT 时间，举个例子：
+
+    ```bash
+    # Response Headers
+    last-modified: Sun, 10 Mar 2019 04:46:35 GMT
+    # GMT 为格林尼治时间，北京处于东八区，需要加八小时处理
+    # 服务器端资源的最后修改时间为北京时间 2019年5月10日 12:46:35
+    ```
+
+    :::tip 小贴士
+    当响应头中有 Last-Modified 字段，而缺失 Expire 或 Cache-Control 字段时，浏览器会采用隐式缓存的方式计算该资源缓存的时间，不同浏览器的算法可能有所区别，因此 Last-modified 字段需要和 Expire 或 Cache-Control 字段配合使用。当然如果想禁用此类缓存，可以使用 <code>cache-control: no-cache</code> 来避免。
+    :::
+
+    Last-Modified 用来判断资源是否变更其实存在一些瑕疵：文件最后修改时间变更，但文件内容未变更，资源其实未变更；基于绝对时间，只能精确到秒，面对高频的变更乏力；部分服务器可能无法精确获取资源最后修改时间。在 HTTP/1.1 年代，为解决 Last-Modified 中的问题，引入了新字段 ETag 。
+
 
     
+
 
 - CDN 节点缓存
 
