@@ -484,7 +484,7 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     - max-age / s-maxage
 
-      设置缓存存储的最长时间，在这段时间内缓存生效，单位为秒。需要注意；s-maxage 会覆盖 max-age、expires，仅对共享缓存生效
+      设置缓存存储的最长时间，在这段时间内缓存生效，单位为秒。需要注意：s-maxage 会覆盖 max-age、expires，仅对共享缓存生效
 
     - no-cache / no-store
 
