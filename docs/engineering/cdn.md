@@ -544,11 +544,26 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
     当响应头中有 Last-Modified 字段，而缺失 Expire 或 Cache-Control 字段时，浏览器会采用隐式缓存的方式计算该资源缓存的时间，不同浏览器的算法可能有所区别，因此 Last-modified 字段需要和 Expire 或 Cache-Control 字段配合使用。当然如果想禁用此类缓存，可以使用 <code>cache-control: no-cache</code> 来避免。
     :::
 
-    Last-Modified 用来判断资源是否变更其实存在一些瑕疵：文件最后修改时间变更，但文件内容未变更，资源其实未变更；基于绝对时间，只能精确到秒，面对高频的变更乏力；部分服务器可能无法精确获取资源最后修改时间。在 HTTP/1.1 年代，为解决 Last-Modified 中的问题，引入了新字段 ETag 。
+    Last-Modified 用来判断资源是否变更其实存在一些瑕疵：文件最后修改时间变更，但文件内容未变更，资源其实未变更；基于绝对时间，只能精确到秒，面对高频的变更乏力；部分服务器可能无法精确获取资源最后修改时间。在 HTTP/1.1 年代，为解决 Last-Modified 遗留的问题，引入了新标识符 ETag 。需要注意，ETag 优先度高于 Last-Modified。
 
+    ETag 通常是资源文件目录及最后修改时间戳两者哈希化取值而来，当然也可以简单使用版本号。示例如下：
 
-    
+    ```bash
+    # 弱验证器以 "W/" 开头，弱验证器易生成，但不利于比较
+    # 弱验证器可以用于处理一秒内资源的高频变更，避免强验证器频繁更新的问题
+    # https://unpkg.zhimg.com/@cfe/sentry-script@0.0.10/dist/init.js
+    etag: W/"9b04-166e2db7c58"
+    # 哈希值
+    # https://pic3.zhimg.com/v2-b486df80ba5511d62fef808ffaa4b701_1200x500.jpg
+    etag: "B486DF80BA5511D62FEF808FFAA4B701"
+    # 版本号
+    # https://cdn-images-1.medium.com/fit/c/304/312/1*ClhcyPdKJp-T3L3AIup00Q.jpeg
+    etag: "16.3"
+    ```
 
+  HTTP 缓存整体流程图如下：
+  
+  ![](./img/http_cache-flow.svg)
 
 - CDN 节点缓存
 
