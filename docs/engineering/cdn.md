@@ -259,7 +259,7 @@ CDN 加速按业务主要分为五种类型：
 
   - TCP_HIT：
 
-    资源在缓存中是新鲜的，并且资源只缓存在磁盘中，直接从缓存中返回资源
+    资源在缓存中是有效的，并且资源只缓存在磁盘中，直接从缓存中返回资源
 
   - TCP_MISS：
 
@@ -267,19 +267,19 @@ CDN 加速按业务主要分为五种类型：
 
   - TCP_REFRESH_HIT：
   
-    资源在缓存中显示是陈旧的，通过 If-Modified-Since 请求源站得知资源依然是新鲜的
+    资源在缓存中显示是过期的，通过 If-Modified-Since 请求源站得知资源依然是有效的
 
   - TCP_REFRESH_MISS：
     
-    资源在缓存中显示是陈旧的，通过 If-Modified-Since 请求源站得知资源是陈旧的，则获取并返回新资源
+    资源在缓存中显示是过期的，通过 If-Modified-Since 请求源站得知资源是过期的，则获取并返回新资源
 
   - TCP_REFRESH_FAIL_HIT：
   
-    资源在缓存中显示是陈旧的，通过 If-Modified-Since 请求源站，但无法访问源站，依旧返回该资源
+    资源在缓存中显示是过期的，通过 If-Modified-Since 请求源站，但无法访问源站，依旧返回该资源
 
   - TCP_IMS_HIT：
 
-    发现客户端之前通过 IF-Modified-Since 请求过资源，并且资源在缓存中是新鲜的，无需请求源站直接返回资源
+    发现客户端之前通过 IF-Modified-Since 请求过资源，并且资源在缓存中是有效的，无需请求源站直接返回资源
 
   - TCP_NEGATIVE_HIT：
 
@@ -380,11 +380,11 @@ CDN 加速按业务主要分为五种类型：
 
   - REVALIDATED
 
-    缓存中资源是陈旧的，但已被 If-Modified-Since 或 If-None-Match 请求验证
+    缓存中资源是过期的，但已被 If-Modified-Since 或 If-None-Match 请求验证
 
   - UPDATING
    
-    资源正在缓存中，而且现有缓存中资源是陈旧的。通常只有大文件或高热度资源更新时触发此状态。
+    资源正在缓存中，而且现有缓存中资源是过期的。通常只有大文件或高热度资源更新时触发此状态。
 
 - Fastly
 
