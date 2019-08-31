@@ -528,7 +528,7 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     当浏览器第一次跟服务器通信请求资源时，服务器会在返回对应资源的同时，在响应头信息中追加 Last-Modified/Etag 字段，再次请求该资源时，会在请求头追加 If-Modified-Since/If-None-Match 字段（ Last-Modified 则追加 If-Modified-Since 字段，Etag 则追加 If-None-Match 字段，其值为上次返回的 Last-Modified/Etag 值 ），服务器再次接受到请求时会根据服务器上该资源现有 Last-Modified 字段或资源现有信息生成的 Etag 字段，前后进行对比（ If-Modified-Since 与 Last-Modified ，If-None-Match 与 Etag 两两对比是否相同 ），倘若一致，说明资源未进行修改，返回 304 ，从本地缓存中直接加载资源；倘若不一致，说明资源已经修改，返回 200 ，拉取最新资源。
 
-
+    
 
 - CDN 节点缓存
 
