@@ -462,20 +462,24 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
   - 强缓存
     
-    强缓存是指浏览器直接从本地缓存中获取数据，不需跟服务器进行通信。
+    强缓存是指浏览器直接从本地缓存中获取数据，不需跟服务器进行通信。强缓存命中时，在 Chrome 浏览器上状态码如下：
+
+    ![](./img/http_cache-1.png)
+
+    ![](./img/http_cache-2.png)
 
     当浏览器第一次跟服务器通信请求资源时，服务器会在返回对应资源的同时，在响应头信息中追加 Expires / Cache-Control 字段，用于后续请求的资源是否在有效期内的参考，倘若在有效期内，则命中强缓存，直接返回缓存中的资源，否则请求服务器，拉取最新资源。
 
-    强缓存的命中与否通过 HTTP 头信息中字段 expires 或 cache-control 进行判断，但 cache-control 的优先度更高。Expires 是 HTTP1.0 年代用于判断资源是否过期的依据，其值为绝对的 GMT 时间，举个例子：
+    强缓存的命中与否通过 HTTP 头信息中字段 expires 或 cache-control 进行判断，但 cache-control 的优先度更高。Expires 是 HTTP/1.0 年代用于判断资源是否过期的依据，其值为绝对的 GMT 时间，举个例子：
 
     ```bash
-    # expires 示例
+    # Response Headers
     expires: Sun, 29 Sep 2019 15:05:50 GMT
     # GMT 为格林尼治时间，北京处于东八区，需要加八小时处理
     # 当客户端再次请求该资源的时间超过北京时间 2019年9月29日 23:05:50 时，资源才做过期处理
     ```
 
-    单纯采用 Expires 存在时区转换问题，在面向全球用户时可能会出错，因此 HTTP/1.1 中的 Cache-Control 应运而生。
+    采用绝对时间的 Expires ，通过与客户端本地时间对比来判断资源是否过期，而本地时间具有不确定性，可能被更改造成缓存失效，因此 Expires 成为兼容方案，字段 Pragma: no-cache/public 同样也是如此。 在 HTTP/1.1 年代，为了解决 HTTP/1.0 中的瑕疵，融合并扩展 Pragma 和 Expires 两个字段的诸多功能，Cache-Control 应运而生。
     Cache-Control 采用相对时间来判断资源是否过期，主要指令如下：
 
     - public / private
@@ -484,19 +488,47 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     - max-age / s-maxage
 
-      设置缓存存储的最长时间，在这段时间内缓存生效，单位为秒。需要注意：s-maxage 会覆盖 max-age、expires，仅对共享缓存生效
+      设置缓存存储的最长时间，在这段时间内缓存生效，单位为秒。当字段存在时，倘若浏览器支持 HTTP/1.1 ，Expires 字段会被忽略。需要注意：s-maxage 会覆盖 max-age、expires，仅对共享缓存生效
 
     - no-cache / no-store
 
       决定是否采用缓存，no-cache 并非不缓存，而是每次需要与服务器通信来验证是否采用缓存；no-store 则是不缓存。
-    
-    强缓存命中时，在 Chrome 浏览器上状态码如下：
 
-    ![](./img/http_cache-1.png)
+    - must-revalidate / stale-while-revalidate
 
-    ![](./img/http_cache-2.png)
+      资源过期后处理方案，must-revalidate 表明资源过期后，必须重新进行验证后才可以使用；stale-while-revalidate 表明资源过期后，在其值规定的时间内可以继续使用，但后台会异步检查更新，在规定的时间之后，才会完全过期。需要注意，两字段不可同时存在，若同时存在，must-revalidate 会覆盖 stale-while-revalidate ；stale-while-revalidate 浏览器兼容性依旧较差。这两字段在浏览器端还存在些许问题，不推荐使用。
+
+    当需缓存静态资源时，如下设置：
+
+    ```bash
+    # HTTP/1.1
+    cache-control: public, max-age=31536000
+    # HTTP/1.0
+    pragma: public
+    expires: Sun, 29 Sep 2019 15:05:50 GMT
+    ```
+
+    当需完全禁用缓存时，如下设置：
+
+    ```bash
+    # HTTP/1.1
+    cache-control: no-cache, no-store, must-revalidate, private, max-age=0
+    # HTTP/1.0
+    pragma: no-cache
+    expires: 0
+    ```
 
   - 协商缓存  
+
+    当强缓存未命中，即缓存资源过期，此时资源并不一定会发生改变，需要跟服务器进行验证是否可以继续使用缓存，这一过程称作协商缓存。
+
+    协商缓存命中时，在 Chrome 浏览器上状态码如下：
+
+    ![](./img/http_cache-3.png)
+
+    当浏览器第一次跟服务器通信请求资源时，服务器会在返回对应资源的同时，在响应头信息中追加 Last-Modified/Etag 字段，再次请求该资源时，会在请求头追加 If-Modified-Since/If-None-Match 字段（ Last-Modified 则追加 If-Modified-Since 字段，Etag 则追加 If-None-Match 字段，其值为上次返回的 Last-Modified/Etag 值 ），服务器再次接受到请求时会根据服务器上该资源现有 Last-Modified 字段或资源现有信息生成的 Etag 字段，前后进行对比（ If-Modified-Since 与 Last-Modified ，If-None-Match 与 Etag 两两对比是否相同 ），倘若一致，说明资源未进行修改，返回 304 ，从本地缓存中直接加载资源；倘若不一致，说明资源已经修改，返回 200 ，拉取最新资源。
+
+
 
 - CDN 节点缓存
 
@@ -532,3 +564,9 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 - [CDN回源Host的意义](https://zhuanlan.zhihu.com/p/34314554)
 
 - [HTTP 缓存机制一二三](https://zhuanlan.zhihu.com/p/29750583)
+
+- [Difference between Pragma and Cache-control headers?](https://stackoverflow.com/questions/10314174/difference-between-pragma-and-cache-control-headers)
+
+- [可能是最被误用的 HTTP 响应头之一 Cache-Control: must-revalidate](https://zhuanlan.zhihu.com/p/60357719)
+
+- [Cache-Control 的 stale-while-revalidate 指令](https://zhuanlan.zhihu.com/p/64694485)
