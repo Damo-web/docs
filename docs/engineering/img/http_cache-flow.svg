@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="72 58 1020 1018" width="1020" height="1018">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="-165 -14 1234 1018" width="1234" height="1018">
   <defs>
     <font-face font-family="PingFang SC" font-size="18" panose-1="2 11 4 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-150" underline-thickness="58" slope="0" x-height="600" cap-height="860" ascent="1060.0021" descent="-340.0007" font-weight="400">
       <font-face-src>
@@ -29,172 +29,204 @@
     </font-face>
   </defs>
   <metadata> Produced by OmniGraffle 7.11.1 
-    <dc:date>2019-08-31 18:08:42 +0000</dc:date>
+    <dc:date>2019-09-01 15:19:50 +0000</dc:date>
   </metadata>
   <g id="Canvas_1" stroke="none" fill="none" stroke-opacity="1" fill-opacity="1" stroke-dasharray="none">
     <title>Canvas 1</title>
     <g id="Canvas_1: Layer 1">
       <title>Layer 1</title>
-      <g id="Group_57">
+      <g id="Group_69">
         <g id="Graphic_2">
-          <path d="M 263.375 85 L 360.375 85 C 368.65927 85 375.375 91.71573 375.375 100 L 375.375 134 C 375.375 142.28427 368.65927 149 360.375 149 L 263.375 149 C 255.09073 149 248.375 142.28427 248.375 134 L 248.375 100 C 248.375 91.71573 255.09073 85 263.375 85 Z" fill="#32495d"/>
-          <path d="M 263.375 85 L 360.375 85 C 368.65927 85 375.375 91.71573 375.375 100 L 375.375 134 C 375.375 142.28427 368.65927 149 360.375 149 L 263.375 149 C 255.09073 149 248.375 142.28427 248.375 134 L 248.375 100 C 248.375 91.71573 255.09073 85 263.375 85 Z" stroke="#32495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(253.375 104.5)" fill="white">
+          <path d="M -114.5 14 L -17.5 14 C -9.215729 14 -2.5 20.715729 -2.5 29 L -2.5 63 C -2.5 71.28427 -9.215729 78 -17.5 78 L -114.5 78 C -122.78427 78 -129.5 71.28427 -129.5 63 L -129.5 29 C -129.5 20.715729 -122.78427 14 -114.5 14 Z" fill="#32495d"/>
+          <path d="M -114.5 14 L -17.5 14 C -9.215729 14 -2.5 20.715729 -2.5 29 L -2.5 63 C -2.5 71.28427 -9.215729 78 -17.5 78 L -114.5 78 C -122.78427 78 -129.5 71.28427 -129.5 63 L -129.5 29 C -129.5 20.715729 -122.78427 14 -114.5 14 Z" stroke="#32495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(-124.5 33.5)" fill="white">
             <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="31.5" y="19">浏览器</tspan>
           </text>
         </g>
         <g id="Graphic_4">
-          <path d="M 311.875 249.5 L 428.75 325.25 L 311.875 401 L 195 325.25 Z" fill="#ff5e00"/>
-          <path d="M 311.875 249.5 L 428.75 325.25 L 311.875 401 L 195 325.25 Z" stroke="#ff5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(231.55625 303.511)" fill="white">
+          <path d="M 287.875 178.5 L 404.75 254.25 L 287.875 330 L 171 254.25 Z" fill="#ff5e00"/>
+          <path d="M 287.875 178.5 L 404.75 254.25 L 287.875 330 L 171 254.25 Z" stroke="#ff5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(207.55625 232.511)" fill="white">
             <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="1.17625" y="15">Expires/Cache-Control</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="18.65625" y="35.448">判断缓存是否过期</tspan>
           </text>
         </g>
         <g id="Graphic_7">
-          <path d="M 245.875 701.75 L 377.875 701.75 C 386.15927 701.75 392.875 708.4657 392.875 716.75 L 392.875 762.25 C 392.875 770.5343 386.15927 777.25 377.875 777.25 L 245.875 777.25 C 237.59073 777.25 230.875 770.5343 230.875 762.25 L 230.875 716.75 C 230.875 708.4657 237.59073 701.75 245.875 701.75 Z" fill="#ebb22f"/>
-          <path d="M 245.875 701.75 L 377.875 701.75 C 386.15927 701.75 392.875 708.4657 392.875 716.75 L 392.875 762.25 C 392.875 770.5343 386.15927 777.25 377.875 777.25 L 245.875 777.25 C 237.59073 777.25 230.875 770.5343 230.875 762.25 L 230.875 716.75 C 230.875 708.4657 237.59073 701.75 245.875 701.75 Z" stroke="#ebb22f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(235.875 714.5)" fill="white">
+          <path d="M 221.875 630.75 L 353.875 630.75 C 362.15927 630.75 368.875 637.4657 368.875 645.75 L 368.875 691.25 C 368.875 699.5343 362.15927 706.25 353.875 706.25 L 221.875 706.25 C 213.59073 706.25 206.875 699.5343 206.875 691.25 L 206.875 645.75 C 206.875 637.4657 213.59073 630.75 221.875 630.75 Z" fill="#ebb22f"/>
+          <path d="M 221.875 630.75 L 353.875 630.75 C 362.15927 630.75 368.875 637.4657 368.875 645.75 L 368.875 691.25 C 368.875 699.5343 362.15927 706.25 353.875 706.25 L 221.875 706.25 C 213.59073 706.25 206.875 699.5343 206.875 691.25 L 206.875 645.75 C 206.875 637.4657 213.59073 630.75 221.875 630.75 Z" stroke="#ebb22f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(211.875 643.5)" fill="white">
             <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="58" y="19">读取</tspan>
             <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="40" y="44">本地缓存</tspan>
           </text>
         </g>
-        <g id="Line_8">
-          <line x1="311.875" y1="149" x2="311.875" y2="236.6" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        </g>
         <g id="Graphic_11">
-          <text transform="translate(327 526)" fill="black">
+          <text transform="translate(303 455)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">未过期</tspan>
           </text>
         </g>
         <g id="Graphic_13">
-          <path d="M 621.3125 266.75 L 717.625 325.25 L 621.3125 383.75 L 525 325.25 Z" fill="#ff5e00"/>
-          <path d="M 621.3125 266.75 L 717.625 325.25 L 621.3125 383.75 L 525 325.25 Z" stroke="#ff5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(556.0044 303.856)" fill="white">
+          <path d="M 597.3125 195.75 L 693.625 254.25 L 597.3125 312.75 L 501 254.25 Z" fill="#ff5e00"/>
+          <path d="M 597.3125 195.75 L 693.625 254.25 L 597.3125 312.75 L 501 254.25 Z" stroke="#ff5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(532.0044 232.856)" fill="white">
             <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="49.754375" y="15">ETag</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="35.234375" y="35.448">是否存在</tspan>
           </text>
         </g>
         <g id="Graphic_14">
-          <path d="M 621.3125 478.5 L 717.625 537 L 621.3125 595.5 L 525 537 Z" fill="#ff5e00"/>
-          <path d="M 621.3125 478.5 L 717.625 537 L 621.3125 595.5 L 525 537 Z" stroke="#ff5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(556.0044 515.606)" fill="white">
+          <path d="M 597.3125 407.5 L 693.625 466 L 597.3125 524.5 L 501 466 Z" fill="#ff5e00"/>
+          <path d="M 597.3125 407.5 L 693.625 466 L 597.3125 524.5 L 501 466 Z" stroke="#ff5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(532.0044 444.606)" fill="white">
             <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="17.594375" y="15">Last-Modified</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="35.234375" y="35.448">是否存在</tspan>
           </text>
         </g>
         <g id="Line_15">
-          <line x1="428.75" y1="325.25" x2="512.1" y2="325.25" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="404.75" y1="254.25" x2="488.1" y2="254.25" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Line_16">
-          <line x1="621.3125" y1="383.75" x2="621.3125" y2="465.6" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="597.3125" y1="312.75" x2="597.3125" y2="394.6" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Graphic_18">
-          <text transform="translate(460 293.5)" fill="black">
+          <text transform="translate(436 222.5)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">过期</tspan>
           </text>
         </g>
         <g id="Graphic_19">
-          <text transform="translate(633 420.125)" fill="black">
+          <text transform="translate(609 349.125)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">不存在</tspan>
           </text>
         </g>
         <g id="Graphic_20">
-          <path d="M 555.3125 701.75 L 687.3125 701.75 C 695.5968 701.75 702.3125 708.4657 702.3125 716.75 L 702.3125 762.25 C 702.3125 770.5343 695.5968 777.25 687.3125 777.25 L 555.3125 777.25 C 547.0282 777.25 540.3125 770.5343 540.3125 762.25 L 540.3125 716.75 C 540.3125 708.4657 547.0282 701.75 555.3125 701.75 Z" fill="#10a05d"/>
-          <path d="M 555.3125 701.75 L 687.3125 701.75 C 695.5968 701.75 702.3125 708.4657 702.3125 716.75 L 702.3125 762.25 C 702.3125 770.5343 695.5968 777.25 687.3125 777.25 L 555.3125 777.25 C 547.0282 777.25 540.3125 770.5343 540.3125 762.25 L 540.3125 716.75 C 540.3125 708.4657 547.0282 701.75 555.3125 701.75 Z" stroke="#15a05f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(545.3125 717.5)" fill="white">
+          <path d="M 531.3125 630.75 L 663.3125 630.75 C 671.5968 630.75 678.3125 637.4657 678.3125 645.75 L 678.3125 691.25 C 678.3125 699.5343 671.5968 706.25 663.3125 706.25 L 531.3125 706.25 C 523.0282 706.25 516.3125 699.5343 516.3125 691.25 L 516.3125 645.75 C 516.3125 637.4657 523.0282 630.75 531.3125 630.75 Z" fill="#10a05d"/>
+          <path d="M 531.3125 630.75 L 663.3125 630.75 C 671.5968 630.75 678.3125 637.4657 678.3125 645.75 L 678.3125 691.25 C 678.3125 699.5343 671.5968 706.25 663.3125 706.25 L 531.3125 706.25 C 523.0282 706.25 516.3125 699.5343 516.3125 691.25 L 516.3125 645.75 C 516.3125 637.4657 523.0282 630.75 531.3125 630.75 Z" stroke="#15a05f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(521.3125 646.5)" fill="white">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="36" y="17">请求服务器</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="44" y="39">刷新资源</tspan>
           </text>
         </g>
         <g id="Line_21">
-          <line x1="621.3125" y1="595.5" x2="621.3125" y2="688.85" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="597.3125" y1="524.5" x2="597.3125" y2="617.85" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Graphic_22">
-          <text transform="translate(633 637.625)" fill="black">
+          <text transform="translate(609 566.625)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">不存在</tspan>
           </text>
         </g>
         <g id="Graphic_24">
-          <text transform="translate(753.32 249.5)" fill="black">
+          <text transform="translate(729.32 178.5)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="17.104" y="17">存在则发起 </tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="39">If-None-Match</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="41.104" y="61">请求</tspan>
           </text>
         </g>
         <g id="Graphic_26">
-          <text transform="translate(743 457)" fill="black">
+          <text transform="translate(719 386)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="27.424" y="17">存在则发起 </tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="8952838e-19" y="39">If-Modified-Since</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="51.424" y="61">请求</tspan>
           </text>
         </g>
         <g id="Graphic_27">
-          <path d="M 924.25 689.5 L 1014.5 739.5 L 924.25 789.5 L 834 739.5 Z" fill="#ff5e03"/>
-          <path d="M 924.25 689.5 L 1014.5 739.5 L 924.25 789.5 L 834 739.5 Z" stroke="#fe5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(863.3675 727.5)" fill="white">
+          <path d="M 900.25 618.5 L 990.5 668.5 L 900.25 718.5 L 810 668.5 Z" fill="#ff5e03"/>
+          <path d="M 900.25 618.5 L 990.5 668.5 L 900.25 718.5 L 810 668.5 Z" stroke="#fe5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(839.3675 656.5)" fill="white">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="22.6875" y="17">服务器验证</tspan>
           </text>
         </g>
         <g id="Line_28">
-          <path d="M 717.24445 325.01885 L 922.8555 324.52344 L 924.0389 676.693" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <path d="M 693.24445 254.01885 L 898.8555 253.52344 L 900.0389 605.693" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Line_29">
-          <line x1="717.4151" y1="536.8725" x2="910.6682" y2="536.6161" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="693.4151" y1="465.8725" x2="886.6682" y2="465.6161" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Line_31">
-          <line x1="311.875" y1="401" x2="311.875" y2="688.85" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="287.875" y1="330" x2="287.875" y2="617.85" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Graphic_34">
-          <text transform="translate(743 686.5)" fill="black">
+          <text transform="translate(719 615.5)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="1.064" y="17">资源变更</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="30553338e-20" y="39">返回 200</tspan>
           </text>
         </g>
         <g id="Graphic_35">
-          <path d="M 858.25 924.5 L 990.25 924.5 C 998.5343 924.5 1005.25 931.2157 1005.25 939.5 L 1005.25 985 C 1005.25 993.2843 998.5343 1e3 990.25 1e3 L 858.25 1e3 C 849.9657 1e3 843.25 993.2843 843.25 985 L 843.25 939.5 C 843.25 931.2157 849.9657 924.5 858.25 924.5 Z" fill="#ebb22f"/>
-          <path d="M 858.25 924.5 L 990.25 924.5 C 998.5343 924.5 1005.25 931.2157 1005.25 939.5 L 1005.25 985 C 1005.25 993.2843 998.5343 1e3 990.25 1e3 L 858.25 1e3 C 849.9657 1e3 843.25 993.2843 843.25 985 L 843.25 939.5 C 843.25 931.2157 849.9657 924.5 858.25 924.5 Z" stroke="#ebb22f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <text transform="translate(848.25 937.25)" fill="white">
+          <path d="M 834.25 853.5 L 966.25 853.5 C 974.5343 853.5 981.25 860.2157 981.25 868.5 L 981.25 914 C 981.25 922.2843 974.5343 929 966.25 929 L 834.25 929 C 825.9657 929 819.25 922.2843 819.25 914 L 819.25 868.5 C 819.25 860.2157 825.9657 853.5 834.25 853.5 Z" fill="#ebb22f"/>
+          <path d="M 834.25 853.5 L 966.25 853.5 C 974.5343 853.5 981.25 860.2157 981.25 868.5 L 981.25 914 C 981.25 922.2843 974.5343 929 966.25 929 L 834.25 929 C 825.9657 929 819.25 922.2843 819.25 914 L 819.25 868.5 C 819.25 860.2157 825.9657 853.5 834.25 853.5 Z" stroke="#ebb22f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(824.25 866.25)" fill="white">
             <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="58" y="19">读取</tspan>
             <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="40" y="44">本地缓存</tspan>
           </text>
         </g>
         <g id="Line_36">
-          <line x1="924.25" y1="789.5" x2="924.25" y2="911.6" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="900.25" y1="718.5" x2="900.25" y2="840.6" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Graphic_37">
-          <text transform="translate(939.064 835)" fill="black">
+          <text transform="translate(915.064 764)" fill="black">
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">资源未变更</tspan>
             <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="6.936" y="39">返回 304</tspan>
           </text>
         </g>
         <g id="Line_38">
-          <line x1="834" y1="739.5" x2="715.2125" y2="739.5" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          <line x1="810" y1="668.5" x2="691.2125" y2="668.5" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
         <g id="Graphic_47">
-          <text transform="translate(327 159.5)" fill="black">
-            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">再次请求</tspan>
-            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="8" y="39">该资源</tspan>
+          <text transform="translate(-47 114.875)" fill="black">
+            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">请求</tspan>
+            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="39">资源</tspan>
           </text>
         </g>
         <g id="Graphic_48">
-          <rect x="72" y="58" width="1020" height="1018" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"/>
+          <rect x="-164.076" y="-14" width="1232.152" height="1018" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"/>
         </g>
         <g id="Graphic_52">
-          <path d="M 126 214 L 436 214 C 444.28427 214 451 220.71573 451 229 L 451 808 C 451 816.2843 444.28427 823 436 823 L 126 823 C 117.71573 823 111 816.2843 111 808 L 111 229 C 111 220.71573 117.71573 214 126 214 Z" stroke="#e01d5a" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12.0,12.0" stroke-width="3"/>
+          <path d="M 106 143 L 416 143 C 424.28427 143 431 149.71573 431 158 L 431 737 C 431 745.2843 424.28427 752 416 752 L 106 752 C 97.71573 752 91 745.2843 91 737 L 91 158 C 91 149.71573 97.71573 143 106 143 Z" stroke="#e01d5a" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12.0,12.0" stroke-width="3"/>
         </g>
         <g id="Graphic_53">
-          <path d="M 516 214 L 1041 214 C 1049.2843 214 1056 220.71573 1056 229 L 1056 1022 C 1056 1030.2843 1049.2843 1037 1041 1037 L 516 1037 C 507.7157 1037 501 1030.2843 501 1022 L 501 229 C 501 220.71573 507.7157 214 516 214 Z" stroke="#37c5f1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12.0,12.0" stroke-width="3"/>
+          <path d="M 492 143 L 1017 143 C 1025.2843 143 1032 149.71573 1032 158 L 1032 951 C 1032 959.2843 1025.2843 966 1017 966 L 492 966 C 483.7157 966 477 959.2843 477 951 L 477 158 C 477 149.71573 483.7157 143 492 143 Z" stroke="#37c5f1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12.0,12.0" stroke-width="3"/>
         </g>
         <g id="Graphic_54">
-          <text transform="translate(127 768)" fill="#e01d5a">
+          <text transform="translate(103 697)" fill="#e01d5a">
             <tspan font-family="PingFang SC" font-size="30" font-weight="400" fill="#e01d5a" x="0" y="32">强缓存</tspan>
           </text>
         </g>
         <g id="Graphic_56">
-          <text transform="translate(518 975)" fill="#37c5f1">
+          <text transform="translate(494 904)" fill="#37c5f1">
             <tspan font-family="PingFang SC" font-size="30" font-weight="400" fill="#37c5f1" x="0" y="32">协商缓存</tspan>
           </text>
+        </g>
+        <g id="Graphic_58">
+          <path d="M -66 195.75 L 17 254.25 L -66 312.75 L -149 254.25 Z" fill="#ff5e03"/>
+          <path d="M -66 195.75 L 17 254.25 L -66 312.75 L -149 254.25 Z" stroke="#fe5e00" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(-121.59 228.08)" fill="white">
+            <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="21.25" y="19">本地缓存</tspan>
+            <tspan font-family="PingFang SC" font-size="18" font-weight="400" fill="white" x="21.25" y="44">是否存在</tspan>
+          </text>
+        </g>
+        <g id="Line_59">
+          <line x1="-66" y1="78" x2="-66" y2="182.85" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Line_61">
+          <line x1="17" y1="254.25" x2="158.1" y2="254.25" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+        <g id="Graphic_62">
+          <text transform="translate(38 222.5)" fill="black">
+            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">存在</tspan>
+          </text>
+        </g>
+        <g id="Graphic_65">
+          <text transform="translate(-52.5 455)" fill="black">
+            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="black" x="0" y="17">不存在</tspan>
+          </text>
+        </g>
+        <g id="Graphic_66">
+          <path d="M -114.5 630.75 L -14.5 630.75 C -6.215729 630.75 .5 637.4657 .5 645.75 L .5 691.25 C .5 699.5343 -6.215729 706.25 -14.5 706.25 L -114.5 706.25 C -122.78427 706.25 -129.5 699.5343 -129.5 691.25 L -129.5 645.75 C -129.5 637.4657 -122.78427 630.75 -114.5 630.75 Z" fill="#15a05e"/>
+          <path d="M -114.5 630.75 L -14.5 630.75 C -6.215729 630.75 .5 637.4657 .5 645.75 L .5 691.25 C .5 699.5343 -6.215729 706.25 -14.5 706.25 L -114.5 706.25 C -122.78427 706.25 -129.5 699.5343 -129.5 691.25 L -129.5 645.75 C -129.5 637.4657 -122.78427 630.75 -114.5 630.75 Z" stroke="#20a262" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <text transform="translate(-124.5 646.5)" fill="white">
+            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="20" y="17">请求服务器</tspan>
+            <tspan font-family="PingFang SC" font-size="16" font-weight="400" fill="white" x="28" y="39">存入缓存</tspan>
+          </text>
+        </g>
+        <g id="Line_67">
+          <line x1="-65.78871" y1="312.60108" x2="-64.6834" y2="617.8501" marker-end="url(#FilledArrow_Marker)" stroke="#31495d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
         </g>
       </g>
     </g>
