@@ -593,17 +593,37 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     ![](./img/cdn_1.png)
 
-  - 开发者模式下网页刷新设置项 ( 按住刷新按钮可查看更多选项 )
+    :::tip 小贴士
+    Disable cache 的配置**仅在开发者工具打开时生效**，具体可查阅：[Chrome DevTools' Disable Cache](https://twitter.com/ChromiumDev/status/227356682890670080)
+    :::
+
+  - 开发者模式下网页刷新设置项
 
     ![](./img/cdn_2.png)
+
+    **该设置项需要按住刷新按钮才可查看，需要打开 Chrome 开发者工具**，各设置项功能如下：
+
+    - 正常重新加载（ Normal Reload ）
+
+    - 硬性重新加载（ Hard Reload ）
+
+    - 清空缓存并硬性重新加载（ Empty Cache and Hard Reload ）
 
   - 浏览器设置中清除浏览数据选项
 
     ![](./img/cdn_3.png)
 
-  除此之外，实验性的浏览器前进/后退缓存（ Backward/Forward Cache，可简称 BF Cache ）也值得关注。
+    清除浏览数据可在 Chrome 地址栏通过 <code>chrome://settings/clearBrowserData</code> 地址直接访问。
+
+  除此之外，非标准化的浏览器前进后退缓存（ Backward/Forward Cache，可简称 BF Cache ）也值得关注。
 
 - CDN 节点缓存
+
+  当源站服务器更新后，如果 CDN 节点上资源未完全同步，先前缓存还未过期，那访问到的资源依旧是过期资源，此时需要手动刷新 CDN 资源，分为如下两种方式：
+
+  - 主动刷新
+
+  - 被动刷新
 
 ## 参考链接
 
@@ -639,6 +659,10 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
 - [Difference between Pragma and Cache-control headers?](https://stackoverflow.com/questions/10314174/difference-between-pragma-and-cache-control-headers)
 
+- [图解浏览器缓存，教你提高用户体验](https://zhuanlan.zhihu.com/p/48197254)
+
 - [可能是最被误用的 HTTP 响应头之一 Cache-Control: must-revalidate](https://zhuanlan.zhihu.com/p/60357719)
 
 - [Cache-Control 的 stale-while-revalidate 指令](https://zhuanlan.zhihu.com/p/64694485)
+
+- [What's the difference between “Normal Reload”, “Hard Reload”, and “Empty Cache and Hard Reload” in Chrome?](https://stackoverflow.com/questions/14969315/whats-the-difference-between-normal-reload-hard-reload-and-empty-cache-a#14969509)
