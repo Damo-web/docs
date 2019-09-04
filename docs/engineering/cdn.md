@@ -104,7 +104,7 @@ CDN 加速按业务主要分为五种类型：
 
 - 腾讯云
 
-  ```bash
+  ```bash{16}
   # 请求资源
   curl -I https://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/portal/css/img/QRcode.png
 
@@ -125,11 +125,11 @@ CDN 加速按业务主要分为五种类型：
   x-reqgue: 0
   ```
 
-  腾讯云 CDN 缓存是否命中通过 x-cache-lookup 字段来描述： Hit From MemCache 表示命中 CDN 节点内存，Hit From Disktank 表示命中 CDN 节点磁盘，Hit From Upstream 表示未命中 CDN 缓存。
+  腾讯云 CDN 缓存是否命中通过 x-cache-lookup 字段来描述： Hit From MemCache 表示命中 CDN 节点内存，Hit From Disktank 表示命中 CDN 节点硬盘，Hit From Upstream 表示未命中 CDN 缓存。
 
 - 七牛云
 
-  ```bash
+  ```bash{15}
   # 请求资源
   curl -I https://mars-assets.qnssl.com/FspZJF8xgIz24cG8xWeq8Sq3yIKB
 
@@ -170,7 +170,7 @@ CDN 加速按业务主要分为五种类型：
 
 - 网宿
 
-  ```bash
+  ```bash{15}
   # 请求资源
   curl -I https://www.wangsu.com/Upload/image/20190505/20190505162956_0140.jpg
 
@@ -193,7 +193,7 @@ CDN 加速按业务主要分为五种类型：
 
 - 白山云
 
-  ```bash
+  ```bash{20}
   # 请求资源
   curl -I https://pic4.zhimg.com/v2-b43a4701f84d12e9cbd1c43a7b276be6_l.jpg
 
@@ -226,7 +226,7 @@ CDN 加速按业务主要分为五种类型：
 
 - Akamai
 
-  ```bash
+  ```bash{20}
   # 请求资源
   curl -I -H "Pragma: akamai-x-cache-on,akamai-x-get-cache-key" https://a0.muscache.com/im/pictures/1e338975-3b45-4681-a493-934c1b26baf6.jpg?aki_policy=large
 
@@ -259,7 +259,7 @@ CDN 加速按业务主要分为五种类型：
 
   - TCP_HIT：
 
-    资源在缓存中是有效的，并且资源只缓存在磁盘中，直接从缓存中返回资源
+    资源在缓存中是有效的，并且资源只缓存在硬盘中，直接从缓存中返回资源
 
   - TCP_MISS：
 
@@ -301,7 +301,7 @@ CDN 加速按业务主要分为五种类型：
 
 - AWS CloudFront
 
-  ```bash
+  ```bash{18}
   # 请求资源
   curl -I https://d1.awsstatic.com/logos/customers/Netflix-logo.0eba3826789115172a6870cff5c6c35f8d478d65.png
 
@@ -329,7 +329,7 @@ CDN 加速按业务主要分为五种类型：
 
 - Cloudflare
 
-  ```bash
+  ```bash{18}
   # 请求资源
   curl -I https://cdn-images-1.medium.com/fit/c/304/312/1*5gr12p-iLOr9ySir83Gzbg.png
 
@@ -388,7 +388,7 @@ CDN 加速按业务主要分为五种类型：
 
 - Fastly
 
-  ```bash
+  ```bash{17}
   # 请求资源
   curl -I https://cdn.dribbble.com/assets/icon-shot-x-light-2x-a4fcd61bdb114023583740bd9f5a46734e243e5be2bff1baa3e1cc33e7877fcd.png
 
@@ -450,9 +450,11 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
 - 回源 HOST 指当源站服务器存在众多站点时，由回源 HOST 决定访问源站服务器上具体站点。需要注意，当回源 HOST 未配置时，默认会将其加速域名（ 以上述 cdn-static.snowball.site 为例 ）作为 回源 HOST；当回源 HOST 配置不正确时，会导致回源失败。
 
+CDN 缓存时长对 CDN 回源率具有直接影响：倘若 CDN 缓存时长设置过短，CDN 节点上缓存容易过期，导致频繁回源，增大源站服务器负荷及访问延迟；倘若 CDN 缓存时长设置过长，CDN 节点上缓存不容易过期，会导致 CDN 资源更新滞后，影响用户体验。需要根据具体业务需求，指定合适的缓存时长，降低 CDN 回源率。
+
 ## CDN 缓存
 
-当网站引入 CDN 后，会依次经历 HTTP 缓存 和 CDN 节点缓存两个部分，简单点说，浏览器会先判断本地缓存（ 内存及磁盘 ）是否存在，若存在则直接使用；否则请求 CDN 节点。类似的，CDN 节点也会检测资源是否存在或过期，若存在并且未过期，则直接返回；否则向源站发起回源请求，返回对应资源并进行缓存。
+当网站引入 CDN 后，会依次经历 HTTP 缓存 和 CDN 节点缓存两个部分，简单点说，浏览器会先判断本地缓存（ 内存及硬盘 ）是否存在，若存在则直接使用；否则请求 CDN 节点。类似的，CDN 节点也会检测资源是否存在或过期，若存在并且未过期，则直接返回；否则向源站发起回源请求，返回对应资源并进行缓存。
 
 下面将从 HTTP 缓存 和 CDN 节点缓存两个部分来介绍：
 
@@ -467,6 +469,10 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
     ![](./img/http_cache-1.png)
 
     ![](./img/http_cache-2.png)
+
+    :::tip 小贴士
+    内存缓存( from memory cache )读取快速，并且进程一旦关闭则失效，具有时效性，以图片资源为主；硬盘缓存( from disk cache )读取稍慢，但存储在硬盘上，以 JavaScript、CSS 文件为主。
+    :::
 
     当浏览器第一次跟服务器通信请求资源时，服务器会在返回对应资源的同时，在响应头信息中追加 Expires / Cache-Control 字段，用于后续请求的资源是否在有效期内的参考，倘若在有效期内，则命中强缓存，直接返回缓存中的资源，否则请求服务器，拉取最新资源。
 
@@ -567,7 +573,7 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
 - CDN 节点缓存
 
-  CDN 节点缓存为服务端缓存，各服务商间的实现有所不同，但都遵循 HTTP 协议，一般通过响应头信息 expires 及 cache-control 中 max-age 字段来控制其缓存时间。而且，cache-control 优先度要大于 CDN 控制台设置的缓存时长。
+  CDN 节点缓存为服务端缓存，各服务商间的实现有所不同，但都遵循 HTTP 协议，一般通过响应头信息 expires 及 cache-control 中 max-age 字段来控制其缓存时间。**需要注意，当源站服务器响应头包含 cache-control 时，CDN 缓存时长遵循源站缓存规则。**
 
   其实 CDN 节点缓存流程与 HTTP 缓存大体类似，在资源是否过期这部分通过响应头信息 Expires/Cache-Control 来控制，在资源是否变更这部分通过 If-None-Match/If-Modified-Since 请求头信息来验证。不同的是，HTTP 缓存相对于源站而言；CDN 节点缓存在浏览器与源站之间，增加了 CDN 缓存服务器。
 
@@ -627,7 +633,7 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
   上方大部分方案是面向开发者的，普通用户的本地缓存如何不需手动操作而快速更新呢？通常利用 Webpack 插件打包时在资源文件名中嵌入该文件的指纹或版本号来实现，例如 <code>cdn.**74ab055**.png</code> 。由于图片地址变更，浏览器会强制用户下载新图片，便完成了新旧静态资源的替换。
 
-  单页面应用中，由于只存在一个入口文件 <code>index.html</code> ，此文件更新同步度要求较高，适宜在 Web 服务器响应头信息追加 <code>cache-control: no-cache</code> 字段，即每次都需要与服务器进行验证；而 CSS 、JavaScript、Image、Font等静态文件，通过哈希化标示的文件名区分即可。
+  **单页面应用中，由于只存在一个入口文件 <code>index.html</code> ，此文件更新同步度要求较高，适宜在 Web 服务器响应头信息追加 <code>cache-control: no-cache</code> 字段，即每次都需要与服务器进行验证；而 CSS 、JavaScript、Image、Font等非 CDN 静态资源文件，可通过哈希化标示的文件名区分以便更新**。
 
 
 - CDN 节点缓存
@@ -636,10 +642,25 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
   - 主动刷新
 
-  
+    主动刷新是指将源站资源更新后，将资源从源站分发至 CDN 各节点的缓存中这个过程，这种主动分发技术称为 PUSH（ 分发 ）。CDN 服务商通常会提供 URL 刷新、目录刷新及 URL 预热三个可选项：
+
+    - URL 刷新（ 少量刷新 ）
+
+      强制将 CDN 缓存节点上的指定资源文件设置为过期，致使其回源拉取最新资源。
+
+    - 目录刷新（ 批量刷新 ）
+
+      强制将 CDN 缓存节点上的指定文件目录中的文件设置为过期，致使其回源拉取最新资源。
+
+    - URL 预热（ 提前缓存 ）
+
+      将指定资源文件提前缓存到全网 CDN 节点，当用户请求 CDN 节点时，无需回源直接获取资源。
 
   - 被动刷新
 
+    被动刷新是指当资源在 CDN 节点缓存中过期后，该 CDN 节点服务器从源站或其他节点拉取资源这个过程，这种被动分发技术称为 PULL（ 回源 ）。整个过程由 CDN 自动完成，无需手动操作。
+
+  主动刷新 CDN 缓存后，会在 CDN 各节点的缓存中删除该资源，当用户重新请求该资源时，CDN 节点会回源拉取并缓存，从而达成资源更新的目的。被动刷新 CDN 缓存需要等待该资源在 CDN 节点缓存中过期，过期后再次请求时，CDN 节点才会回源拉取并缓存，进而完成资源更新的目的。其实，不管主动还是被动，都需要进行回源拉取资源（ 除 URL 预热外），区别在于 CDN 节点缓存中的资源是主动过期还是被动过期。从更新效率来看，**通常会选择主动刷新 CDN 缓存操作，全网刷新生效时长为 10 分钟左右**。
 
 
 ## 参考链接
@@ -647,6 +668,8 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 - [维基百科 - 内容分发网络](https://zh.wikipedia.org/wiki/%E5%85%A7%E5%AE%B9%E5%82%B3%E9%81%9E%E7%B6%B2%E8%B7%AF)
 
 - [到底什么是CDN？](https://zhuanlan.zhihu.com/p/52362950)
+
+- [CDN详解](https://segmentfault.com/a/1190000010631404)
 
 - [what-is-cdn-how-it-works](https://www.imperva.com/learn/performance/what-is-cdn-how-it-works/)
 
@@ -689,3 +712,7 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 - [What's the difference between “Normal Reload”, “Hard Reload”, and “Empty Cache and Hard Reload” in Chrome?](https://stackoverflow.com/questions/14969315/whats-the-difference-between-normal-reload-hard-reload-and-empty-cache-a#14969509)
 
 - [Web静态资源缓存及优化](https://juejin.im/post/5a098b5bf265da431a42b227)
+
+- [聊聊 CDN 缓存与浏览器缓存](https://zhuanlan.zhihu.com/p/65722520)
+
+- [缓存刷新问题](https://cloud.tencent.com/document/product/228/11204)
