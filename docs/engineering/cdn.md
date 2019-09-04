@@ -541,7 +541,7 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
     ```
 
     :::tip 小贴士
-    当响应头中有 Last-Modified 字段，而缺失 Expire 或 Cache-Control 字段时，浏览器会采用隐式缓存的方式计算该资源缓存的时间，不同浏览器的算法可能有所区别，因此 Last-modified 字段需要和 Expire 或 Cache-Control 字段配合使用。当然如果想禁用此类缓存，可以使用 <code>cache-control: no-cache</code> 来避免。
+    当响应头中有 Last-Modified 字段，而缺失 Expire 或 Cache-Control 字段时，浏览器会采用默认缓存的方式计算该资源缓存的时间，不同浏览器的算法可能有所区别，因此 Last-modified 字段需要和 Expire 或 Cache-Control 字段配合使用。当然如果想禁用此类缓存，可以使用 <code>cache-control: no-cache</code> 来避免。
     :::
 
     Last-Modified 用来判断资源是否变更其实存在一些瑕疵：文件最后修改时间变更，但文件内容未变更，资源其实未变更；基于绝对时间，只能精确到秒，面对高频的变更乏力；部分服务器可能无法精确获取资源最后修改时间。在 HTTP/1.1 年代，为解决 Last-Modified 遗留的问题，引入了新标识符 ETag 。需要注意，ETag 优先度高于 Last-Modified。
@@ -605,9 +605,15 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     - 正常重新加载（ Normal Reload ）
 
+      常规刷新网页操作，等同于 Windows 下的 <code>F5</code> 或 Mac 下的 <code>Command</code> + <code>R</code> 。此操作在刷新页面时会利用本地缓存，可以避免静态资源的重新下载，通常用于网站动态资源的刷新。
+
     - 硬性重新加载（ Hard Reload ）
 
+      强制刷新网页操作，等同于 Windows 下的 <code>Shift</code> + <code>F5</code> 或 Mac 下的 <code>Shift</code> + <code>Command</code> + <code>R</code> 。此操作会强制网站向服务器重新发起请求，请求头信息追加 <code>cache-control: no-cache</code> ，告知服务器不使用本地缓存（ 并不会清空缓存 ），通常用于网站静态资源的刷新。
+
     - 清空缓存并硬性重新加载（ Empty Cache and Hard Reload ）
+
+      清空浏览器所有本地缓存并强制刷新当前页面，与硬性重新加载有所不同的是，硬性重新加载依然会存在利用缓存的边缘情况，比如非页面加载周期的脚本存在下载资源行为（ 举个例子，页面下载歌曲及报表的操作 ）。简单点说，硬性重新加载不使用本地缓存仅适用于页面加载周期内，而清空缓存并硬性重新加载不使用本地缓存适用于页面整个生命周期。
 
   - 浏览器设置中清除浏览数据选项
 
@@ -615,7 +621,14 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
     清除浏览数据可在 Chrome 地址栏通过 <code>chrome://settings/clearBrowserData</code> 地址直接访问。
 
-  除此之外，非标准化的浏览器前进后退缓存（ Backward/Forward Cache，可简称 BF Cache ）也值得关注。
+    清除浏览数据选项只用于清空浏览器所有本地缓存，需与正常重新加载按钮配合，才能实现上方清空缓存并硬性重新加载的功能。
+
+  除此之外，浏览器前进后退缓存（ Backward/Forward Cache，可简称 BF Cache ）也值得关注，主要表现为 DOM 结构及 JavaScript 对象（ 甚至 Ajax 请求 ）被缓存，可参阅：[Exploring a back/forward cache for Chrome](https://developers.google.com/web/updates/2019/02/back-forward-cache)。这项旨在提升页面切换的速度，也会带来缓存更新的问题，通常可以通过监听 pageshow 事件 及 pagehide 事件，触发事件时强刷页面来解决。
+
+  上方大部分方案是面向开发者的，普通用户的本地缓存如何不需手动操作而快速更新呢？通常利用 Webpack 插件打包时在资源文件名中嵌入该文件的指纹或版本号来实现，例如 <code>cdn.**74ab055**.png</code> 。由于图片地址变更，浏览器会强制用户下载新图片，便完成了新旧静态资源的替换。
+
+  单页面应用中，由于只存在一个入口文件 <code>index.html</code> ，此文件更新同步度要求较高，适宜在 Web 服务器响应头信息追加 <code>cache-control: no-cache</code> 字段，即每次都需要与服务器进行验证；而 CSS 、JavaScript、Image、Font等静态文件，通过哈希化标示的文件名区分即可。
+
 
 - CDN 节点缓存
 
@@ -623,7 +636,11 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
   - 主动刷新
 
+  
+
   - 被动刷新
+
+
 
 ## 参考链接
 
@@ -655,6 +672,8 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
 - [CDN回源Host的意义](https://zhuanlan.zhihu.com/p/34314554)
 
+- [HTTP 缓存](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching)
+
 - [HTTP 缓存机制一二三](https://zhuanlan.zhihu.com/p/29750583)
 
 - [Difference between Pragma and Cache-control headers?](https://stackoverflow.com/questions/10314174/difference-between-pragma-and-cache-control-headers)
@@ -663,6 +682,10 @@ CDN 回源需要在 CDN 控制台配置回源地址及回源 HOST ，否则会�
 
 - [可能是最被误用的 HTTP 响应头之一 Cache-Control: must-revalidate](https://zhuanlan.zhihu.com/p/60357719)
 
+- [Best practices for cache control settings for your website](https://medium.com/pixelpoint/best-practices-for-cache-control-settings-for-your-website-ff262b38c5a2)
+
 - [Cache-Control 的 stale-while-revalidate 指令](https://zhuanlan.zhihu.com/p/64694485)
 
 - [What's the difference between “Normal Reload”, “Hard Reload”, and “Empty Cache and Hard Reload” in Chrome?](https://stackoverflow.com/questions/14969315/whats-the-difference-between-normal-reload-hard-reload-and-empty-cache-a#14969509)
+
+- [Web静态资源缓存及优化](https://juejin.im/post/5a098b5bf265da431a42b227)
