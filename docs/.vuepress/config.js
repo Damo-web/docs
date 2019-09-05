@@ -137,7 +137,8 @@ module.exports = {
         title: '文章列表',
         collapsable: false,
         children: [
-          ''
+          '',
+          'editor'
         ]
       }]
     }
