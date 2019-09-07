@@ -4,26 +4,15 @@ name: drone
 
 steps:
   # =================================================
-  #                    传统模式 
+  #                  Drone 官方公有云
+  #              https://cloud.drone.io/ 
   # =================================================
-
-  - name: restore-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      restore: true  
-      mount:  
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache  
-
   - name: install
     image: node
     commands:
       # https://github.com/yarnpkg/yarn/issues/5163
-      # - yarn cache clean
-      - curl ip.gs
-      - bash ./build/pre-install.sh
+      - yarn cache clean
+      - yarn install
 
   - name: build
     image: node
@@ -51,15 +40,63 @@ steps:
       GH_TOKEN:
         from_secret: GH_TOKEN
 
-  - name: rebuild-cache  
-    image: drillster/drone-volume-cache  
-    settings:  
-      rebuild: true  
-      mount:    
-        - ./node_modules  
-    volumes:  
-      - name: cache  
-        path: /cache
+  # =================================================
+  #                    传统模式 
+  # =================================================
+
+  # - name: restore-cache  
+  #   image: drillster/drone-volume-cache  
+  #   settings:  
+  #     restore: true  
+  #     mount:  
+  #       - ./node_modules  
+  #   volumes:  
+  #     - name: cache  
+  #       path: /cache  
+
+  # - name: install
+  #   image: node
+  #   commands:
+  #     # https://github.com/yarnpkg/yarn/issues/5163
+  #     # - yarn cache clean
+  #     - curl ip.gs
+  #     - bash ./build/pre-install.sh
+
+  # - name: build
+  #   image: node
+  #   commands:
+  #     - yarn build
+
+  # - name: deploy
+  #   image: node
+  #   commands:
+  #     - cd ./dist
+  #     - ls
+  #     - git init
+  #     - git config user.name $${USERNAME}
+  #     - git config user.email $${EMAIL}
+  #     - git add -A
+  #     - git commit -m "[skip ci] deploy"
+  #     - git push -f https://$${GH_TOKEN}@$${GH_REF} master:gh-pages
+  #   environment:
+  #     USERNAME:
+  #       from_secret: USERNAME
+  #     EMAIL:
+  #       from_secret: EMAIL
+  #     GH_REF:
+  #       from_secret: GH_REF
+  #     GH_TOKEN:
+  #       from_secret: GH_TOKEN
+
+  # - name: rebuild-cache  
+  #   image: drillster/drone-volume-cache  
+  #   settings:  
+  #     rebuild: true  
+  #     mount:    
+  #       - ./node_modules  
+  #   volumes:  
+  #     - name: cache  
+  #       path: /cache
 
   # - name: rsync
   #   image: drillster/drone-rsync
@@ -173,8 +210,9 @@ steps:
           build {{build.number}} failed. Fix me please.
         {{/success}} 
 
-image_pull_secrets:
-  - dockerconfigjson
+# 容器模式下拉取私有镜像配置
+# image_pull_secrets:
+#   - dockerconfigjson
 
 trigger:
   branch:
@@ -182,12 +220,13 @@ trigger:
   event:
     - push
 
-volumes:
-  - name: cache
-    host:
-      path: /var/drone-cache
-  - name: dockersock
-    host:
-      path: /var/run/docker.sock
+# 服务器部署 drone 配置
+# volumes:
+#   - name: cache
+#     host:
+#       path: /var/drone-cache
+#   - name: dockersock
+#     host:
+#       path: /var/run/docker.sock
 
 
