@@ -8,7 +8,7 @@ HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Ext
 
 ## Video
 
-
+HTML5 video 元素是视频播放器的交互部分。
 
 ## MSE
 
