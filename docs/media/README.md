@@ -30,11 +30,13 @@ HTML5 video 元素是视频播放器的交互核心，由视频播放控制器�
 
 - [花椒 Web 端多路音频流播放器研发](https://zhuanlan.zhihu.com/p/80923152)
 
-- [FLV.JS 代码解读--demux部分](https://zhuanlan.zhihu.com/p/24429290)
+- [flv.js](https://github.com/Bilibili/flv.js/)
 
 - [chimee-player](https://github.com/Chimeejs/chimee)
 
 - [DPlayer](https://github.com/MoePlayer/DPlayer)
 
 - [griffith](https://github.com/zhihu/griffith)
+
+- [FLV.JS 代码解读--demux部分](https://zhuanlan.zhihu.com/p/24429290)
 
