@@ -10,6 +10,7 @@ HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Ext
 
 HTML5 video 元素是视频播放器的交互核心，由视频播放控制器及状态显示器两部分组成。
 
+视频播放控制器主要由播放/暂停控制键、音量控制键、全屏控制键三者组成。
 
 
 ## MSE
@@ -39,4 +40,8 @@ HTML5 video 元素是视频播放器的交互核心，由视频播放控制器�
 - [griffith](https://github.com/zhihu/griffith)
 
 - [FLV.JS 代码解读--demux部分](https://zhuanlan.zhihu.com/p/24429290)
+
+- [从JPG到AVI，这篇视频编码的最强入门科普，你值得拥有！](https://zhuanlan.zhihu.com/p/44878961)
+
+- [Modernizing the Web Playback UI](https://medium.com/netflix-techblog/modernizing-the-web-playback-ui-1ad2f184a5a0)
 
