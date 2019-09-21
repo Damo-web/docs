@@ -26,7 +26,7 @@ HTML5 video 元素是视频播放器的交互核心，完整的视频播放器�
 
   - poster 
 
-    用于设置视频的海报，即视频未播放并且处于正在下载状态下的缩略图。若未设置该属性，当视频第一帧可用时，会将视频第一帧作为海报。**当视频资源路径出错或其视频格式均不受支持下，海报可以作为候补资源在视频窗体占位**。
+    用于设置视频的海报，即视频未播放并且处于正在下载状态下的缩略图。若未设置该属性，当视频第一帧可用时，会将视频第一帧作为海报。**当视频资源路径出错或其视频格式均不受支持下，海报可以作为候补资源充当视频封面图片**。
   
   - preload
     
@@ -35,6 +35,18 @@ HTML5 video 元素是视频播放器的交互核心，完整的视频播放器�
   - autoplay
 
     用于自动下载及播放网页上的视频。**需要注意，在移动端该属性不起作用，必须有网页交互行为才可以播放视频**。
+
+  - controls
+
+    用于控制是否显示默认视频控件（ 各浏览器端实现存在差异，通常包含播放、暂停、音量、全屏、画中画等功能 ）。
+
+  - loop
+
+    用于设置视频是否进行循环播放。
+
+  :::tip 小贴士
+  [The Video Embed element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#Attributes)
+  :::
 
 - **播放中（ Video Playback ）**
 
@@ -72,6 +84,10 @@ HTML5 video 元素是视频播放器的交互核心，完整的视频播放器�
 
 - [The Video Embed element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)
 
+- [Using video and audio](https://developers.google.com/web/fundamentals/media/video)
+
+- [Modernizing the Web Playback UI](https://medium.com/netflix-techblog/modernizing-the-web-playback-ui-1ad2f184a5a0)
+
 - [Media Source Extensions](https://developers.google.com/web/fundamentals/media/mse/basics)
 
 - [Web 直播流的解析](https://zhuanlan.zhihu.com/p/26390382)
@@ -93,6 +109,4 @@ HTML5 video 元素是视频播放器的交互核心，完整的视频播放器�
 - [FLV.JS 代码解读--demux部分](https://zhuanlan.zhihu.com/p/24429290)
 
 - [从JPG到AVI，这篇视频编码的最强入门科普，你值得拥有！](https://zhuanlan.zhihu.com/p/44878961)
-
-- [Modernizing the Web Playback UI](https://medium.com/netflix-techblog/modernizing-the-web-playback-ui-1ad2f184a5a0)
 
