@@ -8,7 +8,7 @@ HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Ext
 
 ## HTML5 播放器
 
-为什么需要引入 HTML5 播放器？主要源自于各浏览器端的实现差异性。
+为什么需要引入 HTML5 播放器？主要源自于各浏览器端的差异性及兼容性。
 
 ## Video
 
