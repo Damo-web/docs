@@ -10,6 +10,13 @@ HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Ext
 
 为什么需要引入 HTML5 播放器？主要源自于各浏览器端的差异性及兼容性。
 
+- chrome
+
+- firefox
+
+- safari
+
+
 ## Video
 
 HTML5 video 元素是视频播放器的交互核心，完整的视频播放器由播放前、播放中及播放后三个维度构成：
