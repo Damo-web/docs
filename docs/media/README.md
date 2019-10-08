@@ -4,10 +4,6 @@
 
 ## 前言
 
-HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Extensions，可简称 MSE ）及 Buffer 进制操作（ ArrayBuffer、TypeArray 及 DataView ）三个部分组成。其中，HTML video 元素用于视频播放的交互，MSE 用于音视频流的注入，Buffer用于视频格式的转换。
-
-## HTML5 播放器
-
 为什么需要引入 HTML5 播放器？主要源自于各浏览器端的差异性及兼容性。
 
 - Chrome
@@ -15,6 +11,8 @@ HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Ext
 - Firefox
 
 - Safari
+
+HTML5 播放器主要由 HTML video 元素、媒体源扩展（ Media Source Extensions，可简称 MSE ）及 Buffer 进制操作（ ArrayBuffer、TypeArray 及 DataView ）三个部分组成。其中，HTML video 元素用于视频播放的交互，MSE 用于音视频流的注入，Buffer用于视频格式的转换。
 
 ## Video
 
