@@ -54,6 +54,7 @@ HTML5 video 元素是视频播放器的交互核心，完整的视频播放器�
     用于设置视频是否进行循环播放。
 
   :::tip 小贴士
+  更多 HTML5 video 元素属性可参阅：
   [The Video Embed element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#Attributes)
   :::
 
