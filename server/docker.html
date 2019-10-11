@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Docker | Damo</title>
+    <meta name="description" content="达摩院文档平台">
+    <link rel="shortcut icon" type="image/x-icon" href="/docs/favicon.ico">
+  <link rel="manifest" href="/docs/manifest.json">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.ba6021e1.css" as="style"><link rel="preload" href="/docs/assets/js/app.bb5e32e8.js" as="script"><link rel="preload" href="/docs/assets/js/2.3b5bc873.js" as="script"><link rel="preload" href="/docs/assets/js/40.f4157755.js" as="script"><link rel="preload" href="/docs/assets/js/22.e56f6488.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.e79ac61c.js"><link rel="prefetch" href="/docs/assets/js/11.231bcbc2.js"><link rel="prefetch" href="/docs/assets/js/12.c158b58e.js"><link rel="prefetch" href="/docs/assets/js/13.4d87ce46.js"><link rel="prefetch" href="/docs/assets/js/14.7c9ff823.js"><link rel="prefetch" href="/docs/assets/js/15.6db4bdac.js"><link rel="prefetch" href="/docs/assets/js/16.a5e840e7.js"><link rel="prefetch" href="/docs/assets/js/17.ec94b3d5.js"><link rel="prefetch" href="/docs/assets/js/18.fae32894.js"><link rel="prefetch" href="/docs/assets/js/19.0616547f.js"><link rel="prefetch" href="/docs/assets/js/20.0911ce1c.js"><link rel="prefetch" href="/docs/assets/js/21.2f377134.js"><link rel="prefetch" href="/docs/assets/js/23.a4767746.js"><link rel="prefetch" href="/docs/assets/js/24.00d42de4.js"><link rel="prefetch" href="/docs/assets/js/25.e565c20f.js"><link rel="prefetch" href="/docs/assets/js/26.ba96a6e3.js"><link rel="prefetch" href="/docs/assets/js/27.11a11261.js"><link rel="prefetch" href="/docs/assets/js/28.b49aaaba.js"><link rel="prefetch" href="/docs/assets/js/29.2e6a7a2d.js"><link rel="prefetch" href="/docs/assets/js/3.b55da558.js"><link rel="prefetch" href="/docs/assets/js/30.8ea5fdcf.js"><link rel="prefetch" href="/docs/assets/js/31.bb57c422.js"><link rel="prefetch" href="/docs/assets/js/32.bc41411c.js"><link rel="prefetch" href="/docs/assets/js/33.5ad4e0f7.js"><link rel="prefetch" href="/docs/assets/js/34.e046d4c9.js"><link rel="prefetch" href="/docs/assets/js/35.9fe3872e.js"><link rel="prefetch" href="/docs/assets/js/36.ba8de101.js"><link rel="prefetch" href="/docs/assets/js/37.854a398e.js"><link rel="prefetch" href="/docs/assets/js/38.bfd940cf.js"><link rel="prefetch" href="/docs/assets/js/39.599fa4d5.js"><link rel="prefetch" href="/docs/assets/js/4.ca28c6e7.js"><link rel="prefetch" href="/docs/assets/js/41.d78fffc0.js"><link rel="prefetch" href="/docs/assets/js/5.d10ece1f.js"><link rel="prefetch" href="/docs/assets/js/6.b76f823f.js"><link rel="prefetch" href="/docs/assets/js/7.b57c8ee5.js"><link rel="prefetch" href="/docs/assets/js/8.bc6cdd57.js"><link rel="prefetch" href="/docs/assets/js/9.454003ec.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.ba6021e1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><!----> <span class="site-name">Damo</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/platform/" class="nav-link">跨端</a></div><div class="nav-item"><a href="/docs/server/" class="nav-link router-link-active">服务端</a></div><div class="nav-item"><a href="/docs/framework/" class="nav-link">框架</a></div><div class="nav-item"><a href="/docs/engineering/" class="nav-link">工程化</a></div><div class="nav-item"><a href="/docs/render/" class="nav-link">渲染</a></div><div class="nav-item"><a href="/docs/media/" class="nav-link">互动媒体</a></div> <a href="https://github.com/Damo-web/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/platform/" class="nav-link">跨端</a></div><div class="nav-item"><a href="/docs/server/" class="nav-link router-link-active">服务端</a></div><div class="nav-item"><a href="/docs/framework/" class="nav-link">框架</a></div><div class="nav-item"><a href="/docs/engineering/" class="nav-link">工程化</a></div><div class="nav-item"><a href="/docs/render/" class="nav-link">渲染</a></div><div class="nav-item"><a href="/docs/media/" class="nav-link">互动媒体</a></div> <a href="https://github.com/Damo-web/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>文章列表</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/server/" class="sidebar-link">阿里云ECS</a></li><li><a href="/docs/server/debugger.html" class="sidebar-link">Node Debug</a></li><li><a href="/docs/server/docker.html" class="active sidebar-link">Docker</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/server/docker.html#安装" class="sidebar-link">安装</a></li><li class="sidebar-sub-header"><a href="/docs/server/docker.html#常用命令" class="sidebar-link">常用命令</a></li><li class="sidebar-sub-header"><a href="/docs/server/docker.html#参考链接" class="sidebar-link">参考链接</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="docker"><a href="#docker" aria-hidden="true" class="header-anchor">#</a> Docker</h1> <blockquote><p>Docker 是一个开源的 Linux 应用容器引擎，提供简单易用的接口来操作应用容器。应用容器采用沙箱机制，运行在同一个 Linux 内核上，实现了应用之间的资源隔离与权限控制，可以快速地部署到任何流行的 Linux 机器上。</p></blockquote> <h2 id="安装"><a href="#安装" aria-hidden="true" class="header-anchor">#</a> 安装</h2> <p>macOS 下安装 Docker ，推荐使用 Homebrew 安装，整体流程如下：</p> <ul><li><p><strong>安装 Homebrew</strong></p> <p><a href="https://brew.sh/" target="_blank" rel="noopener noreferrer">Homebrew<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 是一个包管理器，用于安装 macOS 没有预装但你需要的 Unix 工具。</p> <p>Homebrew 的安装步骤如下：</p> <ul><li>安装 <code>Command Line Tools for Xcode</code></li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code>xcode-select --install
+</code></pre></div><ul><li>安装 <code>Homebrew</code></li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># install</span>
+/usr/bin/ruby -e <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="token variable">)</span></span>&quot;</span>
+
+<span class="token comment"># uninstall</span>
+/usr/bin/ruby -e <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall<span class="token variable">)</span></span>&quot;</span>
+</code></pre></div><ul><li>使用 <code>Homebrew</code></li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># install pkg</span>
+brew <span class="token function">install</span> redis
+
+<span class="token comment"># without updating</span>
+<span class="token comment"># Reference: https://github.com/Homebrew/brew/issues/1670</span>
+<span class="token assign-left variable">HOMEBREW_NO_AUTO_UPDATE</span><span class="token operator">=</span><span class="token number">1</span> brew <span class="token function">install</span> redis
+</code></pre></div><div class="tip custom-block"><p class="custom-block-title">提示</p> <p>使用 brew 更新及安装包时，推荐使用国内镜像源，以防下载过慢。</p></div></li> <li><p><strong>安装 Docker</strong></p> <p>Homebrew Cask 用来安装和管理 macOS 图形界面程序，而 Docker 便通过此工具来进行安装。</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># install dmg</span>
+brew cask <span class="token function">install</span> docker
+
+<span class="token comment"># uninstall dmg</span>
+brew cask uninstall docker
+</code></pre></div><p>在终端可通过命令可以检查安装后的 Docker 版本：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># check docker</span>
+$ docker -v
+Docker version <span class="token number">18.09</span>.2, build <span class="token number">6247962</span>
+
+<span class="token comment"># check docker-compose</span>
+<span class="token comment"># https://docs.docker.com/compose/overview/</span>
+$ docker-compose -v
+docker-compose version <span class="token number">1.23</span>.2, build 1110ad01
+
+<span class="token comment"># check docker-machine</span>
+<span class="token comment"># https://docs.docker.com/machine/overview/</span>
+$ docker-machine -v
+docker-machine version <span class="token number">0.16</span>.1, build cce350d7
+</code></pre></div></li></ul> <h2 id="常用命令"><a href="#常用命令" aria-hidden="true" class="header-anchor">#</a> 常用命令</h2> <ul><li><p>docker</p> <p>更多命令可参阅：<a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreferrer">Docker CLI (docker)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <ul><li>下载镜像</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># download docker image</span>
+<span class="token comment"># Reference : https://hub.docker.com/</span>
+$ docker pull node
+</code></pre></div><ul><li>获取镜像列表</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># list images</span>
+$ docker image <span class="token function">ls</span>
+<span class="token comment"># image list</span>
+REPOSITORY        TAG               IMAGE ID            CREATED             SIZE
+mongo             <span class="token number">3.4</span>               ad62612cfc71        <span class="token number">3</span> weeks ago         425MB
+redis             <span class="token number">4.0</span>.6             1e70071f4af4        <span class="token number">16</span> months ago       107MB
+</code></pre></div><ul><li>获取容器列表</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># list containers in running</span>
+$ docker <span class="token function">ps</span>
+<span class="token comment"># container list</span>
+CONTAINER ID        IMAGE               COMMAND                CREATED              STATUS              PORTS               NAMES
+6d665a34f4f5        ubuntu:12.04        <span class="token function">bash</span>                   <span class="token number">17</span> seconds ago       Up <span class="token number">16</span> seconds       <span class="token number">3300</span>-3310/tcp       webapp
+4d86fe3c8c50        redis:latest        /redis-server --dir    <span class="token number">33</span> minutes ago       Up <span class="token number">33</span> minutes       <span class="token number">6379</span>/tcp            redis
+</code></pre></div><ul><li>获取数据卷列表</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># list volumes</span>
+$ docker volume <span class="token function">ls</span>
+<span class="token comment"># volume list</span>
+DRIVER          VOLUME NAME
+<span class="token builtin class-name">local</span>           0d89bd5676305cff08f964a28d499f6d3ff13f7e4c3264022c646c61d1a01bf3
+<span class="token builtin class-name">local</span>           0d854f16c00ff828ace09c21554ce3fba4ad74a32be2236be1dcc208b9e7929d
+<span class="token builtin class-name">local</span>           0dca2c640b4ab7611bbdfa3a9513bd0e20ae1472e440ea83a96a4501a5052220
+</code></pre></div><ul><li>运行容器</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># run container</span>
+$ docker run <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> IMAGE<span class="token punctuation">[</span>:TAG<span class="token operator">|</span>@DIGEST<span class="token punctuation">]</span> <span class="token punctuation">[</span>COMMAND<span class="token punctuation">]</span> <span class="token punctuation">[</span>ARG<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+<span class="token comment"># example</span>
+
+<span class="token comment"># run in container id</span>
+<span class="token comment"># Longhand</span>
+$ docker run 6d665a34f4f5 
+<span class="token comment"># Shorthand</span>
+$ docker run 6d6
+
+<span class="token comment"># run in container name</span>
+$ docker run webapp
+</code></pre></div><ul><li>停止容器</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># stop container</span>
+$ docker stop <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> CONTAINER <span class="token punctuation">[</span>CONTAINER<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+
+<span class="token comment"># example</span>
+$ docker stop 6d665a34f4f5 
+</code></pre></div><ul><li>进入容器执行命令</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># enter container</span>
+$ docker <span class="token builtin class-name">exec</span> <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> CONTAINER COMMAND <span class="token punctuation">[</span>ARG<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+
+<span class="token comment"># example</span>
+$ docker <span class="token builtin class-name">exec</span> -it webapp <span class="token function">bash</span>
+$ root@6d665a34f4f5:/
+</code></pre></div><ul><li>删除容器</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># delete container</span>
+<span class="token comment"># stop container，then delete container</span>
+$ docker <span class="token function">rm</span> <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> CONTAINER <span class="token punctuation">[</span>CONTAINER<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+
+<span class="token comment"># example</span>
+$ docker <span class="token function">rm</span> 6d665a34f4f5 
+</code></pre></div><ul><li>删除所有容器及数据卷</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># example</span>
+<span class="token comment"># -v: Remove all associated volumes</span>
+<span class="token comment"># -f: Forces the removal</span>
+<span class="token comment"># -a: for all containers, even not running(or images)</span>
+<span class="token comment"># -q: to remove all the details other than the ID of containers (or images)</span>
+$ docker <span class="token function">rm</span> -vf <span class="token variable"><span class="token variable">$(</span>docker <span class="token function">ps</span> -a -q<span class="token variable">)</span></span>
+</code></pre></div><ul><li>删除所有镜像</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># example</span>
+<span class="token comment"># -v: Remove all associated volumes</span>
+<span class="token comment"># -f: Forces the removal</span>
+<span class="token comment"># -a: for all containers, even not running(or images)</span>
+<span class="token comment"># -q: to remove all the details other than the ID of containers (or images)</span>
+$ docker rmi -f <span class="token variable"><span class="token variable">$(</span>docker images -a -q<span class="token variable">)</span></span>
+</code></pre></div><ul><li>删除所有 none 镜像</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code>docker rmi <span class="token variable"><span class="token variable">$(</span>docker images <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">&quot;^&lt;none&gt;&quot;</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">&quot;{print <span class="token variable">$3</span>}&quot;</span><span class="token variable">)</span></span>
+</code></pre></div><ul><li>删除所有未启动容器</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code>docker <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span>docker <span class="token function">ps</span> -a -q<span class="token variable">)</span></span>
+</code></pre></div></li> <li><p>docker-compose</p> <p>更多命令可参阅：<a href="https://docs.docker.com/compose/reference/overview/" target="_blank" rel="noopener noreferrer">Compose (docker-compose) CLI<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <ul><li>启动 docker-compose.yml 所有服务</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># run service in docker-compose.yml</span>
+$ docker-compose up <span class="token punctuation">[</span>options<span class="token punctuation">]</span> <span class="token punctuation">[</span>--scale <span class="token assign-left variable">SERVICE</span><span class="token operator">=</span>NUM<span class="token punctuation">..</span>.<span class="token punctuation">]</span> <span class="token punctuation">[</span>SERVICE<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+
+<span class="token comment"># example</span>
+<span class="token comment"># only print container name</span>
+$ docker-compose up -d
+$ Creating network <span class="token string">&quot;web-service&quot;</span> with the default driver
+$ Creating webapp  <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ Creating redis   <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+<span class="token comment"># show detail</span>
+$ docker-compose up
+$ Creating network <span class="token string">&quot;web-service&quot;</span> with the default driver
+$ Creating webapp  <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ Creating redis   <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ <span class="token punctuation">..</span>.
+</code></pre></div><ul><li>停止并移除 docker-compose.yml 所有服务</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># stop and remove service in docker-compose.yml</span>
+$ docker-compose down <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+<span class="token comment"># example</span>
+$ docker-compose down
+$ Stopping webapp  <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ Stopping redis   <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ Removing webapp  <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ Removing redis   <span class="token punctuation">..</span>. <span class="token keyword">done</span>
+$ Removing network web-service
+</code></pre></div></li></ul> <h2 id="参考链接"><a href="#参考链接" aria-hidden="true" class="header-anchor">#</a> 参考链接</h2> <ul><li><p><a href="https://docs.docker.com/v17.12/engine/reference/run/" target="_blank" rel="noopener noreferrer">docker docs<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://zhuanlan.zhihu.com/p/53260098" target="_blank" rel="noopener noreferrer">10分钟看懂Docker和K8S<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://medium.com/better-programming/docker-for-front-end-developers-c758a44e622f" target="_blank" rel="noopener noreferrer">Docker for Front-End Developers<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/Damo-web/docs/edit/master/docs/server/docker.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页！</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2019-08-29 05:00:19 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/server/debugger.html" class="prev">Node Debug</a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/docs/assets/js/app.bb5e32e8.js" defer></script><script src="/docs/assets/js/2.3b5bc873.js" defer></script><script src="/docs/assets/js/40.f4157755.js" defer></script><script src="/docs/assets/js/22.e56f6488.js" defer></script>
+  </body>
+</html>

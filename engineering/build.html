@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Build Optimization | Damo</title>
+    <meta name="description" content="达摩院文档平台">
+    <link rel="shortcut icon" type="image/x-icon" href="/docs/favicon.ico">
+  <link rel="manifest" href="/docs/manifest.json">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.ba6021e1.css" as="style"><link rel="preload" href="/docs/assets/js/app.bb5e32e8.js" as="script"><link rel="preload" href="/docs/assets/js/2.3b5bc873.js" as="script"><link rel="preload" href="/docs/assets/js/11.231bcbc2.js" as="script"><link rel="preload" href="/docs/assets/js/22.e56f6488.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.e79ac61c.js"><link rel="prefetch" href="/docs/assets/js/12.c158b58e.js"><link rel="prefetch" href="/docs/assets/js/13.4d87ce46.js"><link rel="prefetch" href="/docs/assets/js/14.7c9ff823.js"><link rel="prefetch" href="/docs/assets/js/15.6db4bdac.js"><link rel="prefetch" href="/docs/assets/js/16.a5e840e7.js"><link rel="prefetch" href="/docs/assets/js/17.ec94b3d5.js"><link rel="prefetch" href="/docs/assets/js/18.fae32894.js"><link rel="prefetch" href="/docs/assets/js/19.0616547f.js"><link rel="prefetch" href="/docs/assets/js/20.0911ce1c.js"><link rel="prefetch" href="/docs/assets/js/21.2f377134.js"><link rel="prefetch" href="/docs/assets/js/23.a4767746.js"><link rel="prefetch" href="/docs/assets/js/24.00d42de4.js"><link rel="prefetch" href="/docs/assets/js/25.e565c20f.js"><link rel="prefetch" href="/docs/assets/js/26.ba96a6e3.js"><link rel="prefetch" href="/docs/assets/js/27.11a11261.js"><link rel="prefetch" href="/docs/assets/js/28.b49aaaba.js"><link rel="prefetch" href="/docs/assets/js/29.2e6a7a2d.js"><link rel="prefetch" href="/docs/assets/js/3.b55da558.js"><link rel="prefetch" href="/docs/assets/js/30.8ea5fdcf.js"><link rel="prefetch" href="/docs/assets/js/31.bb57c422.js"><link rel="prefetch" href="/docs/assets/js/32.bc41411c.js"><link rel="prefetch" href="/docs/assets/js/33.5ad4e0f7.js"><link rel="prefetch" href="/docs/assets/js/34.e046d4c9.js"><link rel="prefetch" href="/docs/assets/js/35.9fe3872e.js"><link rel="prefetch" href="/docs/assets/js/36.ba8de101.js"><link rel="prefetch" href="/docs/assets/js/37.854a398e.js"><link rel="prefetch" href="/docs/assets/js/38.bfd940cf.js"><link rel="prefetch" href="/docs/assets/js/39.599fa4d5.js"><link rel="prefetch" href="/docs/assets/js/4.ca28c6e7.js"><link rel="prefetch" href="/docs/assets/js/40.f4157755.js"><link rel="prefetch" href="/docs/assets/js/41.d78fffc0.js"><link rel="prefetch" href="/docs/assets/js/5.d10ece1f.js"><link rel="prefetch" href="/docs/assets/js/6.b76f823f.js"><link rel="prefetch" href="/docs/assets/js/7.b57c8ee5.js"><link rel="prefetch" href="/docs/assets/js/8.bc6cdd57.js"><link rel="prefetch" href="/docs/assets/js/9.454003ec.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.ba6021e1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><!----> <span class="site-name">Damo</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/platform/" class="nav-link">跨端</a></div><div class="nav-item"><a href="/docs/server/" class="nav-link">服务端</a></div><div class="nav-item"><a href="/docs/framework/" class="nav-link">框架</a></div><div class="nav-item"><a href="/docs/engineering/" class="nav-link router-link-active">工程化</a></div><div class="nav-item"><a href="/docs/render/" class="nav-link">渲染</a></div><div class="nav-item"><a href="/docs/media/" class="nav-link">互动媒体</a></div> <a href="https://github.com/Damo-web/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/platform/" class="nav-link">跨端</a></div><div class="nav-item"><a href="/docs/server/" class="nav-link">服务端</a></div><div class="nav-item"><a href="/docs/framework/" class="nav-link">框架</a></div><div class="nav-item"><a href="/docs/engineering/" class="nav-link router-link-active">工程化</a></div><div class="nav-item"><a href="/docs/render/" class="nav-link">渲染</a></div><div class="nav-item"><a href="/docs/media/" class="nav-link">互动媒体</a></div> <a href="https://github.com/Damo-web/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>文章列表</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/engineering/" class="sidebar-link">Webpack Optimization</a></li><li><a href="/docs/engineering/eslint.html" class="sidebar-link">ESLint</a></li><li><a href="/docs/engineering/stylelint.html" class="sidebar-link">StyleLint</a></li><li><a href="/docs/engineering/easymock.html" class="sidebar-link">EasyMock</a></li><li><a href="/docs/engineering/staticsite.html" class="sidebar-link">Static Site Generator</a></li><li><a href="/docs/engineering/ci.html" class="sidebar-link">CI / CD</a></li><li><a href="/docs/engineering/jenkins.html" class="sidebar-link">Jenkins CI</a></li><li><a href="/docs/engineering/drone.html" class="sidebar-link">Drone CI</a></li><li><a href="/docs/engineering/circle.html" class="sidebar-link">Circle CI</a></li><li><a href="/docs/engineering/travis.html" class="sidebar-link">Travis CI</a></li><li><a href="/docs/engineering/harbor.html" class="sidebar-link">Harbor</a></li><li><a href="/docs/engineering/build.html" class="active sidebar-link">Build Optimization</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/engineering/build.html#缓存" class="sidebar-link">缓存</a></li><li class="sidebar-sub-header"><a href="/docs/engineering/build.html#分发" class="sidebar-link">分发</a></li><li class="sidebar-sub-header"><a href="/docs/engineering/build.html#容器化" class="sidebar-link">容器化</a></li><li class="sidebar-sub-header"><a href="/docs/engineering/build.html#体积" class="sidebar-link">体积</a></li><li class="sidebar-sub-header"><a href="/docs/engineering/build.html#网络" class="sidebar-link">网络</a></li><li class="sidebar-sub-header"><a href="/docs/engineering/build.html#参考链接" class="sidebar-link">参考链接</a></li></ul></li><li><a href="/docs/engineering/nginx.html" class="sidebar-link">Nginx</a></li><li><a href="/docs/engineering/domain.html" class="sidebar-link">Domain</a></li><li><a href="/docs/engineering/cdn.html" class="sidebar-link">CDN</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="build-optimization"><a href="#build-optimization" aria-hidden="true" class="header-anchor">#</a> Build Optimization</h1> <blockquote><p>之前文章介绍了 CI / CD 相关概念及主流工具，利用此类工具能便捷地进行持续集成及发布，但构建自动化并不意味着构建流程的结束，恰好是构建优化的开始。</p></blockquote> <p><img src="/docs/assets/img/build_1.7139ab77.png" alt=""></p> <h2 id="缓存"><a href="#缓存" aria-hidden="true" class="header-anchor">#</a> 缓存</h2> <p>缓存（ Cache ）是构建流程中必须面对的话题。</p> <p>在持续集成及发布中，缓存是一把双刃剑，一方面，想尽可能的利用缓存，提升构建速度；一方面，想废弃缓存，确保应用的新鲜度。</p> <p>以 Node 为例，在 build 之前，需要利用 <code>node_modules</code> 来提升构建速度，而当 <code>package.json</code> 中依赖发生变更时，需要清空缓存，安装新增包或更新变更包，确保应用如期运行。</p> <p>下面以 Drone CI 为例，演示下构建过程中缓存的处理：</p> <ol><li><p>介于 Drone CI 是容器化的自动化工具，并不能如 Jenkins 直接存储缓存至工作区中，倘若不能存储在工作区，其实很容易想到，可以使用<strong>第三方存储</strong>或<strong>容器共享文件夹</strong>来实现同样效果。</p> <p>Drone CI 是基于插件化的自动化工具，缓存相关的插件如下：</p> <ul><li><p><a href="https://github.com/Drillster/drone-volume-cache" target="_blank" rel="noopener noreferrer">Drillster/drone-volume-cache<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://github.com/meltwater/drone-cache" target="_blank" rel="noopener noreferrer">meltwater/drone-cache<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://github.com/drone-plugins/drone-s3-cache" target="_blank" rel="noopener noreferrer">drone-plugins/drone-s3-cache<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://github.com/hvalle/drone-gcs-cache" target="_blank" rel="noopener noreferrer">hvalle/drone-gcs-cache<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://github.com/appleboy/drone-sftp-cache" target="_blank" rel="noopener noreferrer">appleboy/drone-sftp-cache<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li></ul> <p>从上述插件可以看出，缓存插件也是分为第三方存储（ S3、GCS、SFTP 等 ）和容器共享文件夹 ( volume ) 两大类，当然也有插件对这两项做了融合，比如<code>meltwater/drone-cache</code>插件。</p> <p>因<code>meltwater/drone-cache</code>插件处理 <code>node_modules</code> 本地存储时，存在<code>node_modules/.bin</code>文件夹无法缓存的问题（ 可查阅：<a href="https://github.com/meltwater/drone-cache/issues/39" target="_blank" rel="noopener noreferrer">Allow to configure skipping symbolic links<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> )，因此采用<code>drillster/drone-volume-cache</code>插件作为本地缓存存储方案。</p> <p>本文利用主机下<code>/var/drone-cache</code>文件夹来缓存构建时<code>node_modules</code>文件夹，当应用下次构建时可以复用该文件夹下的缓存，从而跳过包安装过程的漫长等待，提升构建速度。<code>.drone.yml</code>示例配置如下：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token comment"># 详细配置可查阅：https://github.com/Drillster/drone-volume-cache/blob/master/DOCS.md</span>
+<span class="token key atrule">steps</span><span class="token punctuation">:</span>
+  <span class="token comment"># 取出存储 cache</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restore<span class="token punctuation">-</span>cache
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> drillster/drone<span class="token punctuation">-</span>volume<span class="token punctuation">-</span>cache
+      <span class="token key atrule">settings</span><span class="token punctuation">:</span>
+        <span class="token key atrule">restore</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">mount</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> ./node_modules
+      <span class="token comment"># 加载 cache 数据卷，CI服务器对应仓库需要勾选 &quot;Trusted&quot;</span>
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> /cache
+  <span class="token comment"># 构建其他步骤，在此不做显示</span>
+  <span class="token punctuation">-</span> <span class="token punctuation">...</span>
+  <span class="token comment"># 重新存储 cache</span>
+  <span class="token comment"># 此步骤一般在发布至远程服务器前执行，用来确保 cache 的新鲜度</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> rebuild<span class="token punctuation">-</span>cache
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> drillster/drone<span class="token punctuation">-</span>volume<span class="token punctuation">-</span>cache
+      <span class="token key atrule">settings</span><span class="token punctuation">:</span>
+        <span class="token key atrule">rebuild</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">mount</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> ./node_modules
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache
+          <span class="token key atrule">path</span><span class="token punctuation">:</span> /cache
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache
+    <span class="token key atrule">host</span><span class="token punctuation">:</span>
+      <span class="token comment"># 倘若 path 不存在，需要在 CI 服务器上新建相应文件夹</span>
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> /var/drone<span class="token punctuation">-</span>cache
+</code></pre></div><div class="tip custom-block"><p class="custom-block-title">小贴士</p> <p>本地存储时，倘若存在多个项目或代码仓库，需要对其缓存做区分，不可如上做简单处理</p></div></li> <li><p>完成了缓存的存储后，还需要面对应用新鲜度的问题。当应用的<code>package.json</code> 中的依赖更新时，需要移除缓存并进行更新。</p> <p>如何监测依赖更新成为需要解决的问题，方案其实有很多，可以参阅：<a href="https://stackoverflow.com/questions/52466740/npm-install-if-package-json-was-modified" target="_blank" rel="noopener noreferrer">npm install if package.json was modified<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>通常做法可以分为<strong>监测文件变化</strong>（ package.json ）和<strong>监测依赖变化</strong>（ package.json 中 dependencies 及 devDependencies ）两大类。</p> <p>监测依赖变化在实现上复杂点，但缓存的更新会更精确，可以通过比对前后依赖项生成校验文件的 md5 来判定依赖是否发生变更，相关实现可参阅：<a href="https://github.com/ninesalt/install-changed/blob/master/lib/main.js" target="_blank" rel="noopener noreferrer">ninesalt/install-changed<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>监测文件变化在实现上简单点，可以利用 Git 来实现，可以通过比对前后两次 package.json 文件是否有变动来判定依赖是否发生变更，但往往不太精确，package.json 中非 dependencies 及 devDependencies 部分的变动也会触发清除缓存的操作。</p> <p>能不能把这两种方式结合起来，取长补短？</p> <p>在 Node 中，依赖会通过 <code>package-lock.json</code> 或 <code>yarn.lock</code> 来锁版本，当依赖变更时，对应的<code>package-lock.json</code> 或 <code>yarn.lock</code> 也会更新。可以通过检测 lock 文件变化来判定依赖是否发生变更。</p> <p>在发布版本时，通常会利用 npm version 命令进行版本更新，此时 <code>package-lock.json</code> 中 version 字段也会更新，并不能满足预期。而<code>yarn.lock</code>不会因 npm version 命令进行文件更新，只有当 dependencies 及 devDependencies 变动时才会更新。</p> <p>通过以上的对比，宜采用 yarn 来管理包，并监测 <code>yarn.lock</code> 文件的变化来更新缓存。</p> <div class="language-bash extra-class"><pre class="language-bash"><code> <span class="token comment"># pre-install.sh 文件</span>
+ <span class="token comment">#!/bin/bash</span>
+ <span class="token comment"># 判断当前与上次提交中 yarn.lock 是否有变化</span>
+ <span class="token assign-left variable">changes</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">git</span> <span class="token function">diff</span> HEAD^ HEAD -- yarn.lock<span class="token variable">)</span></span>
+ <span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">&quot;<span class="token variable">$changes</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;&quot;</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;*** CHANGES FOUND ***&quot;</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$changes</span>&quot;</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;Yarn.lock has changed&quot;</span>
+   <span class="token comment"># 因 drillster/drone-volume-cache 并不可控，此处删除拉取后的缓存，以保证包的新鲜度</span>
+   <span class="token function">rm</span> -rf ./node_modules
+   <span class="token function">yarn</span> <span class="token function">install</span>
+ <span class="token keyword">else</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;&quot;</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;*** CHANGES NOT FOUND ***&quot;</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">&quot;Yarn.lock keep unchanged&quot;</span>
+   <span class="token function">yarn</span> <span class="token function">install</span>
+ <span class="token keyword">fi</span>
+</code></pre></div><div class="language-yaml extra-class"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><div class="highlighted"> </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div><pre class="language-yaml"><code> <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restore<span class="token punctuation">-</span>cache
+       <span class="token key atrule">image</span><span class="token punctuation">:</span> drillster/drone<span class="token punctuation">-</span>volume<span class="token punctuation">-</span>cache
+       <span class="token key atrule">settings</span><span class="token punctuation">:</span>
+         <span class="token key atrule">restore</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+         <span class="token key atrule">mount</span><span class="token punctuation">:</span>
+           <span class="token punctuation">-</span> ./node_modules
+       <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+         <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache
+           <span class="token key atrule">path</span><span class="token punctuation">:</span> /cache
+   <span class="token comment"># 执行上述 sh 脚本</span>
+   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install
+     <span class="token key atrule">image</span><span class="token punctuation">:</span> node
+     <span class="token key atrule">commands</span><span class="token punctuation">:</span>
+       <span class="token punctuation">-</span> bash ./pre<span class="token punctuation">-</span>install.sh
+   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> rebuild<span class="token punctuation">-</span>cache
+       <span class="token key atrule">image</span><span class="token punctuation">:</span> drillster/drone<span class="token punctuation">-</span>volume<span class="token punctuation">-</span>cache
+       <span class="token key atrule">settings</span><span class="token punctuation">:</span>
+         <span class="token key atrule">rebuild</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+         <span class="token key atrule">mount</span><span class="token punctuation">:</span>
+           <span class="token punctuation">-</span> ./node_modules
+       <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+         <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache
+           <span class="token key atrule">path</span><span class="token punctuation">:</span> /cache
+ <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+   <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cache
+     <span class="token key atrule">host</span><span class="token punctuation">:</span>
+       <span class="token key atrule">path</span><span class="token punctuation">:</span> /var/drone<span class="token punctuation">-</span>cache
+</code></pre></div></li></ol> <h2 id="分发"><a href="#分发" aria-hidden="true" class="header-anchor">#</a> 分发</h2> <p>之前博客的自动化部署主要是以 github pages 为载体，但在实际部署过程中需要分发代码至各服务器。</p> <p>在 Jenkins CI 中，这一操作通常利用 Publish Over SSH 插件来进行完成，大致过程如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 连接 Jenkins CI VPC（ Virtual Private Cloud ）网络</span>
+<span class="token comment"># VPC 通常称为私有网络或者专有网络，更加安全，自定义度更高</span>
+SSH: Connecting from <span class="token function">host</span> <span class="token punctuation">[</span>vpc-jenkins-ci<span class="token punctuation">]</span>
+<span class="token comment"># configuration 中即为分发服务器的配置项</span>
+SSH: Connecting with configuration <span class="token punctuation">[</span>vpc-web-prod-1-172.36.13.46<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+<span class="token comment"># 这里利用管道来传输文件，即压缩文件至 STDOUT </span>
+<span class="token comment"># 再利用 SSH 连接 Web服务器，拷贝并解压传输文件至对应文件夹，并删除压缩的传输文件</span>
+SSH: EXEC: STDOUT/STDERR from <span class="token builtin class-name">command</span> <span class="token punctuation">[</span>cd /var/www/web/docs
+<span class="token function">tar</span> xzf docs.tar.gz -C /var/www/web/docs
+<span class="token function">rm</span> -f docs.tar.gz<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+SSH: EXEC: completed after <span class="token number">501</span> ms
+<span class="token comment"># 完成后断开连接，继续执行分发任务</span>
+SSH: Disconnecting configuration <span class="token punctuation">[</span>vpc-web-prod-1-172.36.13.46<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+SSH: Transferred <span class="token number">1</span> file<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+SSH: Connecting from <span class="token function">host</span> <span class="token punctuation">[</span>vpc-jenkins-ci<span class="token punctuation">]</span>
+SSH: Connecting with configuration <span class="token punctuation">[</span>vpc-web-prod-2-172.16.26.115<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+SSH: EXEC: STDOUT/STDERR from <span class="token builtin class-name">command</span> <span class="token punctuation">[</span>cd /var/www/web/docs
+<span class="token function">tar</span> xzf docs.tar.gz -C /var/www/web/docs
+<span class="token function">rm</span> -f docs.tar.gz<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+SSH: EXEC: completed after <span class="token number">600</span> ms
+SSH: Disconnecting configuration <span class="token punctuation">[</span>vpc-web-prod-2-172.16.26.115<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+SSH: Transferred <span class="token number">1</span> file<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+Build step <span class="token string">'Send files or execute commands over SSH'</span> changed build result to SUCCESS
+Finished: SUCCESS
+</code></pre></div><p>概括来说，CI 服务器需先通过 SSH 连接 Web 服务器，分发时再传输文件至对应的 Web 服务器。</p> <p>以 Drone CI 为例，具体步骤如下：</p> <ol><li>在 CI 服务器下生成无密码的 Public SSH Keys</li></ol> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 执行命令，下述结果仅为执行参考</span>
+$ ssh-keygen
+
+<span class="token comment"># 执行结果</span>
+Generating public/private rsa key pair.
+Enter <span class="token function">file</span> <span class="token keyword">in</span> <span class="token function">which</span> to save the key <span class="token punctuation">(</span>/root/.ssh/id_rsa<span class="token punctuation">)</span>:
+<span class="token comment"># passphrase 为 key 的密码，默认设置空 ，表示不需要密码</span>
+Enter passphrase <span class="token punctuation">(</span>empty <span class="token keyword">for</span> no passphrase<span class="token punctuation">)</span>:
+Enter same passphrase again:
+Your identification has been saved <span class="token keyword">in</span> /root/.ssh/id_rsa.
+Your public key has been saved <span class="token keyword">in</span> /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:YwhPC9gxq6OPmVJ7XYiKI257bSPPnfpdBc root@snowball
+The key's randomart image is:
++---<span class="token punctuation">[</span>RSA <span class="token number">2048</span><span class="token punctuation">]</span>----+
+<span class="token operator">|</span>   o*o           <span class="token operator">|</span>
+<span class="token operator">|</span>  oo.<span class="token operator">=</span>.          <span class="token operator">|</span>
+<span class="token operator">|</span> <span class="token operator">=</span>o<span class="token operator">=</span><span class="token punctuation">..</span>          <span class="token operator">|</span>
+<span class="token operator">|</span>+ o.o<span class="token operator">=</span>+o.        <span class="token operator">|</span>
+<span class="token operator">|</span> +o. ++oS.E      <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token punctuation">..</span>+<span class="token punctuation">..</span> <span class="token punctuation">..</span> <span class="token builtin class-name">.</span> <span class="token builtin class-name">.</span>     <span class="token operator">|</span>
+<span class="token operator">|</span>.o + <span class="token punctuation">..</span><span class="token punctuation">..</span> <span class="token builtin class-name">.</span>      <span class="token operator">|</span>
+<span class="token operator">|</span> <span class="token operator">+=</span>.oo+. <span class="token builtin class-name">.</span>       <span class="token operator">|</span>
+<span class="token operator">|</span>+<span class="token operator">+=</span><span class="token operator">=</span><span class="token operator">+=</span>.          <span class="token operator">|</span>
++----<span class="token punctuation">[</span>SHA256<span class="token punctuation">]</span>-----+
+
+<span class="token comment"># 查看私钥</span>
+$ <span class="token function">cat</span> /root/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAs1rxWQZzK+pOLbXY7vdLMoMfA85QVavrwuR06RksLImlFiXj
+lDLhmYZUUijspp1Zw775+9VQxldejiCsL3mhzWSJPJ9wO5TJi1CXLn5QsEjY39dC
+s5SEVq1EhqnVN0fjQqHaJn8GOOfy5bvzyTmV8WgO8Pl4CeR5vuuQbRYFDP+rjQnH
+zLpeq73FiWASMRT5vIrZ1Rk92JoGN7TtBdI3ipP+O1kMimO0sATB9Rruww+lpuuZ
+63jbHjPfmY24czMHbtbkpNjyDZNyvC7Mi2RNuIwcDkz4LQOJuWni
+-----END RSA PRIVATE KEY-----
+
+<span class="token comment"># 查看公钥</span>
+$ <span class="token function">cat</span> id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAA2gQNDCo99NsjZzrkYYRZ4Uohrgt8LPXxTF0Zr3 root@snowball
+
+</code></pre></div><ol start="2"><li>复制 Public SSH Keys ，登录 Web 服务器，保存至 <code>~/.ssh/authorized_keys</code> 文件</li></ol> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">ssh</span> root@45.88.74.102 <span class="token string">'mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys'</span> <span class="token operator">&lt;</span> ~/.ssh/id_rsa.pub
+<span class="token comment"># 成功后退出登录的 Web 服务器</span>
+<span class="token comment"># 在 CI 服务器通过 SSH 连接 Web 服务器，免密可登录则表示设置成功</span>
+$ <span class="token function">ssh</span> root@45.88.74.102
+</code></pre></div><ol start="3"><li><p>配置 Drone CI 仓库设置项</p> <p><img src="/docs/assets/img/build_2.6a19fa4e.png" alt=""></p> <p>REMOTE_HOST 为第一台 Web 服务器 IP 地址，REMOTE_HOST2 为第二台 Web 服务器 IP 地址，以此类推；RSYNC_KEY 为 CI 服务器 Private SSH Key；RSYNC_USER 为 Web 服务器用户名，通常为 root</p></li> <li><p>配置 <code>.drone.yml</code> 文件</p> <p>服务器间数据传输存在 rsync、nc、ftp、scp、nfs 等多种方式，本文采用 rsync 来传输数据。</p> <p>rsync 是一个远程数据同步工具，可以通过 LAN/WAN 快速同步多台主机间的文件。rsync 使用 rsync 算法来保持本地和远程两个主机间的文件同步，只传送两个主机同一文件的不同部分，而不是每次全量更新，这种增量更新的方式，提升了文件传输的速度。</p> <p>Drone CI 中一般使用 <a href="https://github.com/Drillster/drone-rsync/blob/master/1-DOCS.md" target="_blank" rel="noopener noreferrer">drillster/drone-rsync<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 插件来传输服务器间数据。示例如下：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> rsync
+  <span class="token key atrule">image</span><span class="token punctuation">:</span> drillster/drone<span class="token punctuation">-</span>rsync
+  <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+    <span class="token key atrule">RSYNC_KEY</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> RSYNC_KEY
+    <span class="token key atrule">RSYNC_USER</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> RSYNC_USER
+    <span class="token key atrule">REMOTE_HOST</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> REMOTE_HOST
+    <span class="token key atrule">REMOTE_HOST2</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> REMOTE_HOST2
+  <span class="token key atrule">settings</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> $$REMOTE_HOST
+      <span class="token punctuation">-</span> $$REMOTE_HOST2
+  <span class="token key atrule">source</span><span class="token punctuation">:</span> ./dist
+  <span class="token comment"># 需要在 Web 服务器上安装 nginx</span>
+  <span class="token comment"># nginx 默认静态资源文件夹</span>
+  <span class="token key atrule">target</span><span class="token punctuation">:</span> /usr/share/nginx/html
+</code></pre></div></li></ol> <h2 id="容器化"><a href="#容器化" aria-hidden="true" class="header-anchor">#</a> 容器化</h2> <p>上面从缓存和分发角度优化了构建流程，使得整个构建更加自动化、速度更快。总体来说，以上的优化已经能满足日常构建的大部分场景。但倘若思考下整个构建流程，优化依然可以继续。</p> <p>目前来说，利用 Drone 部署远程 CI 服务器，所有的构建都是在容器内进行，已经完成了环境隔离，保障了本地与远程构建结果的一致性。</p> <p>稍微回望这一流程，拉取远端代码，构建产出 dist 目录的过程，其实是可以采用 Dockerfile 文件生成 dist 静态镜像来解决。Dockerfile 文件如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>FROM node:alpine as builder
+<span class="token comment"># 注入环境变量</span>
+ENV PROJECT_ENV production
+ENV NODE_ENV production
+<span class="token comment"># 新建工作目录</span>
+WORKDIR /src
+WORKDIR /src-build
+ADD ./ /src-build/
+<span class="token comment"># 执行构建命令</span>
+RUN <span class="token function">yarn</span> <span class="token function">install</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+    <span class="token function">yarn</span> run build <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+    <span class="token function">mv</span>  /src-build/dist /src/ <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+    <span class="token function">rm</span> -rf /src-build
+</code></pre></div><p>如上利用 Dockerfile 可以不需引入 CI 服务器，即可完成打包的操作。</p> <p>倘若不引入 CI 服务器，利用 Dockerfile 来进行打包同样要处理缓存和分发问题：每次构建时，<code>yarn install</code> 都需要重新执行一遍，安装导致的时间和安全成本巨大；分发的话，需要通过上传镜像至私有 Docker 镜像仓库，再进入 Web 服务器执行拉取镜像并运行容器的操作。</p> <ul><li><p>回顾前端构建的流程，只需要保障 Node版本 、yarn版本 及 node_modules 文件夹一致，即可保证生成 dist 文件的一致。那么，是不是可以把这三者做成 Node 基础镜像来为 Web 服务器端的构建服务。</p> <p>因需要区分 Node 基础镜像和其他构建镜像，新建 <code>node.dockerfile</code>，如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 拉取 node 镜像</span>
+FROM node:alpine
+<span class="token comment"># alpine 版本不包含 git 和 docker</span>
+<span class="token comment"># 但后续在此镜像中需要使用 git 和 docker，安装后体积会增加一倍</span>
+<span class="token comment"># 也可以不安装，在运行镜像时安装，主要还是在于镜像体积的取舍</span>
+RUN apk update <span class="token operator">&amp;&amp;</span> apk <span class="token function">add</span> --no-cache <span class="token function">git</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+    apk <span class="token function">add</span> docker
+<span class="token comment"># 新建并进入工作区</span>
+RUN <span class="token function">mkdir</span> /src
+WORKDIR /src
+<span class="token comment"># 复制当前 package.json 相关文件至工作区</span>
+COPY ./package*.json /src/
+COPY ./yarn.lock /src/
+<span class="token comment"># 安装包</span>
+RUN <span class="token function">yarn</span> <span class="token function">install</span> --production
+</code></pre></div><p>在当前目录下执行构建镜像，如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 构建 Node 基础镜像</span>
+<span class="token comment"># -t 镜像的 tag</span>
+<span class="token comment"># -f Dockerfile 的名字 (默认为 ‘Dockerfile’)</span>
+<span class="token comment"># .  代表当前文件夹的所有文件，并发送至 Docker daemon</span>
+<span class="token comment"># 具体可查阅：https://docs.docker.com/v17.12/engine/reference/commandline/build/</span>
+$ docker build -t node-base -f node.dockerfile <span class="token builtin class-name">.</span>
+<span class="token comment"># 构建过程</span>
+Sending build context to Docker daemon  <span class="token number">133</span>.4MB
+Step <span class="token number">1</span>/6 <span class="token builtin class-name">:</span> FROM node:alpine
+alpine: Pulling from library/node
+e7c96db7181b: Pull complete 
+773afe93be0d: Pull complete 
+223db68b3560: Pull complete 
+<span class="token number">609526630549</span>: Pull complete 
+Digest: sha256:25d56cf8f21a33f61415bcde0dd7fb1e1d46ecdb9b3b6d39e4846570cc235a81
+Status: Downloaded newer image <span class="token keyword">for</span> node:alpine
+---<span class="token operator">&gt;</span> d4edda39fb81
+Step <span class="token number">2</span>/6 <span class="token builtin class-name">:</span> RUN <span class="token function">mkdir</span> /src
+---<span class="token operator">&gt;</span> Running <span class="token keyword">in</span> 6c79b449d11f
+Removing intermediate container 6c79b449d11f
+---<span class="token operator">&gt;</span> 7b232a36912b
+Step <span class="token number">3</span>/6 <span class="token builtin class-name">:</span> WORKDIR /src
+---<span class="token operator">&gt;</span> Running <span class="token keyword">in</span> 2c91d05c5d08
+Removing intermediate container 2c91d05c5d08
+---<span class="token operator">&gt;</span> e031c4db6733
+Step <span class="token number">4</span>/6 <span class="token builtin class-name">:</span> COPY ./package*.json /src/
+---<span class="token operator">&gt;</span> b24da7a66597
+Step <span class="token number">5</span>/6 <span class="token builtin class-name">:</span> COPY ./yarn.lock /src/
+---<span class="token operator">&gt;</span> 967926c6ebaf
+Step <span class="token number">6</span>/6 <span class="token builtin class-name">:</span> RUN <span class="token function">yarn</span> <span class="token function">install</span> --production
+---<span class="token operator">&gt;</span> Running <span class="token keyword">in</span> 8d75cadf2142
+<span class="token function">yarn</span> <span class="token function">install</span> v1.16.0
+<span class="token punctuation">[</span><span class="token number">1</span>/4<span class="token punctuation">]</span> Resolving packages<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span><span class="token number">2</span>/4<span class="token punctuation">]</span> Fetching packages<span class="token punctuation">..</span>.
+info fsevents@1.2.9: The platform <span class="token string">&quot;linux&quot;</span> is incompatible with this module.
+info <span class="token string">&quot;fsevents@1.2.9&quot;</span> is an optional dependency and failed compatibility check. Excluding it from installation.
+<span class="token punctuation">[</span><span class="token number">3</span>/4<span class="token punctuation">]</span> Linking dependencies<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span><span class="token number">4</span>/4<span class="token punctuation">]</span> Building fresh packages<span class="token punctuation">..</span>.
+Done <span class="token keyword">in</span> <span class="token number">120</span>.07s.
+Removing intermediate container 8d75cadf2142
+---<span class="token operator">&gt;</span> defa3914799b
+Successfully built defa3914799b
+Successfully tagged node-base:latest
+</code></pre></div><p>这样便完成了 Node 基础镜像的制作，但本地镜像并不能共享，而各环境倘若需要保证一致性的话，需要引用同一基础镜像，此时可以上传至 Docker hub 公有或私有仓库，或利用<a href="https://github.com/goharbor/harbor" target="_blank" rel="noopener noreferrer"> Harbor <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>搭建公司镜像管理平台，或利用阿里云等云服务商提供的镜像仓库服务。比较推荐 Harbor 自建镜像管理平台，保障镜像服务的安全性和稳定性。</p> <p>基础镜像线上化后，不需要安装任何环境和包，只需执行构建即可，缓存问题迎刃而解，而且方便追踪及复现线上故障，可谓一箭双雕。</p></li> <li><p>回望分发 Web 服务器时，直接传输 dist 到 nginx 默认文件夹，需要预先在服务器上配置 nginx 环境及配置文件，当 Web 服务器增多后，这一阶段比较繁琐，也容易出错。</p> <p>倘如部署时，只需运行 Docker 镜像便能访问 Web 服务，就能轻松地进行服务器扩展及收缩，也方便在本地追踪和复现线上问题。</p> <p>之前的 Dockerfile 其实可以一拆为三，分为 Node 基础镜像、Dist 静态镜像及 Nginx 部署镜像。因 Nginx 部署镜像仅需 Dist 静态镜像提供配置文件及静态资源，可以利用 Docker 的多阶段构建将两镜像进行合并。</p> <div class="tip custom-block"><p class="custom-block-title">小贴士</p> <p>Docker 的多阶段构建只会保留最后阶段的文件和命令，可查阅<a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener noreferrer"> docker | multistage-build <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <p>在当前目录下，新建 <code>web.dockerfile</code>，如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 拉取 node 基础镜像</span>
+<span class="token comment"># 这里以本地镜像为例</span>
+FROM node-base as builder
+<span class="token comment"># 进入 node 基础镜像下 src 目录</span>
+WORKDIR /src
+<span class="token comment"># 复制当前目录文件至 src 目录下</span>
+COPY <span class="token builtin class-name">.</span> /src/
+<span class="token comment"># 打包静态资源</span>
+RUN <span class="token function">yarn</span> build
+
+<span class="token comment"># 拉取 nginx 基础镜像</span>
+FROM nginx:alpine
+<span class="token comment"># 新建工作区</span>
+WORKDIR /root 
+<span class="token comment"># 复制 builder 阶段 /src/dist 文件至当前 nginx 目录 docs 下</span>
+COPY --from<span class="token operator">=</span>builder /src/dist /usr/share/nginx/html/docs
+<span class="token comment"># 暴露端口（ nginx 基础镜像默认 80 端口，可忽略 ）</span>
+EXPOSE <span class="token number">80</span> 
+</code></pre></div><p>在当前目录下执行构建镜像，如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ docker build -t web-nginx -f web.dockerfile <span class="token builtin class-name">.</span>
+<span class="token comment"># 构建过程</span>
+Sending build context to Docker daemon  <span class="token number">133</span>.4MB
+Step <span class="token number">1</span>/8 <span class="token builtin class-name">:</span> FROM node-base as builder
+---<span class="token operator">&gt;</span> defa3914799b
+Step <span class="token number">2</span>/8 <span class="token builtin class-name">:</span> WORKDIR /src
+---<span class="token operator">&gt;</span> Using cache
+---<span class="token operator">&gt;</span> 7bec27b99d51
+Step <span class="token number">3</span>/8 <span class="token builtin class-name">:</span> COPY <span class="token builtin class-name">.</span> /src/
+---<span class="token operator">&gt;</span> b90d93e4aa54
+Step <span class="token number">4</span>/8 <span class="token builtin class-name">:</span> RUN <span class="token function">yarn</span> build
+---<span class="token operator">&gt;</span> Running <span class="token keyword">in</span> 0e50b49dda4d
+<span class="token function">yarn</span> run v1.16.0
+$ vuepress build docs
+<span class="token function">wait</span> Extracting site metadata<span class="token punctuation">..</span>.
+tip Apply theme @vuepress/theme-default <span class="token punctuation">..</span>.
+tip Apply plugin container <span class="token punctuation">(</span>i.e. <span class="token string">&quot;vuepress-plugin-container&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/register-components <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-register-components&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/active-header-links <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-active-header-links&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/search <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-search&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/nprogress <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-nprogress&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/pwa <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-pwa&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/last-updated <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-last-updated&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/back-to-top <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-back-to-top&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+tip Apply plugin @vuepress/medium-zoom <span class="token punctuation">(</span>i.e. <span class="token string">&quot;@vuepress/plugin-medium-zoom&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">..</span>.
+ℹ Compiling Client
+ℹ Compiling Server
+✔ Server: Compiled successfully <span class="token keyword">in</span> <span class="token number">6</span>.89s
+✔ Client: Compiled successfully <span class="token keyword">in</span> <span class="token number">11</span>.04s
+<span class="token function">wait</span> Rendering static HTML<span class="token punctuation">..</span>.
+<span class="token function">wait</span> Generating <span class="token function">service</span> worker<span class="token punctuation">..</span>.
+success Generated static files <span class="token keyword">in</span> dist.
+
+Done <span class="token keyword">in</span> <span class="token number">13</span>.70s.
+Removing intermediate container 0e50b49dda4d
+---<span class="token operator">&gt;</span> c8270562d518
+Step <span class="token number">5</span>/8 <span class="token builtin class-name">:</span> FROM nginx:alpine
+---<span class="token operator">&gt;</span> bfba26ca350c
+Step <span class="token number">6</span>/8 <span class="token builtin class-name">:</span> WORKDIR /root
+---<span class="token operator">&gt;</span> Using cache
+---<span class="token operator">&gt;</span> bbea1e258a05
+Step <span class="token number">7</span>/8 <span class="token builtin class-name">:</span> COPY --from<span class="token operator">=</span>builder /src/dist /usr/share/nginx/html
+---<span class="token operator">&gt;</span> 600974ff3c47
+Step <span class="token number">8</span>/8 <span class="token builtin class-name">:</span> EXPOSE <span class="token number">80</span>
+---<span class="token operator">&gt;</span> Running <span class="token keyword">in</span> 387166dcd7c4
+Removing intermediate container 387166dcd7c4
+---<span class="token operator">&gt;</span> 75e21d8027cc
+Successfully built 75e21d8027cc
+Successfully tagged web-nginx:latest
+</code></pre></div><p>接下来把该镜像上传到镜像仓库，在各预装 docker 的 Web 服务器上直接拉取并运行就行了。</p></li></ul> <p>整理完思路，但单靠上述容器化的实践并不能实现自动化部署的工作，将容器化理念融入进 Drone CI 工作流中才是务实之举。</p> <p>之前利用 Drone Plugin 的功能，完成了缓存和分发的工作。其实容器化之后也大同小异，但需要对 <code>.drone.yml</code> 文件进行相应变更，细节如下：</p> <ul><li><p>取消 CI 服务器本地缓存 node_modules 文件的策略，使用远程 docker image 来取代</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token comment"># .drone.yml</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> build<span class="token punctuation">-</span>web<span class="token punctuation">-</span>image
+  <span class="token comment"># 私有镜像，这里采用 harbor 来进行存储和管理</span>
+  <span class="token comment"># 细节可参阅：https://github.com/goharbor/harbor</span>
+  <span class="token comment"># 必须配置 image_pull_secrets，否则会出错</span>
+  <span class="token key atrule">image</span><span class="token punctuation">:</span> harbor.snowball.site/web/node<span class="token punctuation">-</span>base
+  <span class="token comment"># 挂载主机 daemon 用来 tag</span>
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> dockersock
+      <span class="token key atrule">path</span><span class="token punctuation">:</span> /var/run/docker.sock
+  <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+    <span class="token key atrule">HARBOR_USERNAME</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> HARBOR_USERNAME
+    <span class="token key atrule">HARBOR_PWD</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> HARBOR_PWD
+  <span class="token key atrule">commands</span><span class="token punctuation">:</span> 
+    <span class="token comment"># 倘若 node 基础镜像没内置 git 和 docker，需要进行安装</span>
+    <span class="token comment"># - apk add --no-cache git</span>
+    <span class="token comment"># - apk add docker</span>
+    <span class="token comment"># 登陆私有镜像仓库（ 倘若是公有仓库则可以忽略 ）</span>
+    <span class="token punctuation">-</span> docker login harbor.snowball.site <span class="token punctuation">-</span>u $$HARBOR_USERNAME <span class="token punctuation">-</span>p $$HARBOR_PWD
+    <span class="token comment"># 执行 auto-check-install.sh 脚本来检测缓存变更</span>
+    <span class="token comment"># web.dockerfile 宜采用本地镜像，如 node-base ，保证缓存的新鲜度</span>
+    <span class="token punctuation">-</span> sh ./build/auto<span class="token punctuation">-</span>check<span class="token punctuation">-</span>install.sh
+    <span class="token comment"># 构建 web-nginx 镜像并推送至远程</span>
+    <span class="token punctuation">-</span> docker build <span class="token punctuation">-</span>t web<span class="token punctuation">-</span>nginx <span class="token punctuation">-</span>f web.dockerfile .
+    <span class="token punctuation">-</span> docker tag web<span class="token punctuation">-</span>nginx harbor.snowball.site/web/web<span class="token punctuation">-</span>nginx
+    <span class="token punctuation">-</span> docker push harbor.snowball.site/web/web<span class="token punctuation">-</span>nginx
+    <span class="token comment"># 清除 Web 服务器 untagged images</span>
+    <span class="token punctuation">-</span> docker rmi $(docker images <span class="token punctuation">-</span><span class="token punctuation">-</span>filter &quot;dangling=true&quot; <span class="token punctuation">-</span>q <span class="token punctuation">-</span><span class="token punctuation">-</span>no<span class="token punctuation">-</span>trunc)
+  <span class="token comment"># 容许容器访问主机服务</span>
+  <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token comment"># 配置私有镜像仓库授权信息</span>
+<span class="token comment"># 通过 docker login [SERVER] 后，可通过 ~/.docker/config.json 获取授权信息</span>
+<span class="token comment"># 注意密码采用 -p 登陆，使用 --password-stdin 登陆将无法获取授权信息</span>
+<span class="token comment"># 具体配置可参阅：https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12</span>
+<span class="token key atrule">image_pull_secrets</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> dockerconfigjson
+</code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># auto-check-install.sh</span>
+<span class="token comment">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span> CHECKING FOR CHANGES <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+<span class="token assign-left variable">changes</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">git</span> <span class="token function">diff</span> HEAD^ HEAD -- yarn.lock<span class="token variable">)</span></span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">&quot;<span class="token variable">$changes</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;*** CHANGES FOUND ***&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$changes</span>&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Yarn.lock has changed&quot;</span>
+    <span class="token comment"># 依赖变更时，需要构建新 node-base 镜像并推送至远程私有仓库</span>
+    docker build -t node-base -f node.dockerfile <span class="token builtin class-name">.</span>
+    docker tag node-base harbor.snowball.site/web/node-base
+    docker push harbor.snowball.site/web/node-base
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;*** CHANGES NOT FOUND ***&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Yarn.lock has not changed&quot;</span>
+<span class="token keyword">fi</span>
+</code></pre></div></li> <li><p>取消 CI 服务器传输文件至远程 Web 服务器的策略，使用拉取远程 docker image 来取代</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token comment"># .drone.yml</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> publish<span class="token punctuation">-</span>web<span class="token punctuation">-</span>server
+  <span class="token comment">#  使用 drone-ssh 插件连接远程服务器</span>
+  <span class="token key atrule">image</span><span class="token punctuation">:</span> appleboy/drone<span class="token punctuation">-</span>ssh
+  <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+    <span class="token key atrule">HARBOR_USERNAME</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> HARBOR_USERNAME
+    <span class="token key atrule">HARBOR_PWD</span><span class="token punctuation">:</span>
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> HARBOR_PWD
+  <span class="token key atrule">settings</span><span class="token punctuation">:</span>
+    <span class="token comment"># 目前不支持 environment 存取</span>
+    <span class="token key atrule">host</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 45.77.119.141
+      <span class="token punctuation">-</span> 144.202.103.102
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> 
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> REMOTE_USER
+    <span class="token key atrule">key</span><span class="token punctuation">:</span> 
+      <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> REMOTE_KEY
+    <span class="token comment"># 暴露至 script 的环境变量</span>
+    <span class="token key atrule">envs</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> HARBOR_USERNAME<span class="token punctuation">,</span>HARBOR_PWD <span class="token punctuation">]</span>
+    <span class="token key atrule">script</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> docker <span class="token punctuation">-</span>v
+      <span class="token comment"># 判断是否存在 web-server 容器，存在则停止并删除原有 container</span>
+      <span class="token punctuation">-</span> docker ps <span class="token punctuation">-</span>q <span class="token punctuation">-</span><span class="token punctuation">-</span>filter &quot;name=web<span class="token punctuation">-</span>server&quot; <span class="token punctuation">|</span> grep <span class="token punctuation">-</span>q . &amp;&amp; (echo &quot;Docker container web<span class="token punctuation">-</span>server is existed&quot; &amp;&amp; docker container stop web<span class="token punctuation">-</span>server &amp;&amp; docker rm <span class="token punctuation">-</span>f web<span class="token punctuation">-</span>server) <span class="token punctuation">|</span><span class="token punctuation">|</span> echo &quot;Docker container web<span class="token punctuation">-</span>server is not existed&quot;
+      <span class="token comment"># 拉取最新镜像并运行</span>
+      <span class="token punctuation">-</span> docker login harbor.snowball.site <span class="token punctuation">-</span>u $$HARBOR_USERNAME <span class="token punctuation">-</span>p $$HARBOR_PWD
+      <span class="token punctuation">-</span> docker pull harbor.snowball.site/web/web<span class="token punctuation">-</span>nginx
+      <span class="token punctuation">-</span> docker run <span class="token punctuation">-</span>d <span class="token punctuation">-</span>p 3080<span class="token punctuation">:</span>80 <span class="token punctuation">-</span><span class="token punctuation">-</span>name web<span class="token punctuation">-</span>server harbor.snowball.site/web/web<span class="token punctuation">-</span>nginx
+      <span class="token comment"># 清除 Web 服务器 untagged images</span>
+      <span class="token punctuation">-</span> docker rmi $(docker images <span class="token punctuation">-</span><span class="token punctuation">-</span>filter &quot;dangling=true&quot; <span class="token punctuation">-</span>q <span class="token punctuation">-</span><span class="token punctuation">-</span>no<span class="token punctuation">-</span>trunc)
+</code></pre></div></li></ul> <p>至此，Drone CI 容器化大致完成。但需要注意，刚部署项目时，本地和远程都未暂存基础镜像，需要在 build-web-image 步骤前追加 check-base-image 的步骤：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token comment"># .drone.yml</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> check<span class="token punctuation">-</span>base<span class="token punctuation">-</span>image
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> docker<span class="token punctuation">:</span>dind
+    <span class="token comment"># 挂载主机 daemon 用来 tag</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> dockersock
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /var/run/docker.sock
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">HARBOR_USERNAME</span><span class="token punctuation">:</span>
+        <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> HARBOR_USERNAME
+      <span class="token key atrule">HARBOR_PWD</span><span class="token punctuation">:</span>
+        <span class="token key atrule">from_secret</span><span class="token punctuation">:</span> HARBOR_PWD
+    <span class="token key atrule">commands</span><span class="token punctuation">:</span> 
+      <span class="token punctuation">-</span> docker login harbor.snowball.site <span class="token punctuation">-</span>u $$HARBOR_USERNAME <span class="token punctuation">-</span>p $$HARBOR_PWD
+      <span class="token punctuation">-</span> sh ./build/auto<span class="token punctuation">-</span>check<span class="token punctuation">-</span>image.sh
+    <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+</code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># auto-check-image.sh</span>
+<span class="token comment">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span> CHECKING FOR NODE BASE IMAGE <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+
+<span class="token assign-left variable">image</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>docker images -q node-base <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> /dev/null<span class="token variable">)</span></span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">&quot;<span class="token variable">$image</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">&quot;Docker image node-base is existed&quot;</span>
+<span class="token keyword">else</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">&quot;Docker image node-base is not existed&quot;</span>
+  docker build -t node-base -f node.dockerfile <span class="token builtin class-name">.</span>
+  docker tag node-base harbor.snowball.site/web/node-base
+  docker push harbor.snowball.site/web/node-base
+<span class="token keyword">fi</span>
+</code></pre></div><p>需要说明的是，Dockerfile 构建时每行命令都是 Layer，Docker 构建时使用 Layer Cache 可以加速镜像构建过程，无需担心构建所产生的时间成本。整体构建用时与之前不相伯仲，如下图：</p> <p><img src="/docs/assets/img/build_3.1b4832f7.png" alt=""></p> <p>容器化完成之后，基础镜像和服务镜像都存放至 Harbor 私有仓库，如下图：</p> <p><img src="/docs/assets/img/build_4.eebfa0ac.png" alt=""></p> <p>基于此，可以便捷地复用和管理镜像，方便追踪及复现线上故障，增强了 Web 服务的伸缩性。</p> <div class="tip custom-block"><p class="custom-block-title">小贴士</p> <p>在实际工作中，Harbor 中的镜像可以通过 tag 来区分版本号，以利于回滚，此处只用作简单演示</p></div> <h2 id="体积"><a href="#体积" aria-hidden="true" class="header-anchor">#</a> 体积</h2> <p>应用的体积是构建时需要面对的棘手问题，在前端服务中，主要体现在 npm 包和 Docker 镜像两方面：</p> <ul><li><p>npm 包</p> <p>npm 包分为 devDependencies 和 dependencies 两种依赖，其中 devDependencies 是日常开发环境所依赖的包，在部署时其实并不需要安装。</p> <p>可以通过一下命令来优化 node_modules 文件夹的体积：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># yarn</span>
+<span class="token comment"># 只安装 dependencies 中的包</span>
+$ <span class="token function">yarn</span> <span class="token function">install</span> --production
+<span class="token comment"># npm </span>
+$ <span class="token function">npm</span> prune --production
+</code></pre></div></li> <li><p>Docker 镜像</p> <p>Docker 镜像也存在大小之分，比如，Docker Hub 上就存在多个 Node 镜像，不同的镜像具有不同的大小，而在容器时代，Alpine 是最轻量的镜像，因此可以把基础镜像都采用 Alpine 版本，这样生成的镜像足够小，便于推送和拉取。</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Dockerfile 中拉取 Alpine 版本</span>
+FROM node:alpine
+<span class="token comment"># or</span>
+FROM nginx:alpine
+</code></pre></div></li></ul> <h2 id="网络"><a href="#网络" aria-hidden="true" class="header-anchor">#</a> 网络</h2> <p>在网络层面，国内访问 npm 镜像源、Docker 镜像源 及 Github 仓库并不稳定，速度堪忧。这可能会导致 npm 包安装失败、Docker 镜像拉取失败、Github 仓库推送代码失败或过慢等问题。</p> <p>当然，解决方案也有很多，可以采用国外云服务器、引用国内镜像源或利用网络代理来解决。</p> <p>国内镜像源其实并不能解决 Github 仓库推送问题，而网络代理在 Docker 容器中存在诸多问题，推荐采用国外云服务器来解决。</p> <p>同等配置下的国外云服务和国内阿里云服务器部署的 Drone CI ，无 node_modules 缓存，同次构建耗时依次如下：</p> <p><img src="/docs/assets/img/build_5.80e321a6.png" alt=""></p> <p>国外云服务构建详细信息：</p> <p><img src="/docs/assets/img/build_6.55314808.png" alt=""></p> <p>国内阿里云服务器构建详细信息：</p> <p><img src="/docs/assets/img/build_7.2898524a.png" alt=""></p> <p>对比可见，主要耗时集中于 yarn install 和 deploy github 这两个阶段。 在拉取 Docker 镜像时，国内阿里云服务器偶尔会抛出无法获取镜像的错误，如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: request canceled <span class="token keyword">while</span> waiting <span class="token keyword">for</span> connection <span class="token punctuation">(</span>Client.Timeout exceeded <span class="token keyword">while</span> awaiting headers<span class="token punctuation">)</span>
+</code></pre></div><p>为解决国内网络问题带来的构建用时成本，倘若条件容许，可以自建代码仓库（ GitLab、Gogs、Gitea 等 ）、自建 npm 服务器（ sinopia、cnpm 等 ）及自建 dokcer 镜像仓库（ harbor等 ）来避免。</p> <p>倘若条件不容许，针对 npm 官方源 和 Docker 镜像源，可以采用国内镜像源来简单处理：</p> <ul><li><p>npm 镜像源</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">yarn</span> config <span class="token builtin class-name">set</span> registry <span class="token string">&quot;https://registry.npm.taobao.org&quot;</span>
+</code></pre></div></li> <li><p>Docker 镜像源</p> <p>在 Linux 云服务的<code>/etc/docker/daemon.json</code>文件下写入如下信息：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># daemon.json 倘若不存在则新建</span>
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;registry-mirrors&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&quot;https://dockerhub.azk8s.cn&quot;</span>,
+    <span class="token string">&quot;https://reg-mirror.qiniu.com&quot;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>重启 Docker 服务：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 以 root 权限运行</span>
+$ systemctl daemon-reload
+$ systemctl restart docker
+</code></pre></div></li></ul> <h2 id="参考链接"><a href="#参考链接" aria-hidden="true" class="header-anchor">#</a> 参考链接</h2> <ul><li><p><a href="https://laszlo.cloud/the-ultimate-droneci-caching-guide" target="_blank" rel="noopener noreferrer">The ultimate DroneCI caching guide<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://underthehood.meltwater.com/blog/2019/04/10/making-drone-builds-10-times-faster/" target="_blank" rel="noopener noreferrer">Making Drone Builds 10 Times Faster!<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://shanyue.tech/post/deploy-frontend-with-docker/" target="_blank" rel="noopener noreferrer">如何使用 docker 高效部署前端应用<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="http://trylife.cn/drone-ci/vue-continuous-deploy-to-aliyun-oss/" target="_blank" rel="noopener noreferrer">Drone 将 VUE 项目持续部署到阿里云 OSS<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://avnpc.com/pages/speed-up-drone-ci-workflow" target="_blank" rel="noopener noreferrer">容器环境持续集成优化，Drone CI 提速 500%<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="http://imhxl.com/post/docker-frontend-project.html" target="_blank" rel="noopener noreferrer">前端项目容器化之旅<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://stackoverflow.com/questions/52466740/npm-install-if-package-json-was-modified" target="_blank" rel="noopener noreferrer">npm install if package.json was modified<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://stackoverflow.com/questions/41371090/git-show-file-diff-between-head-and-initial-first-version" target="_blank" rel="noopener noreferrer">Git - show file diff between HEAD and initial (first) version<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://stackoverflow.com/questions/9903541/finding-diff-between-current-and-last-version" target="_blank" rel="noopener noreferrer">Finding diff between current and last version?<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://medium.com/@amy/ssh-rsync-and-tar-8812a5a47410" target="_blank" rel="noopener noreferrer">ssh, rsync, and tar<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://blog.csdn.net/gatieme/article/details/51673229" target="_blank" rel="noopener noreferrer">两台Linux系统之间传输文件的几种方法<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://discourse.drone.io/t/build-not-running-on-tag/3376" target="_blank" rel="noopener noreferrer">Build not running on tag<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://discourse.drone.io/t/cannot-execute-a-pipeline-on-either-tag-or-push-to-specific-branch/3490/4" target="_blank" rel="noopener noreferrer">Cannot execute a pipeline on either tag or push to specific branch<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://www.hi-linux.com/posts/55545.html" target="_blank" rel="noopener noreferrer">Docker 最佳实践之多阶段构建<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://zhuanlan.zhihu.com/p/39209596" target="_blank" rel="noopener noreferrer">为什么不能在服务器上 npm install ？<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="http://paislee.io/how-to-build-and-deploy-docker-images-with-drone/" target="_blank" rel="noopener noreferrer">How to Build and Deploy Docker Images with Drone<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://discourse.drone.io/t/1-0-0-rc1-how-to-pull-image-from-private-registry-and-execute-commands-in-it/3057/12" target="_blank" rel="noopener noreferrer">[1.0.0-rc1] How to pull image from private registry and execute commands in it<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://www.projectatomic.io/blog/2016/03/docker-credentials-store/" target="_blank" rel="noopener noreferrer">Docker Credential Store<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://github.com/nodejs/docker-node/issues/586" target="_blank" rel="noopener noreferrer">git not found in alpine image<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://github.com/appleboy/drone-ssh/issues/130" target="_blank" rel="noopener noreferrer">Secret in Drone 1.0.0-rc.1<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://yeasy.gitbooks.io/docker_practice/install/mirror.html" target="_blank" rel="noopener noreferrer">docker practice<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://community.atlassian.com/t5/Bitbucket-questions/Piplenes-docker-login-can-not-perform-an-interactive-login-from/qaq-p/595736" target="_blank" rel="noopener noreferrer">Piplenes: docker login can not perform an interactive login from a non TTY<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images" target="_blank" rel="noopener noreferrer">Docker remove none TAG images<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li> <li><p><a href="https://stackoverflow.com/questions/38576337/how-to-execute-a-bash-command-only-if-a-docker-container-with-a-given-name-does" target="_blank" rel="noopener noreferrer">How to execute a Bash command only if a Docker container with a given name does not exist?<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/Damo-web/docs/edit/master/docs/engineering/build.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页！</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2019-08-05 03:52:03 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/engineering/harbor.html" class="prev">Harbor</a></span> <span class="next"><a href="/docs/engineering/nginx.html">Nginx</a>→
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/docs/assets/js/app.bb5e32e8.js" defer></script><script src="/docs/assets/js/2.3b5bc873.js" defer></script><script src="/docs/assets/js/11.231bcbc2.js" defer></script><script src="/docs/assets/js/22.e56f6488.js" defer></script>
+  </body>
+</html>

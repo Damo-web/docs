@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Flux 架构 | Damo</title>
+    <meta name="description" content="达摩院文档平台">
+    <link rel="shortcut icon" type="image/x-icon" href="/docs/favicon.ico">
+  <link rel="manifest" href="/docs/manifest.json">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.ba6021e1.css" as="style"><link rel="preload" href="/docs/assets/js/app.bb5e32e8.js" as="script"><link rel="preload" href="/docs/assets/js/2.3b5bc873.js" as="script"><link rel="preload" href="/docs/assets/js/21.2f377134.js" as="script"><link rel="preload" href="/docs/assets/js/22.e56f6488.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.e79ac61c.js"><link rel="prefetch" href="/docs/assets/js/11.231bcbc2.js"><link rel="prefetch" href="/docs/assets/js/12.c158b58e.js"><link rel="prefetch" href="/docs/assets/js/13.4d87ce46.js"><link rel="prefetch" href="/docs/assets/js/14.7c9ff823.js"><link rel="prefetch" href="/docs/assets/js/15.6db4bdac.js"><link rel="prefetch" href="/docs/assets/js/16.a5e840e7.js"><link rel="prefetch" href="/docs/assets/js/17.ec94b3d5.js"><link rel="prefetch" href="/docs/assets/js/18.fae32894.js"><link rel="prefetch" href="/docs/assets/js/19.0616547f.js"><link rel="prefetch" href="/docs/assets/js/20.0911ce1c.js"><link rel="prefetch" href="/docs/assets/js/23.a4767746.js"><link rel="prefetch" href="/docs/assets/js/24.00d42de4.js"><link rel="prefetch" href="/docs/assets/js/25.e565c20f.js"><link rel="prefetch" href="/docs/assets/js/26.ba96a6e3.js"><link rel="prefetch" href="/docs/assets/js/27.11a11261.js"><link rel="prefetch" href="/docs/assets/js/28.b49aaaba.js"><link rel="prefetch" href="/docs/assets/js/29.2e6a7a2d.js"><link rel="prefetch" href="/docs/assets/js/3.b55da558.js"><link rel="prefetch" href="/docs/assets/js/30.8ea5fdcf.js"><link rel="prefetch" href="/docs/assets/js/31.bb57c422.js"><link rel="prefetch" href="/docs/assets/js/32.bc41411c.js"><link rel="prefetch" href="/docs/assets/js/33.5ad4e0f7.js"><link rel="prefetch" href="/docs/assets/js/34.e046d4c9.js"><link rel="prefetch" href="/docs/assets/js/35.9fe3872e.js"><link rel="prefetch" href="/docs/assets/js/36.ba8de101.js"><link rel="prefetch" href="/docs/assets/js/37.854a398e.js"><link rel="prefetch" href="/docs/assets/js/38.bfd940cf.js"><link rel="prefetch" href="/docs/assets/js/39.599fa4d5.js"><link rel="prefetch" href="/docs/assets/js/4.ca28c6e7.js"><link rel="prefetch" href="/docs/assets/js/40.f4157755.js"><link rel="prefetch" href="/docs/assets/js/41.d78fffc0.js"><link rel="prefetch" href="/docs/assets/js/5.d10ece1f.js"><link rel="prefetch" href="/docs/assets/js/6.b76f823f.js"><link rel="prefetch" href="/docs/assets/js/7.b57c8ee5.js"><link rel="prefetch" href="/docs/assets/js/8.bc6cdd57.js"><link rel="prefetch" href="/docs/assets/js/9.454003ec.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.ba6021e1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><!----> <span class="site-name">Damo</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/platform/" class="nav-link">跨端</a></div><div class="nav-item"><a href="/docs/server/" class="nav-link">服务端</a></div><div class="nav-item"><a href="/docs/framework/" class="nav-link router-link-exact-active router-link-active">框架</a></div><div class="nav-item"><a href="/docs/engineering/" class="nav-link">工程化</a></div><div class="nav-item"><a href="/docs/render/" class="nav-link">渲染</a></div><div class="nav-item"><a href="/docs/media/" class="nav-link">互动媒体</a></div> <a href="https://github.com/Damo-web/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/platform/" class="nav-link">跨端</a></div><div class="nav-item"><a href="/docs/server/" class="nav-link">服务端</a></div><div class="nav-item"><a href="/docs/framework/" class="nav-link router-link-exact-active router-link-active">框架</a></div><div class="nav-item"><a href="/docs/engineering/" class="nav-link">工程化</a></div><div class="nav-item"><a href="/docs/render/" class="nav-link">渲染</a></div><div class="nav-item"><a href="/docs/media/" class="nav-link">互动媒体</a></div> <a href="https://github.com/Damo-web/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>文章列表</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/framework/" class="active sidebar-link">Flux 架构</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/framework/#单向数据流" class="sidebar-link">单向数据流</a></li><li class="sidebar-sub-header"><a href="/docs/framework/#核心概念" class="sidebar-link">核心概念</a></li><li class="sidebar-sub-header"><a href="/docs/framework/#概念解析" class="sidebar-link">概念解析</a></li><li class="sidebar-sub-header"><a href="/docs/framework/#归纳总结" class="sidebar-link">归纳总结</a></li><li class="sidebar-sub-header"><a href="/docs/framework/#利弊" class="sidebar-link">利弊</a></li><li class="sidebar-sub-header"><a href="/docs/framework/#参考链接" class="sidebar-link">参考链接</a></li></ul></li><li><a href="/docs/framework/redux.html" class="sidebar-link">Redux</a></li><li><a href="/docs/framework/mvvm.html" class="sidebar-link">MVVM模式</a></li><li><a href="/docs/framework/vuex.html" class="sidebar-link">Vuex</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="flux-架构"><a href="#flux-架构" aria-hidden="true" class="header-anchor">#</a> Flux 架构</h1> <blockquote><p>Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。</p></blockquote> <h2 id="单向数据流"><a href="#单向数据流" aria-hidden="true" class="header-anchor">#</a> 单向数据流</h2> <ul><li>极简流程图：</li></ul> <p><img src="/docs/assets/img/flux-1.90fab893.png" alt=""></p> <ul><li>考虑到项目中，用户交互也会产生一个新Action，流程图应如下：</li></ul> <p><img src="/docs/assets/img/flux-2.a60c532f.png" alt=""></p> <ul><li>考虑到项目中，Action Creators可能会向外部请求数据，完整流程图应如下：</li></ul> <p><img src="/docs/assets/img/flux-3.eeab519a.png" alt=""></p> <h2 id="核心概念"><a href="#核心概念" aria-hidden="true" class="header-anchor">#</a> 核心概念</h2> <ul><li><p>Views 即 React 组件。它们负责渲染界面，捕获用户事件，从 Stores 获取数据。</p></li> <li><p>Stores 用于管理数据。 一个 Store 管理一个区域的数据，当数据变化时它负责通知 Views。</p></li> <li><p>Dispatcher 用于接收新数据然后传递给 Stores，Stores 更新数据并通知 Views。</p></li> <li><p>Actions 是传递给 Dispatcher 的对象，包含新数据和 Action Type。</p></li> <li><p>Action Types 指定了可以创建哪些 Actions，Stores 只会更新特定 Action Type 的 Actions 触发的数据。</p></li> <li><p>Action Creators 是 Actions 的创建者，并将Actions传递给 Dispatcher 或 Web Utils。</p></li> <li><p>Web Utils 是用于与外部 API 通信的对象。例如 Actions Creator 可能需要从服务器请求数据。</p></li></ul> <h2 id="概念解析"><a href="#概念解析" aria-hidden="true" class="header-anchor">#</a> 概念解析</h2> <ul><li><p>Action：包含Action Type以及应用送往store(存储)的信息载荷(payload,也可称为有效信息)</p> <p>Action具有固定格式，即FSA, 全称为Flux Standard Action，格式如下:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> <span class="token string">'ADD_TODO'</span><span class="token punctuation">,</span>
+  payload<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    text<span class="token punctuation">:</span> <span class="token string">'Do something'</span>  
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></li> <li><p>Action Type : Action中的type , 如下：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> <span class="token string">'COMPLETE_TODO'</span><span class="token punctuation">,</span> <span class="token comment">//action type</span>
+  payload<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    text<span class="token punctuation">:</span> <span class="token string">'Do something'</span>  
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></li> <li><p>Action Creator ：是一种辅助创建Action的函数，类似工厂模式，传入参数生成对应的Action ，并将Action 传递给 Dispatcher ，如下所示：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token function">actionCreateor</span><span class="token punctuation">(</span><span class="token parameter">text</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Dispatcher<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    actionType<span class="token punctuation">:</span> <span class="token string">'ADD_ITEM'</span><span class="token punctuation">,</span>
+    text<span class="token punctuation">:</span> text
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></li> <li><p>Web Utils : 用于网络请求，获取服务器端数据(axios、fetch及ajax等方式发起http请求)</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token comment">//Action Creator</span>
+<span class="token keyword">function</span> <span class="token function">loadSomeData</span><span class="token punctuation">(</span><span class="token parameter">userId</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token parameter">dispatch</span> <span class="token operator">=&gt;</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://data.com/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>userId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>
+      <span class="token parameter">data</span> <span class="token operator">=&gt;</span> <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">'LOAD_SOME_DATA_SUCCESS'</span><span class="token punctuation">,</span> data <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">'LOAD_SOME_DATA_FAILURE'</span><span class="token punctuation">,</span> err <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></li> <li><p>Dispatcher : 将Action和Store联系在一起，Action中通过Dispatcher.dispatch({actionType, payload})来分发事件，Store中通过Dispatcher.register(function(action))来响应其注册的Action。注意，Dispatcher 只能有一个，而且是全局的。</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token comment">//引用模块</span>
+<span class="token keyword">var</span> Dispatcher <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'flux'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Dispatcher<span class="token punctuation">;</span>
+
+<span class="token comment">// 分发事件，即创建Action</span>
+<span class="token keyword">var</span> Actions <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">Createor</span><span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">text</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Dispatcher<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      actionType<span class="token punctuation">:</span> <span class="token string">'ADD_ITEM'</span><span class="token punctuation">,</span>
+      text<span class="token punctuation">:</span> text
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Store响应Action</span>
+Dispatcher<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">action</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>actionType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token string">'ADD_ITEM'</span><span class="token punctuation">:</span>
+      Store<span class="token punctuation">.</span><span class="token function">handlerAddItem</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//回调函数，用于存储数据到Store</span>
+      Store<span class="token punctuation">.</span><span class="token function">emitChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//回调函数，通知数据改变</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre></div></li> <li><p>Stores : 保存数据及当数据变动时通知视图更新(pub/sub模式)</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">//引用node的EventEmitter模块</span>
+<span class="token keyword">var</span> EventEmitter <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>EventEmitter<span class="token punctuation">;</span>
+
+<span class="token comment">//Object.assign() 方法用于将所有可枚举的属性的值从一个或多个源对象复制到目标对象</span>
+<span class="token keyword">var</span> Store <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+
+  items<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">getAll</span><span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">//添加数据</span>
+  <span class="token function-variable function">handlerAddItem</span><span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">text</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">//通知数据变化</span>
+  <span class="token function-variable function">emitChange</span><span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'change'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">addChangeListener</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'change'</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">removeChangeListener</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">'change'</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</code></pre></div></li> <li><p>Views : 视图层及数据变动时重新渲染视图</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token keyword">import</span> React<span class="token punctuation">,</span><span class="token punctuation">{</span>Component<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Class</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">{</span>items<span class="token punctuation">:</span> Store<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">//componentDidMount生命周期内添加监听事件</span>
+  <span class="token function-variable function">componentDidMount</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Store<span class="token punctuation">.</span><span class="token function">addChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>storeChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">//componentWillUnmount生命周期内移除监听事件</span>
+  <span class="token function-variable function">componentWillUnmount</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Store<span class="token punctuation">.</span><span class="token function">removeChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>storeChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">//当数据发生改变时，调用setState进行组件重新渲染</span>
+  <span class="token function-variable function">storeChange</span><span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      items<span class="token punctuation">:</span> Store<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function-variable function">addItem</span><span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Actions<span class="token punctuation">.</span><span class="token function">addItem</span><span class="token punctuation">(</span><span class="token string">'new item'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">&lt;</span>View
+        items<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>items<span class="token punctuation">}</span>
+        onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>addItem<span class="token punctuation">}</span>
+      <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></li></ul> <h2 id="归纳总结"><a href="#归纳总结" aria-hidden="true" class="header-anchor">#</a> 归纳总结</h2> <p>Flux数据流：</p> <ol><li><p>用户交互操作，触发Action Creator ，生成一个 action</p></li> <li><p>Action Creator 将生成的 action 发送给 Dispatcher(调度者)</p></li> <li><p>Dispatcher 将 action 传递给 Store ，并对当前 action 做出响应，更新 state</p></li> <li><p>一旦 Store 更新 state 完毕，就会告知订阅了该 store 的 View 组件</p></li> <li><p>View 组件获取更新后的 state ，进行重新渲染</p></li></ol> <p>简短点：当用户进行操作的时候，会从组件发出一个 action，这个 action 流到 store 里面，触发 store 对state进行改动，然后 store 又触发组件基于新state的重新渲染。</p> <h2 id="利弊"><a href="#利弊" aria-hidden="true" class="header-anchor">#</a> 利弊</h2> <p>Flux核心：</p> <ul><li><p>视图层组件不允许直接修改state，只能触发 action</p></li> <li><p>state统一放置到store中，可通过监听 action 来操作state</p></li> <li><p>单向数据流：View单向依赖Store，而View对Store的修改，只能通过action分发（dispatch）的方式流回Store进行操作</p></li></ul> <p>优点：</p> <ul><li><p>组件复用性高：</p> <p>组件逻辑清晰，只包含了渲染逻辑和触发 action 这两个职责</p></li> <li><p>状态可控：</p> <p>要理解一个 store 可能发生的state变化，只需要看它所注册的 actions 回调就可以。</p></li> <li><p>方便时间旅行及调试：</p> <p>任何状态的变化都必须通过 action 触发，而 action 又必须通过 dispatcher 走，所以整个应用的每一次状态变化都会从同一个地方流过。Flux 的意义就在于强制让所有的状态变化都必须留下一笔记录，这样就可以利用这个来做各种 debug 工具、历史回滚等等。</p></li></ul> <p>缺点：</p> <ul><li><p>Flux仅提供管理数据流的思路</p></li> <li><p>没解决非共同父类的兄弟节点之间的通信问题</p></li> <li><p>Flux里面会有存在多个 store 存储数据，每个store里都有其对应的更新逻辑，随着项目增大会造成维护困难和逻辑紊乱</p></li> <li><p>Flux内大量的actions和stores，仅通过单一Dispatcher来进行分发，action与store之间的映射管理起来不方便</p></li> <li><p>没实现action和其对应store内的更新逻辑的耦合，管理起来不方便</p></li></ul> <h2 id="参考链接"><a href="#参考链接" aria-hidden="true" class="header-anchor">#</a> 参考链接</h2> <ul><li><p>Flux：</p> <p>https://zhuanlan.zhihu.com/p/20263396</p> <p>http://www.ruanyifeng.com/blog/2016/01/flux.html</p> <p>https://blog.andrewray.me/flux-for-stupid-people/</p> <p>https://www.zhihu.com/question/33864532</p> <p>https://segmentfault.com/a/1190000002777101</p></li> <li><p>API of the Object.assign()</p> <p>https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign</p></li></ul></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/Damo-web/docs/edit/master/docs/framework/README.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页！</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2018-12-20 01:30:14 PM</span></div></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/docs/framework/redux.html">Redux</a>→
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/docs/assets/js/app.bb5e32e8.js" defer></script><script src="/docs/assets/js/2.3b5bc873.js" defer></script><script src="/docs/assets/js/21.2f377134.js" defer></script><script src="/docs/assets/js/22.e56f6488.js" defer></script>
+  </body>
+</html>
